@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">CommuteWatcher</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="enter_work_address">Enter your destination address</string>
+    <string name="enter_home_address">Enter your starting address</string>
+    <string name="address_example">Ex. 1700 Walnut Street, Philadelphia PA 19104</string>
+    <string name="alt_address_example"> Ex. 500 Main Street, Anytown PA 19123</string>
+    <string name="set_to_work_time">Set days and time to check your commute</string>
+    <string name="set_hours_to_home">Set time to check your home commute</string>
+    <string name="save_commute_info">Save commute info</string>
+    <string name="date_time_work_commute">Days and time of commute</string>
+    <string name="date_time_home_commute">Days and time of home commute</string>
+    <string name="save">Save</string>
+    <string name="add_commute_short">Add Commute</string>
+    <string name="action_alarms_toggle">Alarms On/Off</string>
+	<string name="action_turn_checker_on">Turn Alarm On</string>
+	<string name="action_turn_checker_off">Turn Alarm Off</string>
+	<string name="delete_all">Delete All Commutes</string>
+	<string name="delete_this_commute">Delete this commute</string>
+	<string name="add_new_workday_button_text">Add New Commute and Time</string>
+    <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">AIzaSyDqh6bZAibYs9YYScAM4-lHP_mjEcfjneE"</string>
+    <string name="google_app_id">160627016003</string>
+</resources>

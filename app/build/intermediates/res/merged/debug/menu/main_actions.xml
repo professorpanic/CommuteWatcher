@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" 
+      xmlns:commutewatcher="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/action_alarm_toggle"
+          android:title="@string/action_alarms_toggle"
+          commutewatcher:showAsAction="always|withText"/>
+    
+    <item android:id="@+id/action_add_new"
+          android:title="@string/add_commute_short"
+          commutewatcher:showAsAction="always|withText"/>
+    
+    <item android:id="@+id/action_delete_all"
+          android:title="@string/delete_all"
+          commutewatcher:showAsAction="ifRoom|withText"/>
+
+</menu>
+<!-- From: file:/C:/Users/DoctorMondo/AndroidStudioProjects/CommuteWatcher1/app/src/main/res/menu/main_actions.xml -->
