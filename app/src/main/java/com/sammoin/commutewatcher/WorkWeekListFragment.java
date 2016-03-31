@@ -20,7 +20,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -197,11 +196,11 @@ private ArrayList<UserDayItem> savedUserInfo;
 		
 	}
 	
-	private class UserDataAdapter extends UserWeek
+	private class UserDataAdapter extends ArrayAdapter<UserDay>
 	{
-		public UserDataAdapter(ArrayList<UserDayItem> data)
+		public UserDataAdapter(UserWeek data)
 		{
-			super(getActivity(), 0, data);
+			super(getActivity().getApplicationContext(), 0, data.getWorkWeek());
 			
 		}
 		
@@ -212,7 +211,7 @@ private ArrayList<UserDayItem> savedUserInfo;
 			CheckBox activeCheckBox;
 			TextView dayTextView;
 			TextView commuteTimesTextView;
-			UserDayItem u = (UserDayItem) this.getItem(position);
+			UserDay u = (UserDay) this.getItem(position);
 			
 			
 			

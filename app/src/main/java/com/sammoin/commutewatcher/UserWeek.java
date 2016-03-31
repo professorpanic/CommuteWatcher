@@ -11,8 +11,17 @@ import java.util.ArrayList;
 
 public class UserWeek
 {
-	private static ArrayList<UserDay> sOutboundWorkWeek ;
-	private static Context mAppContext;
+    private ArrayList<UserDay> sWorkWeek;
+    private Context mAppContext;
+
+    public  ArrayList<UserDay> getWorkWeek() {
+        return sWorkWeek;
+    }
+
+    public  void setWorkWeek(ArrayList<UserDay> sWorkWeek) {
+        this.sWorkWeek = sWorkWeek;
+    }
+
 
     public void setContext(Context appContext)
     {
@@ -22,23 +31,22 @@ public class UserWeek
 
 
 
-	private UserWeek(Context appContext)
+	public UserWeek()
 	{
-		mAppContext= appContext;
-        ArrayList<UserDay> sOutboundWorkWeek = new ArrayList<UserDay>(7);
+		sWorkWeek = new ArrayList<UserDay>(7);
 
         for (int count = 0; count < 7; count++)
         {
             Log.i("WORKWEEK", "" + count);
-            sOutboundWorkWeek.add(new UserDay());
+            sWorkWeek.add(new UserDay());
         }
-        sOutboundWorkWeek.get(0).setDayOfTheWeek(Day.SUNDAY);
-        sOutboundWorkWeek.get(1).setDayOfTheWeek(Day.MONDAY);
-        sOutboundWorkWeek.get(2).setDayOfTheWeek(Day.TUESDAY);
-        sOutboundWorkWeek.get(3).setDayOfTheWeek(Day.WEDNESDAY);
-        sOutboundWorkWeek.get(4).setDayOfTheWeek(Day.THURSDAY);
-        sOutboundWorkWeek.get(5).setDayOfTheWeek(Day.FRIDAY);
-        sOutboundWorkWeek.get(6).setDayOfTheWeek(Day.SATURDAY);
+        sWorkWeek.get(0).setDayOfTheWeek(Day.SUNDAY);
+        sWorkWeek.get(1).setDayOfTheWeek(Day.MONDAY);
+        sWorkWeek.get(2).setDayOfTheWeek(Day.TUESDAY);
+        sWorkWeek.get(3).setDayOfTheWeek(Day.WEDNESDAY);
+        sWorkWeek.get(4).setDayOfTheWeek(Day.THURSDAY);
+        sWorkWeek.get(5).setDayOfTheWeek(Day.FRIDAY);
+        sWorkWeek.get(6).setDayOfTheWeek(Day.SATURDAY);
 
 
     }
@@ -47,7 +55,7 @@ public class UserWeek
 	public UserDay getDay(int day)
 	{
 		
-		return sOutboundWorkWeek.get(day);
+		return sWorkWeek.get(day);
 	}
 
     //get the day the item is associated with, use that to find the right index of the workweek arraylist to add the item. no need to worry about sorting since the alarm will handle that.
@@ -55,7 +63,7 @@ public class UserWeek
     {
         int index = item.getWorkDay().get();
 
-     sOutboundWorkWeek.get(index).addItemToDay(item);
+     sWorkWeek.get(index).addItemToDay(item);
 
 
     }
@@ -64,13 +72,13 @@ public class UserWeek
     {
 
         int index = item.getWorkDay().get();
-        sOutboundWorkWeek.get(index).removeItemFromDay(item);
+        sWorkWeek.get(index).removeItemFromDay(item);
 
     }
 
     public void clearDay(int dayToClear)
     {
-        sOutboundWorkWeek.set(dayToClear, new UserDay());
+        sWorkWeek.set(dayToClear, new UserDay());
     }
 
 }
