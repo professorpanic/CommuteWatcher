@@ -28,6 +28,13 @@ public class UserWeek
         mAppContext=appContext;
     }
 
+    public void set(UserDay inboundDay)
+    {
+        int dayToReplace = inboundDay.getDayOfTheWeek().get();
+
+        sWorkWeek.get(dayToReplace).copy(inboundDay);
+    }
+
 
 
 
@@ -74,6 +81,11 @@ public class UserWeek
         int index = item.getWorkDay().get();
         sWorkWeek.get(index).removeItemFromDay(item);
 
+    }
+
+    public void copy(UserWeek weekToCopy)
+    {
+        sWorkWeek= (ArrayList<UserDay>)weekToCopy.getWorkWeek().clone();
     }
 
     public void clearDay(int dayToClear)

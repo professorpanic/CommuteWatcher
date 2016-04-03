@@ -14,6 +14,12 @@ public class UserDay implements Serializable
 	private ArrayList<UserDayItem> dayItemArrayList;
 	private Day dayOfTheWeek;
 
+    public UserDay()
+    {
+        dayItemArrayList = new ArrayList<UserDayItem>();
+        dayOfTheWeek=Day.SUNDAY;
+    }
+
 
 	public Day getDayOfTheWeek() {
 		return dayOfTheWeek;
@@ -29,6 +35,16 @@ public class UserDay implements Serializable
 
 	public void setDayItemArrayList(ArrayList<UserDayItem> dayItemArrayList) {
 		this.dayItemArrayList = dayItemArrayList;
+	}
+
+	public void copy(UserDay inDay)
+	{
+		setDayOfTheWeek(inDay.getDayOfTheWeek());
+		if (this.dayItemArrayList != null)
+		{
+			dayItemArrayList.clear();
+		}
+		dayItemArrayList.addAll(inDay.getDayItemArrayList());
 	}
 	
 	
@@ -57,5 +73,7 @@ public class UserDay implements Serializable
             }
         }
 	}
+
+
 
 }

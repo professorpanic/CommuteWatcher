@@ -26,6 +26,13 @@ public class UserDayItem implements Serializable
 		return this.workDay;
 	}
 
+	public UserDayItem()
+	{
+		startAddress="Start Address";
+		endAddress="End Address";
+        workDay = Day.SUNDAY;
+	}
+
 	public boolean isActive()
 	{
 		return active;
