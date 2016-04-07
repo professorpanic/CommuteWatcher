@@ -21,6 +21,7 @@
 	<string name="delete_all">Delete All Commutes</string>
 	<string name="delete_this_commute">Delete this commute</string>
 	<string name="add_new_workday_button_text">Add New Commute and Time</string>
+    <string name="add_new_dayitem_button_text">Add New Commute and Time</string>
     <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">AIzaSyDqh6bZAibYs9YYScAM4-lHP_mjEcfjneE"</string>
     <string name="google_app_id">160627016003</string>
 </resources>

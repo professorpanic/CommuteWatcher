@@ -4,7 +4,7 @@
     android:layout_height="wrap_content" >
     
     <CheckBox
-        android:id="@+id/workday_list_item_activeCheckBox"
+        android:id="@+id/workweek_list_item_activeCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -17,7 +17,7 @@
     </CheckBox>
     
     <TextView
-        android:id="@+id/workday_list_item_dayTextView"
+        android:id="@+id/workweek_list_item_dayTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@id/workday_list_item_activeCheckBox"
@@ -27,11 +27,11 @@
         android:text="Day"/>
         
     <TextView
-        android:id="@+id/workday_list_item_timeTextView"
+        android:id="@+id/workweek_list_item_timeTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@id/workday_list_item_activeCheckBox"
-        android:layout_below="@id/workday_list_item_dayTextView"
+        android:layout_below="@id/workweek_list_item_dayTextView"
         android:textStyle="bold"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"

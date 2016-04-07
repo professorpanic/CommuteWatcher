@@ -4,7 +4,7 @@
     android:layout_height="wrap_content" >
     
     <CheckBox
-        android:id="@+id/workweek_list_item_activeCheckBox"
+        android:id="@+id/workday_list_item_activeCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -17,26 +17,36 @@
     </CheckBox>
     
     <TextView
-        android:id="@+id/workweek_list_item_dayTextView"
+        android:id="@+id/workday_startpoint_TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@id/workday_list_item_activeCheckBox"
         android:textStyle="bold"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
-        android:text="Day"/>
+        android:text="Start"/>
+    <TextView
+        android:id="@+id/workday_starttime_TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/workday_startpoint_TextView"
+        android:textStyle="bold"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:text="Start Time"/>
         
     <TextView
-        android:id="@+id/workweek_list_item_timeTextView"
+        android:id="@+id/workday_endpoint_timeTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@id/workday_list_item_activeCheckBox"
-        android:layout_below="@id/workweek_list_item_dayTextView"
+        android:layout_below="@id/workday_starttime_TextView"
         android:textStyle="bold"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
         android:padding="4dp"
-        android:text="Commute times"/>
+        android:text="Destination"/>
+
     
 
 </RelativeLayout>

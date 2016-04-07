@@ -1,12 +1,9 @@
 package com.sammoin.commutewatcher;
 
 import android.os.Bundle;
-
 import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 
-public class MainActivity extends ActionBarActivity
+public class MainActivity extends ActionBarActivity implements WorkWeekListFragment.DayPassListener
 {
 
 	@Override
@@ -41,6 +38,20 @@ public class MainActivity extends ActionBarActivity
 				.add(R.id.container, mainMenuFragment).commit();	
 				//.add(R.id.container, userInfoEntryFragment).commit();
 		}
+
+	}
+
+	@Override
+	public void passDay(UserDay data) {
+
+			WorkDayListFragment workDayListFragment = new WorkDayListFragment ();
+			Bundle args = new Bundle();
+			args.putSerializable(WorkDayListFragment.DAY_OBJECT, data);
+			workDayListFragment.setArguments(args);
+			getSupportFragmentManager().beginTransaction()
+					.replace(R.id.container, workDayListFragment )
+					.addToBackStack(null)
+					.commit();
 
 	}
 	/*

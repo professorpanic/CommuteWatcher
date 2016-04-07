@@ -394,6 +394,7 @@
     <string name="action_turn_checker_off">Turn Alarm Off</string>
     <string name="action_turn_checker_on">Turn Alarm On</string>
     <string name="add_commute_short">Add Commute</string>
+    <string name="add_new_dayitem_button_text">Add New Commute and Time</string>
     <string name="add_new_workday_button_text">Add New Commute and Time</string>
     <string name="address_example">Ex. 1700 Walnut Street, Philadelphia PA 19104</string>
     <string name="alt_address_example"> Ex. 500 Main Street, Anytown PA 19123</string>

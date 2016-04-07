@@ -23,24 +23,17 @@ import android.widget.TextView;
 
 //import android.support.v7.internal.widget.AdapterViewCompat.AdapterContextMenuInfo;
 
-public class WorkWeekListFragment extends ListFragment
+public class WorkDayListFragment extends ListFragment
 {
-private UserWeek mWorkWeek;
-UserDataAdapter adapter;
-
+private UserDay mWorkday;
+UserDayAdapter adapter;
 public static final int REQUEST_POSITION = 3;
 public static final int REQUEST_NEW_COMMUTE = 4;
 public static final String LIST_BUNDLE = "com.sammoin.commutewatcher.bundle";
-static final String USER_INFO_FILE = "CommuteWatcher_user_info.txt";
+public static final String DAY_OBJECT = "com.sammoin.commutewatcher.user";
 private UserWeek savedUserInfo;
-DayPassListener mCallback;
 
-
-    public interface DayPassListener{
-        public void passDay(UserDay data);
-    }
-
-	public WorkWeekListFragment()
+	public WorkDayListFragment()
 	{
 		// TODO Auto-generated constructor stub
 	}
@@ -53,30 +46,24 @@ DayPassListener mCallback;
 		setRetainInstance(true);
 		setHasOptionsMenu(true);
 		getActivity().setTitle(R.string.hello_world);
-        if (mWorkWeek != null) {
-            mWorkWeek.setContext(getActivity().getApplicationContext());
+        Bundle args = getArguments();
+        //just to initialize this thing or else it'll throw null errors when it's loading a userday.
+        mWorkday = new UserDay();
+        if (args != null) {
+            mWorkday.copy((UserDay) args.getSerializable(DAY_OBJECT));
         }
-        else
-        {
-            mWorkWeek = new UserWeek();
-            mWorkWeek.setContext(getActivity().getApplicationContext());
-        }
-		System.out.println(mWorkWeek);
-		mCallback = (DayPassListener)getActivity();
-		Log.i("ON CREATE UPDATE", " " + mWorkWeek);
-		//UserDayItem test = mWorkWeek.get(6);
+
+		System.out.println(mWorkday.toString());
+		
+		Log.i("ON CREATE UPDATE", " " + mWorkday);
+		//UserDayItem test = mWorkday.get(6);
 		//test.setWorkDay(Day.MONDAY);
-		adapter = new UserDataAdapter(mWorkWeek);
+		adapter = new UserDayAdapter(mWorkday);
 		
 		setListAdapter(adapter);
-//        try {
-//            loadSavedInfo(USER_INFO_FILE);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
+
     }
+
 	
 	
 	@Override
@@ -108,8 +95,8 @@ DayPassListener mCallback;
 	{
 		
 		super.onResume();
-		//Collections.sort(mWorkWeek, new WorkWeekComparator());
-		adapter = new UserDataAdapter(mWorkWeek);
+		//Collections.sort(mWorkday, new WorkWeekComparator());
+		adapter = new UserDayAdapter(mWorkday);
 		setListAdapter(adapter);
 
 
@@ -130,19 +117,17 @@ DayPassListener mCallback;
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id)
 	{
-		
-		UserDay u = ((UserDataAdapter)(getListAdapter())).getItem(position);
-		//Log.i("WORKWEEKLISTFRAGMENT", " " + u.toString() + position + "start " + u.getDayItemArrayList().get(0).getWorkAddress() + " end " + u.getDayItemArrayList().get(0).getHomeAddress());
-		
-		//TODO: progress. incorporate correct passing and returning of times and addresses. will need null handling too.
 
-        //Intent i = new Intent();
-        if (u!=null) {
-            Bundle extras = new Bundle();
-            extras.putSerializable(WorkDayListFragment.DAY_OBJECT, u);
-            mCallback.passDay(u);
-            //startActivityForResult(i, REQUEST_POSITION);
-        }
+		UserDayItem u = ((UserDayAdapter)(getListAdapter())).getItem(position);
+		Log.i("WORKWEEKLISTFRAGMENT", " " + u.toString() + position + "start " + u.getWorkAddress() + " end " + u.getHomeAddress());
+		
+		//TODO: revamp WorkWeekListFragment to use Intent with OnResult
+		Intent i = new Intent(getActivity(), TimeAndTravelActivity.class);
+		Bundle extras = new Bundle();
+		extras.putSerializable(TimeAndTravelFragment.DAY_LIST_ITEM, u);
+		extras.putInt(TimeAndTravelFragment.WORKDAY_POSITION, position);
+		i.putExtra(LIST_BUNDLE, extras);
+		startActivityForResult(i, REQUEST_POSITION);
 		
 	}
 	
@@ -200,11 +185,11 @@ DayPassListener mCallback;
 		
 	}
 	
-	private class UserDataAdapter extends ArrayAdapter<UserDay>
+	private class UserDayAdapter extends ArrayAdapter<UserDayItem>
 	{
-		public UserDataAdapter(UserWeek data)
+		public UserDayAdapter(UserDay data)
 		{
-			super(getActivity().getApplicationContext(), 0, data.getWorkWeek());
+			super(getActivity().getApplicationContext(), 0, data.getDayItemArrayList());
 			
 		}
 		
@@ -213,13 +198,14 @@ DayPassListener mCallback;
 		public View getView(int position, View convertView, ViewGroup parent)
 		{
 			CheckBox activeCheckBox;
-			TextView dayTextView;
-			TextView commuteTimesTextView;
-			UserDay u = (UserDay) this.getItem(position);
+			TextView startAddressView;
+			TextView endAddressTextView;
+            TextView startTimeTextView;
+			UserDayItem u = (UserDayItem) this.getItem(position);
 
             //test UDI
-            u.addItemToDay(new UserDayItem());
-            Log.e("WorkWeekListFragment", "u.dayitemarraylist size is "+ u.getDayItemArrayList().size());
+            //u.addItemToDay(new UserDayItem());
+            Log.e("WorkWeekListFragment", "u.dayitemarraylist size is "+ u.toString());
 
 			//UserDayItem uDi = u.getDayItemArrayList().get(position);
 
@@ -227,30 +213,31 @@ DayPassListener mCallback;
 			
 			if (convertView==null)
 			{
-				convertView = getActivity().getLayoutInflater().inflate(R.layout.list_item_workweek, null);
+				convertView = getActivity().getLayoutInflater().inflate(R.layout.list_item_workday, null);
 				
 			
 			
 			
 			//using day item 0 as a test
-			dayTextView = (TextView)convertView.findViewById(R.id.workweek_list_item_dayTextView);
-			dayTextView.setText(u.getDayOfTheWeek().toString());
+			startAddressView = (TextView)convertView.findViewById(R.id.workday_startpoint_TextView);
+			startAddressView.setText(u.getHomeAddress());
 			
-			commuteTimesTextView = (TextView)convertView.findViewById(R.id.workweek_list_item_timeTextView);
-                if (u.getDayItemArrayList().size() == 1) {
-                    commuteTimesTextView.setText(u.getDayItemArrayList().size() + " trip");
+			endAddressTextView = (TextView)convertView.findViewById(R.id.workday_endpoint_timeTextView);
+                if (u != null) {
+                    endAddressTextView.setText(u.getWorkAddress());
                 }
-                else
-                {
-                    commuteTimesTextView.setText(u.getDayItemArrayList().size() + " trips");
-                }
+
 			
-			activeCheckBox = (CheckBox)convertView.findViewById(R.id.workweek_list_item_activeCheckBox);
+			activeCheckBox = (CheckBox)convertView.findViewById(R.id.workday_list_item_activeCheckBox);
 			activeCheckBox.setTag(u);
 			activeCheckBox.setClickable(true);
 			//activeCheckBox.setChecked(uDi.isActive());
-			
-			convertView.setTag(new RowViewHolder(dayTextView, commuteTimesTextView, activeCheckBox));
+
+                startTimeTextView = (TextView)convertView.findViewById(R.id.workday_starttime_TextView);
+                startTimeTextView.setText(u.getStartCommuteTime().toString());
+
+
+			convertView.setTag(new RowViewHolder(startAddressView, endAddressTextView, activeCheckBox));
 			
 			
 			
@@ -273,8 +260,8 @@ DayPassListener mCallback;
 			{
 				RowViewHolder viewHolder = (RowViewHolder) convertView.getTag();
 				activeCheckBox = viewHolder.getCheckBox();
-				dayTextView = viewHolder.getDayTextView();
-				commuteTimesTextView = viewHolder.getTimeTextView();
+				startAddressView = viewHolder.getDayTextView();
+				endAddressTextView = viewHolder.getTimeTextView();
 			}
 			return convertView;
 		}
@@ -286,85 +273,23 @@ DayPassListener mCallback;
 	{
 		if (resultCode==getActivity().RESULT_OK)
 		{
-			if (requestCode==WorkWeekListFragment.REQUEST_POSITION)
+			if (requestCode== WorkDayListFragment.REQUEST_POSITION)
 			{
-			//mWorkWeek.set(data.getIntExtra(TimeAndTravelFragment.WORKDAY_POSITION, 0), (UserDayItem) data.getSerializableExtra(TimeAndTravelFragment.DAY_LIST_ITEM));
+			//mWorkday.set(data.getIntExtra(TimeAndTravelFragment.WORKDAY_POSITION, 0), (UserDayItem) data.getSerializableExtra(TimeAndTravelFragment.DAY_LIST_ITEM));
 			}
 			
-			else if (requestCode==WorkWeekListFragment.REQUEST_NEW_COMMUTE)
+			else if (requestCode== WorkDayListFragment.REQUEST_NEW_COMMUTE)
 			{
-				//mWorkWeek.add((UserDayItem) data.getSerializableExtra(TimeAndTravelFragment.DAY_LIST_ITEM));
+				//mWorkday.add((UserDayItem) data.getSerializableExtra(TimeAndTravelFragment.DAY_LIST_ITEM));
 			}
 			
 		}
-		adapter = new UserDataAdapter(mWorkWeek);
+		adapter = new UserDayAdapter(mWorkday);
 		
 		setListAdapter(adapter);
 		
 	}
 
-//	public boolean loadSavedInfo(String filename)
-//			throws StreamCorruptedException, IOException,
-//			ClassNotFoundException
-//	{
-//
-//		savedUserInfo = new UserWeek();
-//		ObjectInputStream file;
-//
-//		try
-//		{
-//			file = new ObjectInputStream(new FileInputStream(new File(new File(
-//					getActivity().getApplicationContext().getFilesDir(), "")
-//					+ File.separator + filename)));
-//
-//
-//			savedUserInfo =(UserWeek) file.readObject();
-//			mWorkWeek =  (UserWeek)savedUserInfo.getWorkWeek().clone();
-//			file.close();
-//			return true;
-//		}
-//		catch (FileNotFoundException e)
-//		{
-//
-//			e.printStackTrace();
-//		}
-//
-//		return false;
-//
-//	}
-
-//	public void saveInfo() throws IOException
-//	{
-//
-//		ObjectOutput output = null;
-//
-//		if (savedUserInfo == null)
-//		{
-//			savedUserInfo = new UserWeek();
-//		}
-//		savedUserInfo.copy(mWorkWeek);
-//
-////		CommuteCheckAlarmService.setServiceAlarm(getActivity(),
-////				CommuteCheckAlarmService.isServiceAlarmOn(getActivity()),
-////				savedUserInfo);
-//
-//		try
-//		{
-//			output = new ObjectOutputStream(new FileOutputStream(new File(
-//					getActivity().getApplicationContext().getFilesDir(), "")
-//					+ File.separator + USER_INFO_FILE));
-//			output.writeObject(savedUserInfo);
-//			output.close();
-//		}
-//		catch (FileNotFoundException e)
-//		{
-//			e.printStackTrace();
-//		}
-//		catch (IOException e)
-//		{
-//			e.printStackTrace();
-//		}
-//	}
 
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
 	{
@@ -417,20 +342,20 @@ DayPassListener mCallback;
 			return true;
 		
 		case R.id.action_add_new:
-			Log.i("WORKWEEKLISTFRAGMENT", "add new options item");
+			Log.i("WORKDAYLISTFRAGMENT", "add new options item");
 			addNewCommute();
-			adapter = new UserDataAdapter(mWorkWeek);
+			adapter = new UserDayAdapter(mWorkday);
 			setListAdapter(adapter);
 			return true;
 		
 //		case R.id.action_delete_all:
 //			Log.i("WORKWEEKLISTFRAGMENT", "add delete all options item");
-//			for (UserDayItem ud : mWorkWeek)
+//			for (UserDayItem ud : mWorkday)
 //			{
 //				ud.clear();
 //			}
 			//adapter.notifyDataSetChanged();
-//			adapter = new UserDataAdapter(mWorkWeek);
+//			adapter = new UserDayAdapter(mWorkday);
 //			setListAdapter(adapter);
 //			return true;
 		
@@ -449,16 +374,16 @@ DayPassListener mCallback;
 	{
 		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
 		int position = info.position;
-		UserDataAdapter adapter = (UserDataAdapter)getListAdapter();
-		UserDay ud = adapter.getItem(position);
+		UserDayAdapter adapter = (UserDayAdapter)getListAdapter();
+		UserDayItem ud = adapter.getItem(position);
 		
 		switch (item.getItemId())
 		{
 		case R.id.menu_item_delete_commute:
 			
 			//ud.clear();
-			//Collections.sort(mWorkWeek, new WorkWeekComparator());
-			adapter = new UserDataAdapter(mWorkWeek);
+			//Collections.sort(mWorkday, new WorkWeekComparator());
+			adapter = new UserDayAdapter(mWorkday);
 			setListAdapter(adapter);
 			return true;
 			
@@ -486,7 +411,7 @@ DayPassListener mCallback;
 			getActivity().invalidateOptionsMenu();
 		}
 	}
-
-
+	
+	
 
 }
