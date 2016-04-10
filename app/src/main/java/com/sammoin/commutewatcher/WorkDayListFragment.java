@@ -32,7 +32,7 @@ public static final int REQUEST_NEW_COMMUTE = 4;
 public static final String LIST_BUNDLE = "com.sammoin.commutewatcher.bundle";
 public static final String DAY_OBJECT = "com.sammoin.commutewatcher.user";
 private UserWeek savedUserInfo;
-
+//test
 	public WorkDayListFragment()
 	{
 		// TODO Auto-generated constructor stub
