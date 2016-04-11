@@ -38,16 +38,29 @@
         android:id="@+id/saveCommuteInfoButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/done"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="@string/save_commute_info" />
+        android:layout_alignRight="@+id/homeAddressTextView"
+        android:layout_alignEnd="@+id/homeAddressTextView"
+        android:layout_marginRight="25dp" />
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/workAddressTextView"
+        android:layout_toEndOf="@+id/workAddressTextView" />
 
     <EditText
         android:id="@+id/editWorkAddressTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/exampleHomeAddressTextView"
+        android:layout_alignStart="@+id/exampleHomeAddressTextView"
         android:layout_alignRight="@+id/editHomeAddressTextView"
+        android:layout_alignEnd="@+id/editHomeAddressTextView"
         android:layout_below="@+id/exampleHomeAddressTextView"
         android:layout_marginTop="40dp"
         android:ems="10" />

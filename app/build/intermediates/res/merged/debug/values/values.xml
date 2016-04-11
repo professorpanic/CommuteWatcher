@@ -406,6 +406,9 @@
     <eat-comment/>
     <string name="auth_google_play_services_client_facebook_display_name">Facebook</string>
     <string name="auth_google_play_services_client_google_display_name">Google</string>
+    <!-- From: file:/C:/Users/DoctorMondo/AndroidStudioProjects/CommuteWatcher1/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="cancel">Cancel</string>
     <!-- From: file:/C:/Users/DoctorMondo/AndroidStudioProjects/CommuteWatcher1/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast/8.4.0/res/values/cast_strings.xml -->
     <eat-comment/>
     <string name="cast_notification_connected_message">Connected to <ns1:g id="name">%1$s</ns1:g></string>
@@ -464,6 +467,7 @@
     <eat-comment/>
     <string name="delete_all">Delete All Commutes</string>
     <string name="delete_this_commute">Delete this commute</string>
+    <string name="done">Done</string>
     <string name="enter_home_address">Enter your starting address</string>
     <string name="enter_work_address">Enter your destination address</string>
     <string name="google_app_id">160627016003</string>
@@ -488,7 +492,7 @@
     <string name="place_autocomplete_search_hint">Search</string>
     <!-- From: file:/C:/Users/DoctorMondo/AndroidStudioProjects/CommuteWatcher1/app/src/main/res/values/strings.xml -->
     <eat-comment/>
-    <string name="save">Save</string>
+    <string name="save">Save Day</string>
     <string name="save_commute_info">Save commute info</string>
     <string name="set_hours_to_home">Set time to check your home commute</string>
     <string name="set_to_work_time">Set days and time to check your commute</string>
@@ -510,7 +514,7 @@
     <style name="Animation.AppCompat.DropDownUp" parent="Base.Animation.AppCompat.DropDownUp"/>
     <!-- From: file:/C:/Users/DoctorMondo/AndroidStudioProjects/CommuteWatcher1/app/src/main/res/values/styles.xml -->
     <eat-comment/>
-    <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
+    <style name="AppBaseTheme" parent="Base.Theme.AppCompat.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to

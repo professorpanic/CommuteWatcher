@@ -13,7 +13,9 @@
     <string name="save_commute_info">Save commute info</string>
     <string name="date_time_work_commute">Days and time of commute</string>
     <string name="date_time_home_commute">Days and time of home commute</string>
-    <string name="save">Save</string>
+    <string name="save">Save Day</string>
+    <string name="done">Done</string>
+    <string name="cancel">Cancel</string>
     <string name="add_commute_short">Add Commute</string>
     <string name="action_alarms_toggle">Alarms On/Off</string>
 	<string name="action_turn_checker_on">Turn Alarm On</string>

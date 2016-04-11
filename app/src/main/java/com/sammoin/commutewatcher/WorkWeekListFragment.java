@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -52,7 +51,7 @@ DayPassListener mCallback;
 		super.onCreate(savedInstanceState);
 		setRetainInstance(true);
 		setHasOptionsMenu(true);
-		getActivity().setTitle(R.string.hello_world);
+		//getActivity().setTitle(R.string.hello_world);
         if (mWorkWeek != null) {
             mWorkWeek.setContext(getActivity().getApplicationContext());
         }
@@ -85,20 +84,20 @@ DayPassListener mCallback;
 		View view = inflater.inflate(R.layout.workweek_list_layout, container, false);
 		ListView lv = (ListView)view.findViewById(android.R.id.list);
 		
-		lv.setEmptyView(view.findViewById(android.R.id.empty));
-		Button addNewCommuteButton = (Button) view.findViewById(android.R.id.empty);
+		//lv.setEmptyView(view.findViewById(android.R.id.empty));
+		//Button addNewCommuteButton = (Button) view.findViewById(android.R.id.empty);
 		registerForContextMenu(lv);
 		
-		addNewCommuteButton.setOnClickListener(new View.OnClickListener()
-		{
-			
-			@Override
-			public void onClick(View v)
-			{
-				addNewCommute();
-			}
-		});
-		
+//		addNewCommuteButton.setOnClickListener(new View.OnClickListener()
+//		{
+//
+//			@Override
+//			public void onClick(View v)
+//			{
+//				//addNewCommute();
+//			}
+//		});
+//
 		return view;
 	}
 	
@@ -139,7 +138,7 @@ DayPassListener mCallback;
         //Intent i = new Intent();
         if (u!=null) {
             Bundle extras = new Bundle();
-            extras.putSerializable(WorkDayListFragment.DAY_OBJECT, u);
+            extras.putSerializable(WorkDayListFragment.USER_DAY_OBJECT, u);
             mCallback.passDay(u);
             //startActivityForResult(i, REQUEST_POSITION);
         }
@@ -218,7 +217,7 @@ DayPassListener mCallback;
 			UserDay u = (UserDay) this.getItem(position);
 
             //test UDI
-            u.addItemToDay(new UserDayItem());
+            //u.addItemToDay(new UserDayItem());
             Log.e("WorkWeekListFragment", "u.dayitemarraylist size is "+ u.getDayItemArrayList().size());
 
 			//UserDayItem uDi = u.getDayItemArrayList().get(position);
@@ -418,7 +417,7 @@ DayPassListener mCallback;
 		
 		case R.id.action_add_new:
 			Log.i("WORKWEEKLISTFRAGMENT", "add new options item");
-			addNewCommute();
+			//addNewCommute();
 			adapter = new UserDataAdapter(mWorkWeek);
 			setListAdapter(adapter);
 			return true;
@@ -468,15 +467,15 @@ DayPassListener mCallback;
 		return super.onContextItemSelected(item);
 	}
 	
-	public void addNewCommute()
-	{
-		Intent i = new Intent(getActivity(), TimeAndTravelActivity.class);
-		Bundle bundle = new Bundle();
-		UserDayItem u = new UserDayItem();
-		bundle.putSerializable(TimeAndTravelFragment.DAY_LIST_ITEM, u);
-		i.putExtra(LIST_BUNDLE, bundle);
-		startActivityForResult(i, REQUEST_NEW_COMMUTE);
-	}
+//	public void addNewCommute()
+//	{
+//		Intent i = new Intent(getActivity(), TimeAndTravelActivity.class);
+//		Bundle bundle = new Bundle();
+//		UserDayItem u = new UserDayItem();
+//		bundle.putSerializable(TimeAndTravelFragment.DAY_LIST_ITEM, u);
+//		i.putExtra(LIST_BUNDLE, bundle);
+//		startActivityForResult(i, REQUEST_NEW_COMMUTE);
+//	}
 	
 	public void honeyCombOptionsInvalidate()
 	{

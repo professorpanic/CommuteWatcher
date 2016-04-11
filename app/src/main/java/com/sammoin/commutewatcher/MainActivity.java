@@ -46,7 +46,7 @@ public class MainActivity extends ActionBarActivity implements WorkWeekListFragm
 
 			WorkDayListFragment workDayListFragment = new WorkDayListFragment ();
 			Bundle args = new Bundle();
-			args.putSerializable(WorkDayListFragment.DAY_OBJECT, data);
+			args.putSerializable(WorkDayListFragment.USER_DAY_OBJECT, data);
 			workDayListFragment.setArguments(args);
 			getSupportFragmentManager().beginTransaction()
 					.replace(R.id.container, workDayListFragment )

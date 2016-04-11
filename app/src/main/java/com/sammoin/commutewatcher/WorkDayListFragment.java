@@ -30,7 +30,7 @@ UserDayAdapter adapter;
 public static final int REQUEST_POSITION = 3;
 public static final int REQUEST_NEW_COMMUTE = 4;
 public static final String LIST_BUNDLE = "com.sammoin.commutewatcher.bundle";
-public static final String DAY_OBJECT = "com.sammoin.commutewatcher.user";
+public static final String USER_DAY_OBJECT = "com.sammoin.commutewatcher.user";
 private UserWeek savedUserInfo;
 //test
 	public WorkDayListFragment()
@@ -50,7 +50,7 @@ private UserWeek savedUserInfo;
         //just to initialize this thing or else it'll throw null errors when it's loading a userday.
         mWorkday = new UserDay();
         if (args != null) {
-            mWorkday.copy((UserDay) args.getSerializable(DAY_OBJECT));
+            mWorkday.copy((UserDay) args.getSerializable(USER_DAY_OBJECT));
         }
 
 		System.out.println(mWorkday.toString());
@@ -69,11 +69,11 @@ private UserWeek savedUserInfo;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		View view = inflater.inflate(R.layout.workweek_list_layout, container, false);
+		View view = inflater.inflate(R.layout.workday_list_layout, container, false);
 		ListView lv = (ListView)view.findViewById(android.R.id.list);
 		
-		lv.setEmptyView(view.findViewById(android.R.id.empty));
-		Button addNewCommuteButton = (Button) view.findViewById(android.R.id.empty);
+		//lv.setEmptyView(view.findViewById(android.R.id.empty));
+		Button addNewCommuteButton = (Button) view.findViewById(R.id.addNewItemButton);
 		registerForContextMenu(lv);
 		
 		addNewCommuteButton.setOnClickListener(new View.OnClickListener()
@@ -275,12 +275,12 @@ private UserWeek savedUserInfo;
 		{
 			if (requestCode== WorkDayListFragment.REQUEST_POSITION)
 			{
-			//mWorkday.set(data.getIntExtra(TimeAndTravelFragment.WORKDAY_POSITION, 0), (UserDayItem) data.getSerializableExtra(TimeAndTravelFragment.DAY_LIST_ITEM));
+			mWorkday.getDayItemArrayList().set(data.getIntExtra(TimeAndTravelFragment.WORKDAY_POSITION, 0), (UserDayItem) data.getSerializableExtra(TimeAndTravelFragment.DAY_LIST_ITEM));
 			}
 			
 			else if (requestCode== WorkDayListFragment.REQUEST_NEW_COMMUTE)
 			{
-				//mWorkday.add((UserDayItem) data.getSerializableExtra(TimeAndTravelFragment.DAY_LIST_ITEM));
+				mWorkday.addItemToDay((UserDayItem) data.getSerializableExtra(TimeAndTravelFragment.DAY_LIST_ITEM));
 			}
 			
 		}
