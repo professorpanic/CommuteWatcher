@@ -32,17 +32,23 @@ public static final int REQUEST_NEW_COMMUTE = 4;
 public static final String LIST_BUNDLE = "com.sammoin.commutewatcher.bundle";
 static final String USER_INFO_FILE = "CommuteWatcher_user_info.txt";
 private UserWeek savedUserInfo;
-DayPassListener mCallback;
+PassDayFromWeekListener mCallback;
 
 
-    public interface DayPassListener{
-        public void passDay(UserDay data);
+    public interface PassDayFromWeekListener {
+        public void passDayFromWeek(Bundle bundle);
     }
 
 	public WorkWeekListFragment()
 	{
 		// TODO Auto-generated constructor stub
 	}
+
+    public void addDayToWeek(UserDay userDay)
+    {
+        mWorkWeek.set(userDay);
+        adapter.notifyDataSetInvalidated();
+    }
 
 
 	@Override
@@ -61,7 +67,7 @@ DayPassListener mCallback;
             mWorkWeek.setContext(getActivity().getApplicationContext());
         }
 		System.out.println(mWorkWeek);
-		mCallback = (DayPassListener)getActivity();
+		mCallback = (PassDayFromWeekListener)getActivity();
 		Log.i("ON CREATE UPDATE", " " + mWorkWeek);
 		//UserDayItem test = mWorkWeek.get(6);
 		//test.setWorkDay(Day.MONDAY);
@@ -138,8 +144,10 @@ DayPassListener mCallback;
         //Intent i = new Intent();
         if (u!=null) {
             Bundle extras = new Bundle();
+            extras.putInt(WorkDayListFragment.USER_DAY_POSITION, position);
             extras.putSerializable(WorkDayListFragment.USER_DAY_OBJECT, u);
-            mCallback.passDay(u);
+
+            mCallback.passDayFromWeek(extras);
             //startActivityForResult(i, REQUEST_POSITION);
         }
 		

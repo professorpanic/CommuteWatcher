@@ -30,7 +30,7 @@ public class UserWeek
 
     public void set(UserDay inboundDay)
     {
-        int dayToReplace = inboundDay.getDayOfTheWeek().get();
+        int dayToReplace = inboundDay.getDayOfTheWeek().get()-1; //this feels silly to do, but it should work.
 
         sWorkWeek.get(dayToReplace).copy(inboundDay);
     }

@@ -1,8 +1,5 @@
 package com.sammoin.commutewatcher;
 
-import java.text.SimpleDateFormat;
-import java.util.Locale;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 public class TimeAndTravelFragment extends Fragment
 {
 	private Button workCommuteTimeButton;
@@ -27,7 +27,7 @@ public class TimeAndTravelFragment extends Fragment
 	private EditText editHomeAddressText;
 	static final String USER_INFO_FILE = "user_info.txt";
 	private UserDayItem savedUserInfo;
-	private UserDayItem userDay;
+	private UserDayItem userDayItem;
 	private int selectedDay = -1;
 
 	public static final String DIALOG_WORK_COMMUTE = "to work";
@@ -47,12 +47,12 @@ public class TimeAndTravelFragment extends Fragment
 		Bundle extras;
 		extras = getActivity().getIntent().getBundleExtra(WorkWeekListFragment.LIST_BUNDLE);
 
-		userDay = (UserDayItem) extras.get(DAY_LIST_ITEM);
+		userDayItem = (UserDayItem) extras.get(DAY_LIST_ITEM);
 		if (extras.containsKey(WORKDAY_POSITION))
 		{
 			
 		selectedDay = extras.getInt(WORKDAY_POSITION);
-		Log.i("TIMEANDTRAVEL", "selectedDay " + selectedDay + " start address " + userDay.getHomeAddress() + " end address " + userDay.getWorkAddress());
+		Log.i("TIMEANDTRAVEL", "selectedDay " + selectedDay + " start address " + userDayItem.getHomeAddress() + " end address " + userDayItem.getWorkAddress());
 		}
 	}	
 
@@ -80,16 +80,16 @@ public class TimeAndTravelFragment extends Fragment
 				SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa ZZZZ",
 						Locale.getDefault());
 
-				displayWorkCommute.setText((sdf.format(userDay
+				displayWorkCommute.setText((sdf.format(userDayItem
 						.getStartCommuteTime().getTime())));
 				/*
-				displayHomeCommute.setText((sdf.format(userDay
+				displayHomeCommute.setText((sdf.format(userDayItem
 						.getDriveToHomeTime().getTime())));
 				*/
-				Log.i("TIMEANDTRAVEL", "try loop start address " + userDay.getHomeAddress() + " end address " + userDay.getWorkAddress());
+				Log.i("TIMEANDTRAVEL", "try loop start address " + userDayItem.getHomeAddress() + " end address " + userDayItem.getWorkAddress());
 				
-				editWorkAddressText.setText(userDay.getWorkAddress());
-				editHomeAddressText.setText(userDay.getHomeAddress());
+				editWorkAddressText.setText(userDayItem.getWorkAddress());
+				editHomeAddressText.setText(userDayItem.getHomeAddress());
 				
 		
 		
@@ -105,7 +105,7 @@ public class TimeAndTravelFragment extends Fragment
 
 				FragmentManager fm = getActivity().getSupportFragmentManager();
 				WorkCommuteDayAndTimeFragment dialog = WorkCommuteDayAndTimeFragment
-						.newInstance(userDay);
+						.newInstance(userDayItem);
 				dialog.setTargetFragment(TimeAndTravelFragment.this,
 						REQUEST_WORK_COMMUTE);
 				dialog.show(fm, DIALOG_WORK_COMMUTE);
@@ -125,7 +125,7 @@ public class TimeAndTravelFragment extends Fragment
 
 				FragmentManager fm = getActivity().getSupportFragmentManager();
 				HomeCommuteDayAndTimeFragment dialog = HomeCommuteDayAndTimeFragment
-						.newInstance(userDay);
+						.newInstance(userDayItem);
 				dialog.setTargetFragment(TimeAndTravelFragment.this,
 						REQUEST_HOME_COMMUTE);
 				dialog.show(fm, DIALOG_HOME_COMMUTE);
@@ -141,8 +141,8 @@ public class TimeAndTravelFragment extends Fragment
 			@Override
 			public void onClick(View v)
 			{
-				userDay.setHomeAddress(editHomeAddressText.getText().toString());
-				userDay.setWorkAddress(editWorkAddressText.getText().toString());
+				userDayItem.setHomeAddress(editHomeAddressText.getText().toString());
+				userDayItem.setWorkAddress(editWorkAddressText.getText().toString());
 				
 				
 				
@@ -151,7 +151,7 @@ public class TimeAndTravelFragment extends Fragment
 				{
 				i.putExtra(WORKDAY_POSITION, selectedDay);
 				}
-				i.putExtra(DAY_LIST_ITEM, userDay);
+				i.putExtra(DAY_LIST_ITEM, userDayItem);
 				getActivity().setResult(getActivity().RESULT_OK, i);
 				getActivity().finish();
 
@@ -188,10 +188,10 @@ public class TimeAndTravelFragment extends Fragment
 				{
 					if (tempUser.getWorkDay() != null)
 					{
-						userDay.setWorkDay(tempUser.getWorkDay());
+						userDayItem.setWorkDay(tempUser.getWorkDay());
 					}
-					userDay.setStartCommuteTime(tempUser.getStartCommuteTime());
-					displayWorkCommute.setText(sdf.format(userDay
+					userDayItem.setStartCommuteTime(tempUser.getStartCommuteTime());
+					displayWorkCommute.setText(sdf.format(userDayItem
 							.getStartCommuteTime().getTime()));
 
 				}
@@ -202,8 +202,8 @@ public class TimeAndTravelFragment extends Fragment
 			{
 				if (tempUser.getDriveToHomeTime().toString() != null)
 				{
-					userDay.setDriveToHomeTime(tempUser.getDriveToHomeTime());
-					displayHomeCommute.setText(sdf.format(userDay
+					userDayItem.setDriveToHomeTime(tempUser.getDriveToHomeTime());
+					displayHomeCommute.setText(sdf.format(userDayItem
 							.getDriveToHomeTime().getTime()));
 
 				}

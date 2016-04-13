@@ -10,7 +10,6 @@ import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.TimePicker;
 
 import java.util.Calendar;
@@ -54,10 +53,10 @@ public class WorkCommuteDayAndTimeFragment extends DialogFragment
 		scheduledDay = userDayItem.getWorkDay();
 
 		View v = getActivity().getLayoutInflater().inflate(
-				R.layout.dialog_work_time_days, null);
+				R.layout.dialog_home_time_days, null);
 
 		final TimePicker timePicker = (TimePicker) v
-				.findViewById((R.id.dialog_work_time_days));
+				.findViewById((R.id.dialog_home_time_days));
 		timePicker.setAddStatesFromChildren(true);
 
 		timePicker.setOnClickListener(new OnClickListener()
@@ -72,196 +71,196 @@ public class WorkCommuteDayAndTimeFragment extends DialogFragment
 
 		});
 
-		Button sundayButton = (Button) v.findViewById(R.id.sundayButton);
-		
-		sundayButton.setOnClickListener(new OnClickListener()
-		{
-
-			@Override
-			public void onClick(View v)
-			{
-				Log.i(WORK_TIME_DIALOG, "clicked on sunday");
-				v.setPressed(true);
-				if (scheduledDay != Day.SUNDAY)
-				{
-					scheduledDay = Day.SUNDAY;
-					Log.i(WORK_TIME_DIALOG, "added sunday");
-				} else
-				{
-					scheduledDay = null;;
-					Log.i(WORK_TIME_DIALOG, "removed sunday");
-				}
-
-			}
-
-		});
-
-		Button mondayButton = (Button) v.findViewById(R.id.mondayButton);
-		mondayButton.setOnClickListener(new OnClickListener()
-		{
-
-			@Override
-			public void onClick(View v)
-			{
-				v.setPressed(true);
-				Log.i(WORK_TIME_DIALOG, "clicked on Monday");
-				if (scheduledDay != Day.MONDAY)
-				{
-					scheduledDay = Day.MONDAY;
-					Log.i(WORK_TIME_DIALOG, "added Monday");
-				} else
-				{
-					scheduledDay = null;;
-					Log.i(WORK_TIME_DIALOG, "removed Monday");
-				}
-
-			}
-
-		});
-
-		Button tuesdayButton = (Button) v.findViewById(R.id.tuesdayButton);
-		tuesdayButton.setOnClickListener(new OnClickListener()
-		{
-
-			@Override
-			public void onClick(View v)
-			{
-				v.setPressed(true);
-				Log.i(WORK_TIME_DIALOG, "clicked on tuesday");
-				if (scheduledDay != Day.TUESDAY)
-				{
-					scheduledDay = Day.TUESDAY;
-					Log.i(WORK_TIME_DIALOG, "added tuesday");
-				} else
-				{
-					scheduledDay = null;;
-					Log.i(WORK_TIME_DIALOG, "removed tuesday");
-				}
-
-			}
-
-		});
-
-		Button wednesdayButton = (Button) v.findViewById(R.id.wednesdayButton);
-		wednesdayButton.setOnClickListener(new OnClickListener()
-		{
-
-			@Override
-			public void onClick(View v)
-			{
-				v.setPressed(true);
-				Log.i(WORK_TIME_DIALOG, "clicked on wednesday");
-				if (scheduledDay != Day.WEDNESDAY)
-				{
-					scheduledDay = Day.WEDNESDAY;
-					Log.i(WORK_TIME_DIALOG, "added wednesday");
-				} else
-				{
-					scheduledDay = null;;
-					Log.i(WORK_TIME_DIALOG, "removed wednesday");
-				}
-
-			}
-
-		});
-
-		Button thursdayButton = (Button) v.findViewById(R.id.thursdayButton);
-		thursdayButton.setOnClickListener(new OnClickListener()
-		{
-
-			@Override
-			public void onClick(View v)
-			{
-				v.setPressed(true);
-				Log.i(WORK_TIME_DIALOG, "clicked on thursday");
-				if (scheduledDay != Day.THURSDAY)
-				{
-					scheduledDay = Day.THURSDAY;
-					Log.i(WORK_TIME_DIALOG, "added thursday");
-				} else
-				{
-					scheduledDay = null;;
-					Log.i(WORK_TIME_DIALOG, "removed thursday");
-				}
-
-			}
-
-		});
-
-		Button fridayButton = (Button) v.findViewById(R.id.fridayButton);
-		fridayButton.setOnClickListener(new OnClickListener()
-		{
-
-			@Override
-			public void onClick(View v)
-			{
-				v.setPressed(true);
-				Log.i(WORK_TIME_DIALOG, "clicked on friday");
-				if (scheduledDay != Day.FRIDAY)
-				{
-					scheduledDay = Day.FRIDAY;
-					Log.i(WORK_TIME_DIALOG, "added friday");
-				} else
-				{
-					scheduledDay = null;;
-					Log.i(WORK_TIME_DIALOG, "removed friday");
-				}
-
-			}
-
-		});
-
-		Button saturdayButton = (Button) v.findViewById(R.id.saturdayButton);
-		saturdayButton.setOnClickListener(new OnClickListener()
-		{
-
-			@Override
-			public void onClick(View v)
-			{
-				v.setPressed(true);
-				Log.i(WORK_TIME_DIALOG, "clicked on saturday");
-				if (scheduledDay != Day.SATURDAY)
-				{
-					scheduledDay = Day.SATURDAY;
-					Log.i(WORK_TIME_DIALOG, "added saturday");
-				} else
-				{
-					scheduledDay = null;
-					Log.i(WORK_TIME_DIALOG, "removed saturday");
-				}
-
-			}
-
-		});
-		
-		switch (scheduledDay)
-		{
-
-			case SUNDAY:
-				sundayButton.setPressed(true);
-				break;
-			case MONDAY:
-				mondayButton.setPressed(true);
-				break;
-			case TUESDAY:
-				tuesdayButton.setPressed(true);
-				break;
-			case WEDNESDAY:
-				wednesdayButton.setPressed(true);
-				break;
-			case THURSDAY:
-				thursdayButton.setPressed(true);
-				break;
-			case FRIDAY:
-				fridayButton.setPressed(true);
-				break;
-			case SATURDAY:
-				saturdayButton.setPressed(true);
-				break;
-			default:
-				break;
-			
-		}
+//		Button sundayButton = (Button) v.findViewById(R.id.sundayButton);
+//
+//		sundayButton.setOnClickListener(new OnClickListener()
+//		{
+//
+//			@Override
+//			public void onClick(View v)
+//			{
+//				Log.i(WORK_TIME_DIALOG, "clicked on sunday");
+//				v.setPressed(true);
+//				if (scheduledDay != Day.SUNDAY)
+//				{
+//					scheduledDay = Day.SUNDAY;
+//					Log.i(WORK_TIME_DIALOG, "added sunday");
+//				} else
+//				{
+//					scheduledDay = null;;
+//					Log.i(WORK_TIME_DIALOG, "removed sunday");
+//				}
+//
+//			}
+//
+//		});
+//
+//		Button mondayButton = (Button) v.findViewById(R.id.mondayButton);
+//		mondayButton.setOnClickListener(new OnClickListener()
+//		{
+//
+//			@Override
+//			public void onClick(View v)
+//			{
+//				v.setPressed(true);
+//				Log.i(WORK_TIME_DIALOG, "clicked on Monday");
+//				if (scheduledDay != Day.MONDAY)
+//				{
+//					scheduledDay = Day.MONDAY;
+//					Log.i(WORK_TIME_DIALOG, "added Monday");
+//				} else
+//				{
+//					scheduledDay = null;;
+//					Log.i(WORK_TIME_DIALOG, "removed Monday");
+//				}
+//
+//			}
+//
+//		});
+//
+//		Button tuesdayButton = (Button) v.findViewById(R.id.tuesdayButton);
+//		tuesdayButton.setOnClickListener(new OnClickListener()
+//		{
+//
+//			@Override
+//			public void onClick(View v)
+//			{
+//				v.setPressed(true);
+//				Log.i(WORK_TIME_DIALOG, "clicked on tuesday");
+//				if (scheduledDay != Day.TUESDAY)
+//				{
+//					scheduledDay = Day.TUESDAY;
+//					Log.i(WORK_TIME_DIALOG, "added tuesday");
+//				} else
+//				{
+//					scheduledDay = null;;
+//					Log.i(WORK_TIME_DIALOG, "removed tuesday");
+//				}
+//
+//			}
+//
+//		});
+//
+//		Button wednesdayButton = (Button) v.findViewById(R.id.wednesdayButton);
+//		wednesdayButton.setOnClickListener(new OnClickListener()
+//		{
+//
+//			@Override
+//			public void onClick(View v)
+//			{
+//				v.setPressed(true);
+//				Log.i(WORK_TIME_DIALOG, "clicked on wednesday");
+//				if (scheduledDay != Day.WEDNESDAY)
+//				{
+//					scheduledDay = Day.WEDNESDAY;
+//					Log.i(WORK_TIME_DIALOG, "added wednesday");
+//				} else
+//				{
+//					scheduledDay = null;;
+//					Log.i(WORK_TIME_DIALOG, "removed wednesday");
+//				}
+//
+//			}
+//
+//		});
+//
+//		Button thursdayButton = (Button) v.findViewById(R.id.thursdayButton);
+//		thursdayButton.setOnClickListener(new OnClickListener()
+//		{
+//
+//			@Override
+//			public void onClick(View v)
+//			{
+//				v.setPressed(true);
+//				Log.i(WORK_TIME_DIALOG, "clicked on thursday");
+//				if (scheduledDay != Day.THURSDAY)
+//				{
+//					scheduledDay = Day.THURSDAY;
+//					Log.i(WORK_TIME_DIALOG, "added thursday");
+//				} else
+//				{
+//					scheduledDay = null;;
+//					Log.i(WORK_TIME_DIALOG, "removed thursday");
+//				}
+//
+//			}
+//
+//		});
+//
+//		Button fridayButton = (Button) v.findViewById(R.id.fridayButton);
+//		fridayButton.setOnClickListener(new OnClickListener()
+//		{
+//
+//			@Override
+//			public void onClick(View v)
+//			{
+//				v.setPressed(true);
+//				Log.i(WORK_TIME_DIALOG, "clicked on friday");
+//				if (scheduledDay != Day.FRIDAY)
+//				{
+//					scheduledDay = Day.FRIDAY;
+//					Log.i(WORK_TIME_DIALOG, "added friday");
+//				} else
+//				{
+//					scheduledDay = null;;
+//					Log.i(WORK_TIME_DIALOG, "removed friday");
+//				}
+//
+//			}
+//
+//		});
+//
+//		Button saturdayButton = (Button) v.findViewById(R.id.saturdayButton);
+//		saturdayButton.setOnClickListener(new OnClickListener()
+//		{
+//
+//			@Override
+//			public void onClick(View v)
+//			{
+//				v.setPressed(true);
+//				Log.i(WORK_TIME_DIALOG, "clicked on saturday");
+//				if (scheduledDay != Day.SATURDAY)
+//				{
+//					scheduledDay = Day.SATURDAY;
+//					Log.i(WORK_TIME_DIALOG, "added saturday");
+//				} else
+//				{
+//					scheduledDay = null;
+//					Log.i(WORK_TIME_DIALOG, "removed saturday");
+//				}
+//
+//			}
+//
+//		});
+//
+//		switch (scheduledDay)
+//		{
+//
+//			case SUNDAY:
+//				sundayButton.setPressed(true);
+//				break;
+//			case MONDAY:
+//				mondayButton.setPressed(true);
+//				break;
+//			case TUESDAY:
+//				tuesdayButton.setPressed(true);
+//				break;
+//			case WEDNESDAY:
+//				wednesdayButton.setPressed(true);
+//				break;
+//			case THURSDAY:
+//				thursdayButton.setPressed(true);
+//				break;
+//			case FRIDAY:
+//				fridayButton.setPressed(true);
+//				break;
+//			case SATURDAY:
+//				saturdayButton.setPressed(true);
+//				break;
+//			default:
+//				break;
+//
+//		}
 		return new AlertDialog.Builder(getActivity())
 				.setView(v)
 				.setTitle(R.string.date_time_work_commute)
@@ -303,6 +302,6 @@ public class WorkCommuteDayAndTimeFragment extends DialogFragment
 				resultCode, i);
 	}
 	
-	//NEXT: deal with day buttons.
+
 
 }

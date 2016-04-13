@@ -3,8 +3,9 @@ package com.sammoin.commutewatcher;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 
-public class MainActivity extends ActionBarActivity implements WorkWeekListFragment.DayPassListener
+public class MainActivity extends ActionBarActivity implements WorkWeekListFragment.PassDayFromWeekListener, WorkDayListFragment.PassDayToWeekListener
 {
+    WorkWeekListFragment mainMenuFragment;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -29,7 +30,7 @@ public class MainActivity extends ActionBarActivity implements WorkWeekListFragm
 			//MainFragment userInfoEntryFragment = new MainFragment();
 			//userInfoEntryFragment.setArguments(getIntent().getExtras());
 			
-			WorkWeekListFragment mainMenuFragment = new WorkWeekListFragment();
+			 mainMenuFragment = new WorkWeekListFragment();
 			
 			
 			// get a supportfragmentmanager reference and attach the fragment,
@@ -42,11 +43,11 @@ public class MainActivity extends ActionBarActivity implements WorkWeekListFragm
 	}
 
 	@Override
-	public void passDay(UserDay data) {
+	public void passDayFromWeek(Bundle bundle) {
 
 			WorkDayListFragment workDayListFragment = new WorkDayListFragment ();
 			Bundle args = new Bundle();
-			args.putSerializable(WorkDayListFragment.USER_DAY_OBJECT, data);
+			args.putAll(bundle);
 			workDayListFragment.setArguments(args);
 			getSupportFragmentManager().beginTransaction()
 					.replace(R.id.container, workDayListFragment )
@@ -54,6 +55,15 @@ public class MainActivity extends ActionBarActivity implements WorkWeekListFragm
 					.commit();
 
 	}
+
+    @Override
+    public void passDayToWeek(UserDay userDay)
+    {
+        //WorkWeekListFragment workWeekListFragment = new WorkWeekListFragment ();
+
+        mainMenuFragment.addDayToWeek(userDay);
+        getSupportFragmentManager().popBackStack();
+    }
 	/*
 	 * @Override public boolean onCreateOptionsMenu(Menu menu) { // Inflate the
 	 * menu; this adds items to the action bar if it is present.
