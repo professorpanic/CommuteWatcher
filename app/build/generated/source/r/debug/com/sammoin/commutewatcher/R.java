@@ -2772,7 +2772,6 @@ containing a value of this type.
     }
     public static final class id {
         public static final int action0=0x7f0d00c7;
-        public static final int action_add_new=0x7f0d00e3;
         public static final int action_alarm_toggle=0x7f0d00e2;
         public static final int action_bar=0x7f0d0081;
         public static final int action_bar_activity_content=0x7f0d0000;
@@ -2789,6 +2788,7 @@ containing a value of this type.
         public static final int action_mode_bar=0x7f0d007e;
         public static final int action_mode_bar_stub=0x7f0d007d;
         public static final int action_mode_close_button=0x7f0d0063;
+        public static final int action_save_all=0x7f0d00e3;
         public static final int action_settings=0x7f0d00e1;
         public static final int activity_chooser_view_content=0x7f0d0064;
         public static final int addNewItemButton=0x7f0d00dc;
@@ -3181,12 +3181,13 @@ containing a value of this type.
         public static final int place_autocomplete_clear_button=0x7f07003b;
         public static final int place_autocomplete_search_hint=0x7f07003c;
         public static final int save=0x7f07005f;
-        public static final int save_commute_info=0x7f070060;
-        public static final int set_hours_to_home=0x7f070061;
-        public static final int set_to_work_time=0x7f070062;
+        public static final int save_all=0x7f070060;
+        public static final int save_commute_info=0x7f070061;
+        public static final int set_hours_to_home=0x7f070062;
+        public static final int set_to_work_time=0x7f070063;
         public static final int status_bar_notification_info_overflow=0x7f07003d;
-        public static final int store_picture_message=0x7f070063;
-        public static final int store_picture_title=0x7f070064;
+        public static final int store_picture_message=0x7f070064;
+        public static final int store_picture_title=0x7f070065;
         public static final int wallet_buy_button_place_holder=0x7f07003e;
     }
     public static final class style {

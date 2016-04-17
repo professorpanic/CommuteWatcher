@@ -20,6 +20,16 @@ import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
+import java.io.StreamCorruptedException;
+
 //import android.support.v7.internal.widget.AdapterViewCompat.AdapterContextMenuInfo;
 
 public class WorkWeekListFragment extends ListFragment
@@ -74,13 +84,13 @@ PassDayFromWeekListener mCallback;
 		adapter = new UserDataAdapter(mWorkWeek);
 		
 		setListAdapter(adapter);
-//        try {
-//            loadSavedInfo(USER_INFO_FILE);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            loadSavedInfo(USER_INFO_FILE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 	
 	
@@ -310,68 +320,68 @@ PassDayFromWeekListener mCallback;
 		
 	}
 
-//	public boolean loadSavedInfo(String filename)
-//			throws StreamCorruptedException, IOException,
-//			ClassNotFoundException
-//	{
-//
-//		savedUserInfo = new UserWeek();
-//		ObjectInputStream file;
-//
-//		try
-//		{
-//			file = new ObjectInputStream(new FileInputStream(new File(new File(
-//					getActivity().getApplicationContext().getFilesDir(), "")
-//					+ File.separator + filename)));
-//
-//
-//			savedUserInfo =(UserWeek) file.readObject();
-//			mWorkWeek =  (UserWeek)savedUserInfo.getWorkWeek().clone();
-//			file.close();
-//			return true;
-//		}
-//		catch (FileNotFoundException e)
-//		{
-//
-//			e.printStackTrace();
-//		}
-//
-//		return false;
-//
-//	}
+	public boolean loadSavedInfo(String filename)
+			throws StreamCorruptedException, IOException,
+			ClassNotFoundException
+	{
 
-//	public void saveInfo() throws IOException
-//	{
-//
-//		ObjectOutput output = null;
-//
-//		if (savedUserInfo == null)
-//		{
-//			savedUserInfo = new UserWeek();
-//		}
-//		savedUserInfo.copy(mWorkWeek);
-//
-////		CommuteCheckAlarmService.setServiceAlarm(getActivity(),
-////				CommuteCheckAlarmService.isServiceAlarmOn(getActivity()),
-////				savedUserInfo);
-//
-//		try
-//		{
-//			output = new ObjectOutputStream(new FileOutputStream(new File(
-//					getActivity().getApplicationContext().getFilesDir(), "")
-//					+ File.separator + USER_INFO_FILE));
-//			output.writeObject(savedUserInfo);
-//			output.close();
-//		}
-//		catch (FileNotFoundException e)
-//		{
-//			e.printStackTrace();
-//		}
-//		catch (IOException e)
-//		{
-//			e.printStackTrace();
-//		}
-//	}
+		savedUserInfo = new UserWeek();
+		ObjectInputStream file;
+
+		try
+		{
+			file = new ObjectInputStream(new FileInputStream(new File(new File(
+					getActivity().getApplicationContext().getFilesDir(), "")
+					+ File.separator + filename)));
+
+
+			savedUserInfo =(UserWeek) file.readObject();
+			mWorkWeek.copy(savedUserInfo);
+			file.close();
+			return true;
+		}
+		catch (FileNotFoundException e)
+		{
+
+			e.printStackTrace();
+		}
+
+		return false;
+
+	}
+
+	public void saveInfo() throws IOException
+	{
+
+		ObjectOutput output = null;
+
+		if (savedUserInfo == null)
+		{
+			savedUserInfo = new UserWeek();
+		}
+		savedUserInfo.copy(mWorkWeek);
+
+//		CommuteCheckAlarmService.setServiceAlarm(getActivity(),
+//				CommuteCheckAlarmService.isServiceAlarmOn(getActivity()),
+//				savedUserInfo);
+
+		try
+		{
+			output = new ObjectOutputStream(new FileOutputStream(new File(
+					getActivity().getApplicationContext().getFilesDir(), "")
+					+ File.separator + USER_INFO_FILE));
+			output.writeObject(savedUserInfo);
+			output.close();
+		}
+		catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
 
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
 	{
@@ -423,11 +433,14 @@ PassDayFromWeekListener mCallback;
 			honeyCombOptionsInvalidate();
 			return true;
 		
-		case R.id.action_add_new:
-			Log.i("WORKWEEKLISTFRAGMENT", "add new options item");
+		case R.id.action_save_all:
+			Log.i("WORKWEEKLISTFRAGMENT", "save all");
 			//addNewCommute();
-			adapter = new UserDataAdapter(mWorkWeek);
-			setListAdapter(adapter);
+			try {
+				saveInfo();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			return true;
 		
 //		case R.id.action_delete_all:

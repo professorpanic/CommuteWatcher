@@ -49,7 +49,6 @@ public class WorkDayListFragment extends ListFragment {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
         setHasOptionsMenu(true);
-        getActivity().setTitle(R.string.hello_world);
         Bundle args = getArguments();
         //just to initialize this thing or else it'll throw null errors when it's loading a userday.
         mWorkday = new UserDay();
@@ -126,7 +125,7 @@ public class WorkDayListFragment extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
 
         UserDayItem u = ((UserDayAdapter) (getListAdapter())).getItem(position);
-        Log.i("WORKWEEKLISTFRAGMENT", " " + u.toString() + position + "start " + u.getWorkAddress() + " end " + u.getHomeAddress());
+        Log.i("WORKDAYLISTFRAGMENT", " " + u.toString() + position + "start " + u.getWorkAddress() + " end " + u.getHomeAddress());
 
         //TODO: revamp WorkWeekListFragment to use Intent with OnResult
         Intent i = new Intent(getActivity(), TimeAndTravelActivity.class);
@@ -311,12 +310,12 @@ public class WorkDayListFragment extends ListFragment {
                 honeyCombOptionsInvalidate();
                 return true;
 
-            case R.id.action_add_new:
-                Log.i("WORKDAYLISTFRAGMENT", "add new options item");
-                addNewCommute();
-                adapter = new UserDayAdapter(mWorkday);
-                setListAdapter(adapter);
-                return true;
+//            case R.id.action_add_new:
+//                Log.i("WORKDAYLISTFRAGMENT", "add new options item");
+//                addNewCommute();
+//                adapter = new UserDayAdapter(mWorkday);
+//                setListAdapter(adapter);
+//                return true;
 
 //		case R.id.action_delete_all:
 //			Log.i("WORKWEEKLISTFRAGMENT", "add delete all options item");
@@ -365,6 +364,7 @@ public class WorkDayListFragment extends ListFragment {
         Intent i = new Intent(getActivity(), TimeAndTravelActivity.class);
         Bundle bundle = new Bundle();
         UserDayItem u = new UserDayItem();
+        u.setWorkDay(mWorkday.getDayOfTheWeek());
         bundle.putSerializable(TimeAndTravelFragment.DAY_LIST_ITEM, u);
         i.putExtra(LIST_BUNDLE, bundle);
         startActivityForResult(i, REQUEST_NEW_COMMUTE);

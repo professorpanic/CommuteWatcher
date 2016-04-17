@@ -493,9 +493,10 @@
     <!-- From: file:/C:/Users/DoctorMondo/AndroidStudioProjects/CommuteWatcher1/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="save">Save Day</string>
+    <string name="save_all">Save</string>
     <string name="save_commute_info">Save commute info</string>
     <string name="set_hours_to_home">Set time to check your home commute</string>
-    <string name="set_to_work_time">Set days and time to check your commute</string>
+    <string name="set_to_work_time">Set time to check your commute</string>
     <!-- From: file:/C:/Users/DoctorMondo/AndroidStudioProjects/CommuteWatcher1/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values/values.xml -->
     <eat-comment/>
     <string name="status_bar_notification_info_overflow">999+</string>

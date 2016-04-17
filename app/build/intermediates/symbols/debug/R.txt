@@ -745,7 +745,6 @@ int drawable places_ic_search 0x7f02009f
 int drawable powered_by_google_dark 0x7f0200a0
 int drawable powered_by_google_light 0x7f0200a1
 int id action0 0x7f0d00c7
-int id action_add_new 0x7f0d00e3
 int id action_alarm_toggle 0x7f0d00e2
 int id action_bar 0x7f0d0081
 int id action_bar_activity_content 0x7f0d0000
@@ -762,6 +761,7 @@ int id action_menu_presenter 0x7f0d0003
 int id action_mode_bar 0x7f0d007e
 int id action_mode_bar_stub 0x7f0d007d
 int id action_mode_close_button 0x7f0d0063
+int id action_save_all 0x7f0d00e3
 int id action_settings 0x7f0d00e1
 int id activity_chooser_view_content 0x7f0d0064
 int id addNewItemButton 0x7f0d00dc
@@ -1144,12 +1144,13 @@ int string mr_user_route_category_name 0x7f07003a
 int string place_autocomplete_clear_button 0x7f07003b
 int string place_autocomplete_search_hint 0x7f07003c
 int string save 0x7f07005f
-int string save_commute_info 0x7f070060
-int string set_hours_to_home 0x7f070061
-int string set_to_work_time 0x7f070062
+int string save_all 0x7f070060
+int string save_commute_info 0x7f070061
+int string set_hours_to_home 0x7f070062
+int string set_to_work_time 0x7f070063
 int string status_bar_notification_info_overflow 0x7f07003d
-int string store_picture_message 0x7f070063
-int string store_picture_title 0x7f070064
+int string store_picture_message 0x7f070064
+int string store_picture_title 0x7f070065
 int string wallet_buy_button_place_holder 0x7f07003e
 int style AlertDialog_AppCompat 0x7f0a0080
 int style AlertDialog_AppCompat_Light 0x7f0a0081

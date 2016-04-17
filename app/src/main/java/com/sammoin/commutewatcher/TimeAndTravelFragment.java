@@ -45,7 +45,7 @@ public class TimeAndTravelFragment extends Fragment
 
 		setRetainInstance(true);
 		Bundle extras;
-		extras = getActivity().getIntent().getBundleExtra(WorkWeekListFragment.LIST_BUNDLE);
+		extras = getActivity().getIntent().getBundleExtra(WorkDayListFragment.LIST_BUNDLE);
 
 		userDayItem = (UserDayItem) extras.get(DAY_LIST_ITEM);
 		if (extras.containsKey(WORKDAY_POSITION))
@@ -54,6 +54,7 @@ public class TimeAndTravelFragment extends Fragment
 		selectedDay = extras.getInt(WORKDAY_POSITION);
 		Log.i("TIMEANDTRAVEL", "selectedDay " + selectedDay + " start address " + userDayItem.getHomeAddress() + " end address " + userDayItem.getWorkAddress());
 		}
+
 	}	
 
 	@Override
@@ -154,6 +155,7 @@ public class TimeAndTravelFragment extends Fragment
 				i.putExtra(DAY_LIST_ITEM, userDayItem);
 				getActivity().setResult(getActivity().RESULT_OK, i);
 				getActivity().finish();
+                Log.i("TIMEANDTRAVEL", "save button-selectedDay " + selectedDay + " userdayitem " + userDayItem.toString());
 
 			}
 		});

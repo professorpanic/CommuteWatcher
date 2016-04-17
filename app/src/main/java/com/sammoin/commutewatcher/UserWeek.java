@@ -5,12 +5,12 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 @SuppressLint("UseSparseArrays")
 
-public class UserWeek
-{
+public class UserWeek implements Serializable {
     private ArrayList<UserDay> sWorkWeek;
     private Context mAppContext;
 
