@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item android:id="@+id/menu_item_delete_commute"
         android:icon="@android:drawable/ic_menu_delete"
-        android:title="@string/delete_this_commute"/>
+        android:title="@string/clear_day"/>
 
 </menu>
 <!-- From: file:/C:/Users/DoctorMondo/AndroidStudioProjects/CommuteWatcher1/app/src/main/res/menu/commute_list_item_context.xml -->

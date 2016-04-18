@@ -16,7 +16,7 @@ public class UserDayItem implements Serializable
 	private GregorianCalendar startCommuteTime = new GregorianCalendar();
 	private GregorianCalendar driveToHomeTime = new GregorianCalendar();
 	private Day workDay = Day.SUNDAY;
-	private boolean active = false;
+	private boolean active;
 	
 	//NEW DESIGN PLAN - STATIC ARRAY OF DAYS, CONTAINS COMMUTE IN EACH DAY. SHOULD BE EASIER TO USE WITH ALARMS AND SAVE.
 	public Day getWorkDay()
@@ -31,6 +31,7 @@ public class UserDayItem implements Serializable
 		startAddress="Start Address";
 		endAddress="End Address";
         workDay = Day.SUNDAY;
+		active=false;
 	}
 
 	public boolean isActive()

@@ -11,6 +11,7 @@
         android:layout_alignParentRight="true"
         android:focusable="false"
         android:focusableInTouchMode="false"
+        android:text="@string/active"
         android:enabled="true"
         android:padding="4dp">
         

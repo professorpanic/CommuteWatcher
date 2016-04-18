@@ -16,6 +16,7 @@
     <string name="save">Save Day</string>
     <string name="save_all">Save</string>
     <string name="done">Done</string>
+    <string name="Active">Active</string>
     <string name="cancel">Cancel</string>
     <string name="add_commute_short">Add Commute</string>
     <string name="action_alarms_toggle">Alarms On/Off</string>
@@ -23,6 +24,7 @@
 	<string name="action_turn_checker_off">Turn Alarm Off</string>
 	<string name="delete_all">Delete All Commutes</string>
 	<string name="delete_this_commute">Delete this commute</string>
+    <string name="clear_day">Clear Day</string>
 	<string name="add_new_workday_button_text">Add New Commute and Time</string>
     <string name="add_new_dayitem_button_text">Add New Commute and Time</string>
     <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">AIzaSyDqh6bZAibYs9YYScAM4-lHP_mjEcfjneE"</string>

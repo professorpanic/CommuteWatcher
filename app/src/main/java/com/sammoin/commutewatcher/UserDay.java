@@ -13,11 +13,23 @@ public class UserDay implements Serializable
 	 */
 	private ArrayList<UserDayItem> dayItemArrayList;
 	private Day dayOfTheWeek;
+    private boolean active;
 
     public UserDay()
     {
         dayItemArrayList = new ArrayList<UserDayItem>();
         dayOfTheWeek=Day.SUNDAY;
+        active=false;
+    }
+
+    public boolean isActive()
+    {
+        return  active;
+    }
+
+    public void setActive(boolean in)
+    {
+        active=in;
     }
 
 
@@ -45,6 +57,7 @@ public class UserDay implements Serializable
 			dayItemArrayList.clear();
 		}
 		dayItemArrayList.addAll(inDay.getDayItemArrayList());
+        active=inDay.isActive();
 	}
 	
 	
@@ -56,6 +69,14 @@ public class UserDay implements Serializable
 			return true;
 		}
 		else return false;
+	}
+
+	public void clear()
+	{
+        if (this.dayItemArrayList != null)
+        {
+            dayItemArrayList.clear();
+        }
 	}
 
 	public void removeItemFromDay(int index)

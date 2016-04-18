@@ -88,6 +88,14 @@ public class UserWeek implements Serializable {
         sWorkWeek= (ArrayList<UserDay>)weekToCopy.getWorkWeek().clone();
     }
 
+    public void clearAll()
+    {
+        for (UserDay ud : sWorkWeek)
+        {
+            ud.clear();
+        }
+    }
+
     public void clearDay(int dayToClear)
     {
         sWorkWeek.set(dayToClear, new UserDay());

@@ -238,7 +238,7 @@ PassDayFromWeekListener mCallback;
             //u.addItemToDay(new UserDayItem());
             Log.e("WorkWeekListFragment", "u.dayitemarraylist size is "+ u.getDayItemArrayList().size());
 
-			//UserDayItem uDi = u.getDayItemArrayList().get(position);
+
 
 			
 			
@@ -249,7 +249,6 @@ PassDayFromWeekListener mCallback;
 			
 			
 			
-			//using day item 0 as a test
 			dayTextView = (TextView)convertView.findViewById(R.id.workweek_list_item_dayTextView);
 			dayTextView.setText(u.getDayOfTheWeek().toString());
 			
@@ -265,7 +264,7 @@ PassDayFromWeekListener mCallback;
 			activeCheckBox = (CheckBox)convertView.findViewById(R.id.workweek_list_item_activeCheckBox);
 			activeCheckBox.setTag(u);
 			activeCheckBox.setClickable(true);
-			//activeCheckBox.setChecked(uDi.isActive());
+			activeCheckBox.setChecked(u.isActive());
 			
 			convertView.setTag(new RowViewHolder(dayTextView, commuteTimesTextView, activeCheckBox));
 			
@@ -278,7 +277,7 @@ PassDayFromWeekListener mCallback;
 				public void onClick(View v)
 				{
 					CheckBox cb = (CheckBox) v;
-					UserDayItem dayFromList = (UserDayItem) cb.getTag();
+					UserDay dayFromList = (UserDay) cb.getTag();
 					dayFromList.setActive(!dayFromList.isActive());
 					cb.setChecked(dayFromList.isActive());
 					
@@ -315,7 +314,7 @@ PassDayFromWeekListener mCallback;
 			
 		}
 		adapter = new UserDataAdapter(mWorkWeek);
-		
+		Log.e("WORKWEEKLISTFRAGMENT", "in onActivityResult. Do I even need to override this now?");
 		setListAdapter(adapter);
 		
 	}
@@ -443,16 +442,13 @@ PassDayFromWeekListener mCallback;
 			}
 			return true;
 		
-//		case R.id.action_delete_all:
-//			Log.i("WORKWEEKLISTFRAGMENT", "add delete all options item");
-//			for (UserDayItem ud : mWorkWeek)
-//			{
-//				ud.clear();
-//			}
-			//adapter.notifyDataSetChanged();
-//			adapter = new UserDataAdapter(mWorkWeek);
-//			setListAdapter(adapter);
-//			return true;
+		case R.id.action_delete_all:
+			Log.i("WORKWEEKLISTFRAGMENT", "add delete all options item");
+			mWorkWeek.clearAll();
+			adapter.notifyDataSetChanged();
+			adapter = new UserDataAdapter(mWorkWeek);
+			setListAdapter(adapter);
+			return true;
 		
 		default:
 			return super.onOptionsItemSelected(item);
@@ -476,8 +472,8 @@ PassDayFromWeekListener mCallback;
 		{
 		case R.id.menu_item_delete_commute:
 			
-			//ud.clear();
-			//Collections.sort(mWorkWeek, new WorkWeekComparator());
+			ud.clear();
+
 			adapter = new UserDataAdapter(mWorkWeek);
 			setListAdapter(adapter);
 			return true;
@@ -487,16 +483,7 @@ PassDayFromWeekListener mCallback;
 		
 		return super.onContextItemSelected(item);
 	}
-	
-//	public void addNewCommute()
-//	{
-//		Intent i = new Intent(getActivity(), TimeAndTravelActivity.class);
-//		Bundle bundle = new Bundle();
-//		UserDayItem u = new UserDayItem();
-//		bundle.putSerializable(TimeAndTravelFragment.DAY_LIST_ITEM, u);
-//		i.putExtra(LIST_BUNDLE, bundle);
-//		startActivityForResult(i, REQUEST_NEW_COMMUTE);
-//	}
+
 	
 	public void honeyCombOptionsInvalidate()
 	{
