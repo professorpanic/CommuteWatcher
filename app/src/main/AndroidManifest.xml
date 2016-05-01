@@ -7,6 +7,8 @@
     <uses-sdk
         android:minSdkVersion="16"
         android:targetSdkVersion="21" />
+
+
     
     <permission
         android:name="com.sammoin.commutewatcher.permission.MAPS_RECEIVE"
@@ -42,6 +44,10 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <provider
+            android:authorities="@string/content_authority"
+            android:name=".UserScheduleProvider" >
+        </provider>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >

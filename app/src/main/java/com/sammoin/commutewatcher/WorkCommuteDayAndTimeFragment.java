@@ -274,6 +274,7 @@ public class WorkCommuteDayAndTimeFragment extends DialogFragment
 								commuteStartTime = new GregorianCalendar();
 								commuteStartTime.clear(Calendar.HOUR_OF_DAY);
 								commuteStartTime.clear(Calendar.MINUTE);
+								commuteStartTime.set(Calendar.DAY_OF_WEEK, scheduledDay.get());
 								commuteStartTime.set(Calendar.HOUR_OF_DAY,
 										timePicker.getCurrentHour());
 								commuteStartTime.set(Calendar.MINUTE,

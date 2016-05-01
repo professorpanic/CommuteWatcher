@@ -5,11 +5,14 @@ import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -36,19 +39,20 @@ public class CommuteCheckAlarmService extends IntentService
 	public static final String COMMUTE_DAY = "user info object";
 	UserWeek tempSavedUserInfo;
 	static GregorianCalendar today;
+	private static UserWeek savedUserInfo;
 
 	public CommuteCheckAlarmService(String name)
 	{
 		super(TAG);
 
 	}
-	/*
+
 	@Override
 	public void onCreate()
 	{
 		registerReceiver(mNewDayReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));
 	}
-	
+
 	@Override
 	public void onDestroy()
 	{
@@ -56,13 +60,13 @@ public class CommuteCheckAlarmService extends IntentService
 		{
 		unregisterReceiver(mNewDayReceiver);
 		}
-		
+
 		catch (IllegalArgumentException ex)
 		{
 			if (ex.getMessage().contains("Receiver not registered"))
 			{
 				//apparently this is a known bug, but our goal of unregistering the receiver still happens
-				
+
 			}
 			else
 			{
@@ -70,7 +74,7 @@ public class CommuteCheckAlarmService extends IntentService
 			}
 		}
 	}
-	*/
+
 	
 	@Override
 	protected void onHandleIntent(Intent intent)
@@ -148,16 +152,16 @@ public class CommuteCheckAlarmService extends IntentService
 		// really meant for file I/O, so it can just call this method, which
 		// will in turn
 		// call the same method the mainfragment would normally call.
-		ArrayList<UserDayItem> tempSavedUserInfo = WorkWeek.get(context);
+		//ArrayList<UserDayItem> tempSavedUserInfo = WorkWeek.get(context);
 		ObjectInputStream file;
-
+        savedUserInfo = new UserWeek();
 		try
 		{
 
 			file = new ObjectInputStream((new FileInputStream(new File(
 					new File(context.getFilesDir(), "") + File.separator
-							+ TimeAndTravelFragment.USER_INFO_FILE))));
-			tempSavedUserInfo = (ArrayList<UserDayItem>) ((ArrayList<UserDayItem>) file.readObject()).clone();
+							+ WorkWeekListFragment.USER_INFO_FILE))));
+			savedUserInfo.copy(((UserWeek) file.readObject()));
 			
 			file.close();
 
@@ -167,62 +171,66 @@ public class CommuteCheckAlarmService extends IntentService
 
 			e.printStackTrace();
 		}
-		setServiceAlarm(context, isOn, tempSavedUserInfo);
+		setServiceAlarm(context, isOn, savedUserInfo);
 
 	}
 
 	@SuppressWarnings("static-access")
 	public static void setServiceAlarm(Context context, boolean isOn,
-			ArrayList<UserDayItem> userInfo)
+			UserWeek userInfo)
 	{
+		//these two arraylists are for holding pendingintents to load into the alarm manager, and an intent list to build the pending list from.
 		ArrayList<PendingIntent> pendingIntentList = new ArrayList<PendingIntent>();
 		ArrayList<Intent> intentList = new ArrayList<Intent>();
-		
-		today = (GregorianCalendar) Calendar
-				.getInstance();
-		
-		
-		for (int i =0; i < userInfo.size(); i++)
-		{
-			if (userInfo.get(i).isActive())
-			{
-			Intent commuteIntent = new Intent(context,
-					CommuteCheckAlarmService.class);
-			commuteIntent.putExtra(COMMUTE_DAY, userInfo.get(i));
-			intentList.add(new Intent(context, CommuteCheckAlarmService.class));
-			pendingIntentList.add(PendingIntent.getService(context, i, commuteIntent, PendingIntent.FLAG_UPDATE_CURRENT));
-			}
-		}
-		
+
+
+//		today = (GregorianCalendar) Calendar
+//				.getInstance();
+		ArrayList<UserDayItem> userDayItems = userInfo.getActiveDayItemList();
+
+
+        Log.i(TAG, "setService alarm is up is called, boolean is " + isOn + " and userInfo object is " + userInfo.toString());
 		AlarmManager alarmManager = (AlarmManager) context
 				.getSystemService(Context.ALARM_SERVICE);
 
+
 		if (isOn)
 		{
+            //was planning to use this in an if loop later
 			today = (GregorianCalendar) Calendar
 					.getInstance();
-			/*
-			if ((userInfo.get(today.DAY_OF_WEEK-1).isActive()))
-			{
-					alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
-							workTime, AlarmManager.INTERVAL_DAY,
-							pendingWorkCommuteIntent);
 
-					alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
-							homeTime, AlarmManager.INTERVAL_DAY,
-							pendingHomeCommuteIntent);
+            //this loop is for grabbing all of the active UserDayItems (each item has a point a, b, start time, and a boolean for if it's active or not)
+            //and will then create an intent for them, add the item as an extra, then add the intent to an arraylist and make a pending intent as well, and throw
+            //that into an arraylist for pendingintents. I want that pendingList so that I have an easily-managed reference for cancelling alarms later.
+            for( UserDayItem userDayItem : userDayItems ) {
+                    int i = 0;
 
-			}
-			*/
-			
+                if (userDayItem.isActive())
+                {
+                    Intent commuteIntent = new Intent(context,
+                            CommuteCheckAlarmService.class);
+                    Bundle bundle = new Bundle();
+                    //bundle.putSerializable(Comm);
+                    commuteIntent.putExtra(COMMUTE_DAY, userDayItem);
+
+                    intentList.add(new Intent(context, CommuteCheckAlarmService.class));
+                    pendingIntentList.add(PendingIntent.getService(context, i, commuteIntent, PendingIntent.FLAG_UPDATE_CURRENT));
+                    i++;
+                }
+            }
+
+            //this is where currently I get an error that says getStartCommuteTime is null. Still unsure why that is.
+            //for loop goes through the intentlist, grabs the commute time from each extra, and sets the corresponding pendingintent as a repeating alarm as well.
 			for (int i=0; i < intentList.size(); i++)
 			{
-				long commuteTime= (((UserDayItem)intentList.get(i).getSerializableExtra(COMMUTE_DAY)).getStartCommuteTime().getTimeInMillis());
+				long commuteTime= ((UserDayItem) intentList.get(i).getSerializableExtra(COMMUTE_DAY)).getStartCommuteTime().getTimeInMillis();
 				alarmManager.setRepeating(AlarmManager.RTC, commuteTime, AlarmManager.INTERVAL_DAY, pendingIntentList.get(i));
 			}
 
 		}
 
+        //if the alarm service is turned off, all PIs should be cancelled.
 		else
 		{
 			for (PendingIntent pi : pendingIntentList)
@@ -246,44 +254,44 @@ public class CommuteCheckAlarmService extends IntentService
 				PendingIntent.FLAG_NO_CREATE);
 		return pi != null;
 	}
-	/*
+
 	private final NewDayReceiver mNewDayReceiver = new NewDayReceiver();
 
-	public class NewDayReceiver extends BroadcastReceiver{
-		
-		
-        
+	public class NewDayReceiver extends BroadcastReceiver {
+
+
+
 	    @Override
 	    public void onReceive(final Context context, Intent intent) {
 
 	    	String intentAction = intent.getAction();
-	    	
+
 			if (intentAction.equals(Intent.ACTION_TIME_TICK))
 			{
 				if (today.DAY_OF_WEEK !=((GregorianCalendar)Calendar.getInstance()).DAY_OF_WEEK )
 				{
-					
+
 					try
 					{
 
 						setServiceAlarm(context, isServiceAlarmOn(context));
 
-					} 
+					}
 					catch (FileNotFoundException e)
 					{
 
 						e.printStackTrace();
-					} 
+					}
 					catch (StreamCorruptedException e)
 					{
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					} 
+					}
 					catch (IOException e)
 					{
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					} 
+					}
 					catch (ClassNotFoundException e)
 					{
 						// TODO Auto-generated catch block
@@ -293,5 +301,5 @@ public class CommuteCheckAlarmService extends IntentService
 			}
 	    }
 	}
-	 */
+
 }

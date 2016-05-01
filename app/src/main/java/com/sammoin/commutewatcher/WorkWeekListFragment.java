@@ -1,10 +1,16 @@
 package com.sammoin.commutewatcher;
 
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -19,6 +25,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,10 +39,11 @@ import java.io.StreamCorruptedException;
 
 //import android.support.v7.internal.widget.AdapterViewCompat.AdapterContextMenuInfo;
 
-public class WorkWeekListFragment extends ListFragment
+public class WorkWeekListFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>
 {
 private UserWeek mWorkWeek;
 UserDataAdapter adapter;
+private Uri mNewUri;
 
 public static final int REQUEST_POSITION = 3;
 public static final int REQUEST_NEW_COMMUTE = 4;
@@ -43,6 +51,23 @@ public static final String LIST_BUNDLE = "com.sammoin.commutewatcher.bundle";
 static final String USER_INFO_FILE = "CommuteWatcher_user_info.txt";
 private UserWeek savedUserInfo;
 PassDayFromWeekListener mCallback;
+private android.support.v4.widget.SimpleCursorAdapter cursorAdapter;
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(getActivity(), UserScheduleContract.CONTENT_URI, null, "", null, "");
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        cursorAdapter.swapCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        cursorAdapter.swapCursor(null);
+
+    }
 
 
     public interface PassDayFromWeekListener {
@@ -82,7 +107,33 @@ PassDayFromWeekListener mCallback;
 		//UserDayItem test = mWorkWeek.get(6);
 		//test.setWorkDay(Day.MONDAY);
 		adapter = new UserDataAdapter(mWorkWeek);
-		
+
+
+
+        ContentValues values = new ContentValues();
+
+        values.put(UserScheduleContract.USER_START_ADDRESS, "start test");
+        values.put(UserScheduleContract.USER_END_ADDRESS, "end test");
+        values.put(UserScheduleContract.USER_WORKDAY, 2);
+        values.put(UserScheduleContract.USER_START_TIME, 1495924590);
+        values.put(UserScheduleContract.USER_ITEM_ACTIVE, 1);
+
+        mNewUri = getActivity().getContentResolver().insert(
+                UserScheduleContract.CONTENT_URI,   // the user dictionary content URI
+                values);
+        //getActivity().getContentResolver().insert(UserScheduleContract.CONTENT_URI, values);
+
+        Cursor testCursor = getActivity().getContentResolver().query(UserScheduleContract.CONTENT_URI, null, null, null, null);
+        testCursor.moveToFirst();
+        Log.e("WORKWEEKCURSORTEST", "index 0 " + testCursor.getString(0));
+        Log.e("WORKWEEKCURSORTEST", "index 1 " + testCursor.getString(1));
+        Log.e("WORKWEEKCURSORTEST", "index 2 " + testCursor.getString(2));
+        Log.e("WORKWEEKCURSORTEST", "index 3 " + testCursor.getString(3));
+        Log.e("WORKWEEKCURSORTEST", "index 4 " + testCursor.getString(4));
+        Log.e("WORKWEEKCURSORTEST", "index 5 " + testCursor.getString(5));
+        Log.e("WORKWEEKCURSORTEST", "column names " + testCursor.getColumnNames().toString());
+        Log.e("WORKWEEKCURSORTEST", "index 5 " + testCursor.toString());
+        testCursor.close();
 		setListAdapter(adapter);
         try {
             loadSavedInfo(USER_INFO_FILE);
@@ -113,8 +164,25 @@ PassDayFromWeekListener mCallback;
 //				//addNewCommute();
 //			}
 //		});
-//
-		return view;
+
+        Cursor testCursor = getActivity().getContentResolver().query(UserScheduleContract.CONTENT_URI, null, null, null, null);
+        testCursor.moveToFirst();
+        int rowNum=0;
+        int indexWorkday = testCursor.getColumnIndex(UserScheduleContract.USER_WORKDAY);
+        int indexActive = testCursor.getColumnIndex(UserScheduleContract.USER_ITEM_ACTIVE);
+
+        while (testCursor.moveToNext())
+        {
+
+            Log.e("WORKWEEKCURSORTEST", "test cursor loop, rowNum is " + rowNum);
+            if ((testCursor.getInt(indexWorkday)==2)
+                    && (testCursor.getInt(indexActive)==1)) {
+                rowNum++;
+            }
+            testCursor.moveToNext();
+        }
+        Toast.makeText(getContext(), "number of rows with active and sunday=" + rowNum, Toast.LENGTH_LONG).show();
+        return view;
 	}
 	
 	
@@ -125,7 +193,8 @@ PassDayFromWeekListener mCallback;
 		super.onResume();
 		//Collections.sort(mWorkWeek, new WorkWeekComparator());
 		adapter = new UserDataAdapter(mWorkWeek);
-		setListAdapter(adapter);
+        setListAdapter(adapter);
+
 
 
 //		try
@@ -236,7 +305,7 @@ PassDayFromWeekListener mCallback;
 
             //test UDI
             //u.addItemToDay(new UserDayItem());
-            Log.e("WorkWeekListFragment", "u.dayitemarraylist size is "+ u.getDayItemArrayList().size());
+            Log.e("WorkWeekListFragment", "test test u.dayitemarraylist size is "+ u.getDayItemArrayList().size());
 
 
 
@@ -360,9 +429,9 @@ PassDayFromWeekListener mCallback;
 		}
 		savedUserInfo.copy(mWorkWeek);
 
-//		CommuteCheckAlarmService.setServiceAlarm(getActivity(),
-//				CommuteCheckAlarmService.isServiceAlarmOn(getActivity()),
-//				savedUserInfo);
+		CommuteCheckAlarmService.setServiceAlarm(getActivity(),
+				CommuteCheckAlarmService.isServiceAlarmOn(getActivity()),
+				savedUserInfo);
 
 		try
 		{
@@ -424,11 +493,17 @@ PassDayFromWeekListener mCallback;
 
 		case R.id.action_alarm_toggle:
 		
-//			boolean turnAlarmOn = !CommuteCheckAlarmService
-//					.isServiceAlarmOn(getActivity());
-//			CommuteCheckAlarmService.setServiceAlarm(getActivity(),
-//					turnAlarmOn, savedUserInfo);
-//			Log.i("WORKWEEKLISTFRAGMENT", "alarm on has been clicked "+ turnAlarmOn);
+			boolean turnAlarmOn = !CommuteCheckAlarmService
+					.isServiceAlarmOn(getActivity());
+			try {
+				CommuteCheckAlarmService.setServiceAlarm(getActivity(),
+                        turnAlarmOn);
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+			Log.i("WORKWEEKLISTFRAGMENT", "alarm on has been clicked "+ turnAlarmOn + " and user object is " + savedUserInfo.toString());
 			honeyCombOptionsInvalidate();
 			return true;
 		

@@ -65,6 +65,8 @@ public class UserDay implements Serializable
 	{
 		if (item.getWorkDay().equals(dayOfTheWeek))
 		{
+
+			//item.getStartCommuteTime().set
 			dayItemArrayList.add(item);
 			return true;
 		}

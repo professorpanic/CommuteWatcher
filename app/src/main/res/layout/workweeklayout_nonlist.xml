@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingEnd="2dp"
+    android:paddingRight="2dp">
+
+    <LinearLayout
+        android:id="@+id/Su_layout"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:elevation="4dp"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+    <TextView
+
+        android:id="@+id/Su_day_of_week"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        android:paddingBottom="2dp"
+        android:text="@string/Sunday"/>
+
+    <GridLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <TextView
+
+        android:id="@+id/Su_workday_starttime_TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:paddingLeft="4dp"
+        android:paddingStart="4dp"
+        android:paddingRight="4dp"
+        android:paddingEnd="4dp"
+        android:text="Start Time"/>
+
+    <CheckBox
+        android:id="@+id/Su_workday_list_item_activeCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:text="@string/active"
+        android:enabled="true"
+        android:layout_gravity="end">
+
+    </CheckBox>
+    </GridLayout>
+    <TextView
+        android:id="@+id/Su_workday_endpoint_timeTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:paddingLeft="4dp"
+        android:paddingStart="4dp"
+        android:paddingRight="4dp"
+        android:paddingEnd="4dp"
+        android:padding="4dp"
+        android:text="Destination"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/Mo_layout"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:elevation="4dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <TextView
+
+            android:id="@+id/Mo_day_of_week"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:paddingBottom="2dp"
+            android:text="@string/Monday"/>
+
+        <GridLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+
+                android:id="@+id/Mo_workday_starttime_TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:paddingLeft="4dp"
+                android:paddingStart="4dp"
+                android:paddingRight="4dp"
+                android:paddingEnd="4dp"
+                android:text="Start Time"/>
+
+            <CheckBox
+                android:id="@+id/Mo_workday_list_item_activeCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:text="@string/active"
+                android:enabled="true"
+                android:layout_gravity="end">
+
+            </CheckBox>
+        </GridLayout>
+        <TextView
+            android:id="@+id/Mo_workday_endpoint_timeTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:paddingLeft="4dp"
+            android:paddingStart="4dp"
+            android:paddingRight="4dp"
+            android:paddingEnd="4dp"
+            android:text="Destination"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/Tu_layout"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:elevation="4dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <TextView
+
+            android:id="@+id/Tu_day_of_week"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:paddingBottom="2dp"
+            android:text="@string/Tuesday"/>
+
+        <GridLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+
+                android:id="@+id/Tu_workday_starttime_TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:paddingLeft="4dp"
+                android:paddingStart="4dp"
+                android:paddingRight="4dp"
+                android:paddingEnd="4dp"
+                android:text="Start Time"/>
+
+            <CheckBox
+                android:id="@+id/Tu_workday_list_item_activeCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:text="@string/active"
+                android:enabled="true"
+                android:layout_gravity="end">
+
+            </CheckBox>
+        </GridLayout>
+        <TextView
+            android:id="@+id/Tu_workday_endpoint_timeTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:paddingLeft="4dp"
+            android:paddingStart="4dp"
+            android:paddingRight="4dp"
+            android:paddingEnd="4dp"
+            android:text="Destination"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/We_layout"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:elevation="4dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <TextView
+
+            android:id="@+id/We_day_of_week"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:paddingBottom="2dp"
+            android:text="@string/Wednesday"/>
+
+        <GridLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+
+                android:id="@+id/We_workday_starttime_TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:paddingLeft="4dp"
+                android:paddingStart="4dp"
+                android:paddingRight="4dp"
+                android:paddingEnd="4dp"
+                android:text="Start Time"/>
+
+            <CheckBox
+                android:id="@+id/We_workday_list_item_activeCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:text="@string/active"
+                android:enabled="true"
+                android:layout_gravity="end">
+
+            </CheckBox>
+        </GridLayout>
+        <TextView
+            android:id="@+id/We_workday_endpoint_timeTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:paddingLeft="4dp"
+            android:paddingStart="4dp"
+            android:paddingRight="4dp"
+            android:paddingEnd="4dp"
+            android:text="Destination"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/Th_layout"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:elevation="4dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <TextView
+
+            android:id="@+id/Th_day_of_week"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:paddingBottom="2dp"
+            android:text="@string/Thursday"/>
+
+        <GridLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+
+                android:id="@+id/Th_workday_starttime_TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:paddingLeft="4dp"
+                android:paddingStart="4dp"
+                android:paddingRight="4dp"
+                android:paddingEnd="4dp"
+                android:text="Start Time"/>
+
+            <CheckBox
+                android:id="@+id/Th_workday_list_item_activeCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:text="@string/active"
+                android:enabled="true"
+                android:layout_gravity="end">
+
+            </CheckBox>
+        </GridLayout>
+        <TextView
+            android:id="@+id/Th_workday_endpoint_timeTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:paddingLeft="4dp"
+            android:paddingStart="4dp"
+            android:paddingRight="4dp"
+            android:paddingEnd="4dp"
+            android:text="Destination"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/Fr_layout"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:elevation="4dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <TextView
+
+            android:id="@+id/Fr_day_of_week"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:paddingBottom="2dp"
+            android:text="@string/Friday"/>
+
+        <GridLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+
+                android:id="@+id/Fr_workday_starttime_TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:paddingLeft="4dp"
+                android:paddingStart="4dp"
+                android:paddingRight="4dp"
+                android:paddingEnd="4dp"
+                android:text="Start Time"/>
+
+            <CheckBox
+                android:id="@+id/Fr_workday_list_item_activeCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:text="@string/active"
+                android:enabled="true"
+                android:layout_gravity="end">
+
+            </CheckBox>
+        </GridLayout>
+        <TextView
+            android:id="@+id/Fr_workday_endpoint_timeTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:paddingLeft="4dp"
+            android:paddingStart="4dp"
+            android:paddingRight="4dp"
+            android:paddingEnd="4dp"
+            android:text="Destination"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/Sa_layout"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:elevation="4dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <TextView
+
+            android:id="@+id/Sa_day_of_week"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:paddingBottom="2dp"
+            android:text="@string/Saturday"/>
+
+        <GridLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+
+                android:id="@+id/Sa_workday_starttime_TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:paddingLeft="4dp"
+                android:paddingStart="4dp"
+                android:paddingRight="4dp"
+                android:paddingEnd="4dp"
+                android:text="Start Time"/>
+
+            <CheckBox
+                android:id="@+id/Sa_workday_list_item_activeCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:text="@string/active"
+                android:enabled="true"
+                android:layout_gravity="end">
+
+            </CheckBox>
+        </GridLayout>
+        <TextView
+            android:id="@+id/Sa_workday_endpoint_timeTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:paddingLeft="4dp"
+            android:paddingStart="4dp"
+            android:paddingRight="4dp"
+            android:paddingEnd="4dp"
+
+            android:text="Destination"/>
+    </LinearLayout>
+
+</LinearLayout>

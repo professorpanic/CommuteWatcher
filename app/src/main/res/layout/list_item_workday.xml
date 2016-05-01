@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
+
     
     <CheckBox
         android:id="@+id/workday_list_item_activeCheckBox"
@@ -11,30 +12,23 @@
         android:layout_alignParentRight="true"
         android:focusable="false"
         android:focusableInTouchMode="false"
+        android:text="@string/active"
         android:enabled="true"
         android:padding="4dp">
         
     </CheckBox>
-    
+
     <TextView
-        android:id="@+id/workday_startpoint_TextView"
+
+        android:id="@+id/workday_starttime_TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@id/workday_list_item_activeCheckBox"
         android:textStyle="bold"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
-        android:text="Start"/>
-    <TextView
-        android:id="@+id/workday_starttime_TextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/workday_startpoint_TextView"
-        android:textStyle="bold"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
         android:text="Start Time"/>
-        
+
     <TextView
         android:id="@+id/workday_endpoint_timeTextView"
         android:layout_width="match_parent"

@@ -9,8 +9,6 @@ import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -207,8 +205,8 @@ public class WorkDayListFragment extends ListFragment {
 
 
                 //using day item 0 as a test
-                startAddressView = (TextView) convertView.findViewById(R.id.workday_startpoint_TextView);
-                startAddressView.setText(u.getHomeAddress());
+//                startAddressView = (TextView) convertView.findViewById(R.id.workday_startpoint_TextView);
+//                startAddressView.setText(u.getHomeAddress());
 
                 endAddressTextView = (TextView) convertView.findViewById(R.id.workday_endpoint_timeTextView);
                 if (u != null) {
@@ -219,13 +217,13 @@ public class WorkDayListFragment extends ListFragment {
                 activeCheckBox = (CheckBox) convertView.findViewById(R.id.workday_list_item_activeCheckBox);
                 activeCheckBox.setTag(u);
                 activeCheckBox.setClickable(true);
-                //activeCheckBox.setChecked(uDi.isActive());
+                activeCheckBox.setChecked(u.isActive());
 
                 startTimeTextView = (TextView) convertView.findViewById(R.id.workday_starttime_TextView);
                 startTimeTextView.setText(u.getStartCommuteTime().toString());
 
 
-                convertView.setTag(new RowViewHolder(startAddressView, endAddressTextView, activeCheckBox));
+                convertView.setTag(new RowViewHolder(startTimeTextView, endAddressTextView, activeCheckBox));
 
 
                 activeCheckBox.setOnClickListener(new View.OnClickListener() {
@@ -242,7 +240,7 @@ public class WorkDayListFragment extends ListFragment {
             } else {
                 RowViewHolder viewHolder = (RowViewHolder) convertView.getTag();
                 activeCheckBox = viewHolder.getCheckBox();
-                startAddressView = viewHolder.getDayTextView();
+                startTimeTextView = viewHolder.getDayTextView();
                 endAddressTextView = viewHolder.getTimeTextView();
             }
             return convertView;
@@ -267,71 +265,71 @@ public class WorkDayListFragment extends ListFragment {
     }
 
 
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.main_actions, menu);
-
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-
-        MenuItem toggleItem = menu.findItem(R.id.action_alarm_toggle);
-        getActivity().invalidateOptionsMenu();
-
-        if (CommuteCheckAlarmService.isServiceAlarmOn(getActivity())) {
-            toggleItem.setTitle(R.string.action_turn_checker_off);
-
-        } else {
-            toggleItem.setTitle(R.string.action_turn_checker_on);
-
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        switch (item.getItemId()) {
-
-            case R.id.action_settings:
-                return true;
-
-            case R.id.action_alarm_toggle:
-
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//
+//        super.onCreateOptionsMenu(menu, inflater);
+//        inflater.inflate(R.menu.main_actions, menu);
+//
+//    }
+//
+//    @Override
+//    public void onPrepareOptionsMenu(Menu menu) {
+//        super.onPrepareOptionsMenu(menu);
+//
+//        MenuItem toggleItem = menu.findItem(R.id.action_alarm_toggle);
+//        getActivity().invalidateOptionsMenu();
+//
+//        if (CommuteCheckAlarmService.isServiceAlarmOn(getActivity())) {
+//            toggleItem.setTitle(R.string.action_turn_checker_off);
+//
+//        } else {
+//            toggleItem.setTitle(R.string.action_turn_checker_on);
+//
+//        }
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        switch (item.getItemId()) {
+//
+//            case R.id.action_settings:
+//                return true;
+//
+//            case R.id.action_alarm_toggle:
+//
 //			boolean turnAlarmOn = !CommuteCheckAlarmService
 //					.isServiceAlarmOn(getActivity());
 //			CommuteCheckAlarmService.setServiceAlarm(getActivity(),
 //					turnAlarmOn, savedUserInfo);
 //			Log.i("WORKWEEKLISTFRAGMENT", "alarm on has been clicked "+ turnAlarmOn);
-                honeyCombOptionsInvalidate();
-                return true;
-
+//                honeyCombOptionsInvalidate();
+//                return true;
+//
 //            case R.id.action_add_new:
 //                Log.i("WORKDAYLISTFRAGMENT", "add new options item");
 //                addNewCommute();
 //                adapter = new UserDayAdapter(mWorkday);
 //                setListAdapter(adapter);
 //                return true;
-
+//
 //		case R.id.action_delete_all:
 //			Log.i("WORKWEEKLISTFRAGMENT", "add delete all options item");
 //			for (UserDayItem ud : mWorkday)
 //			{
 //				ud.clear();
 //			}
-            //adapter.notifyDataSetChanged();
+//            adapter.notifyDataSetChanged();
 //			adapter = new UserDayAdapter(mWorkday);
 //			setListAdapter(adapter);
 //			return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+//
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
@@ -348,7 +346,7 @@ public class WorkDayListFragment extends ListFragment {
         switch (item.getItemId()) {
             case R.id.menu_item_delete_commute:
 
-                //ud.clear();
+                mWorkday.getDayItemArrayList().remove(position);
                 //Collections.sort(mWorkday, new WorkWeekComparator());
                 adapter = new UserDayAdapter(mWorkday);
                 setListAdapter(adapter);

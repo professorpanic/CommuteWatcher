@@ -37,6 +37,11 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <provider
+            android:name="com.sammoin.commutewatcher.UserScheduleProvider"
+            android:authorities="@string/content_authority" >
+        </provider>
+
         <activity
             android:name="com.sammoin.commutewatcher.MainActivity"
             android:label="@string/app_name" >

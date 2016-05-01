@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.view.View;
 import android.widget.TimePicker;
 import android.widget.TimePicker.OnTimeChangedListener;
@@ -100,8 +99,8 @@ public class HomeCommuteDayAndTimeFragment extends DialogFragment
 		userDayItem.setDriveToHomeTime(homeCommuteStartTime);
 
 		userDayItem.getStartCommuteTime().setTimeZone(TimeZone.getDefault());
-		Log.i(HOME_TIME_DIALOG, "sendResult "
-				+ userDayItem.getDriveToHomeTime().toString());
+//		Log.i(HOME_TIME_DIALOG, "Result "
+//				+ userDayItem.getDriveToHomeTime().toString());
 		i.putExtra(EXTRA_USER_DATA, userDayItem);
 		getTargetFragment().onActivityResult(getTargetRequestCode(),
 				resultCode, i);

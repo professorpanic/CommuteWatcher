@@ -35,6 +35,20 @@ public class UserWeek implements Serializable {
         sWorkWeek.get(dayToReplace).copy(inboundDay);
     }
 
+    public ArrayList<UserDayItem> getActiveDayItemList()
+    {
+        ArrayList<UserDayItem> userDayItems = new ArrayList<UserDayItem>();
+
+        for (UserDay ud: sWorkWeek)
+        {
+            if (ud.isActive()) {
+                userDayItems.addAll(ud.getDayItemArrayList());
+            }
+        }
+
+        return userDayItems;
+    }
+
 
 
 

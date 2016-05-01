@@ -22,7 +22,6 @@ public class UserDayItem implements Serializable
 	public Day getWorkDay()
 	
 	{
-		
 		return this.workDay;
 	}
 

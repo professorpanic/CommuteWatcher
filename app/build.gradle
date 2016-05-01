@@ -28,4 +28,6 @@ dependencies {
     compile 'com.google.android.gms:play-services-ads:8.4.0'
     compile 'com.google.android.gms:play-services-identity:8.4.0'
     compile 'com.google.android.gms:play-services-gcm:8.4.0'
+    compile 'joda-time:joda-time:2.9.3'
+    compile 'com.github.provigen:ProviGen-lib:2.0.1'
 }

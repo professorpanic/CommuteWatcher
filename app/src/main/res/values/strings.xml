@@ -16,8 +16,16 @@
     <string name="save">Save Day</string>
     <string name="save_all">Save</string>
     <string name="done">Done</string>
-    <string name="Active">Active</string>
+    <string name="active">Active</string>
     <string name="cancel">Cancel</string>
+    <string name="Sunday">Sunday</string>
+    <string name="Monday">Monday</string>
+    <string name="Tuesday">Tuesday</string>
+    <string name="Wednesday">Wednesday</string>
+    <string name="Thursday">Thursday</string>
+    <string name="Friday">Friday</string>
+    <string name="Saturday">Saturday</string>
+
     <string name="add_commute_short">Add Commute</string>
     <string name="action_alarms_toggle">Alarms On/Off</string>
 	<string name="action_turn_checker_on">Turn Alarm On</string>
@@ -25,6 +33,7 @@
 	<string name="delete_all">Delete All Commutes</string>
 	<string name="delete_this_commute">Delete this commute</string>
     <string name="clear_day">Clear Day</string>
+    <string name="content_authority">com.sammoin.commutewatcher.userscheduleprovider</string>
 	<string name="add_new_workday_button_text">Add New Commute and Time</string>
     <string name="add_new_dayitem_button_text">Add New Commute and Time</string>
     <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">AIzaSyDqh6bZAibYs9YYScAM4-lHP_mjEcfjneE"</string>
