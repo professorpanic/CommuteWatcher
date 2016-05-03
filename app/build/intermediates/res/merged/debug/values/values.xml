@@ -365,6 +365,17 @@
     <!-- From: file:/C:/Users/DoctorMondo/AndroidStudioProjects/CommuteWatcher1/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values/values.xml -->
     <eat-comment/>
     <integer name="status_bar_notification_info_maxnum">999</integer>
+    <!-- From: file:/C:/Users/DoctorMondo/AndroidStudioProjects/CommuteWatcher1/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="Friday">Friday</string>
+    <string name="Monday">Monday</string>
+    <string name="Saturday">Saturday</string>
+    <string name="Sunday">Sunday</string>
+    <string name="Thursday">Thursday</string>
+    <string name="Tuesday">Tuesday</string>
+    <string name="Wednesday">Wednesday</string>
+    <!-- From: file:/C:/Users/DoctorMondo/AndroidStudioProjects/CommuteWatcher1/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values/values.xml -->
+    <eat-comment/>
     <string name="abc_action_bar_home_description">Navigate home</string>
     <string name="abc_action_bar_home_description_format">%1$s, %2$s</string>
     <string name="abc_action_bar_home_subtitle_description_format">%1$s, %2$s, %3$s</string>

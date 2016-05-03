@@ -3,9 +3,9 @@ package com.sammoin.commutewatcher;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 
-public class MainActivity extends ActionBarActivity implements WorkWeekListFragment.PassDayFromWeekListener, WorkDayListFragment.PassDayToWeekListener
+public class MainActivity extends ActionBarActivity implements WorkWeekFragment.PassDayFromWeekListener, WorkDayListFragment.PassDayToWeekListener
 {
-    WorkWeekListFragment mainMenuFragment;
+    WorkWeekFragment mainMenuFragment;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -31,7 +31,7 @@ public class MainActivity extends ActionBarActivity implements WorkWeekListFragm
 			//MainFragment userInfoEntryFragment = new MainFragment();
 			//userInfoEntryFragment.setArguments(getIntent().getExtras());
 			
-			 mainMenuFragment = new WorkWeekListFragment();
+			 mainMenuFragment = new WorkWeekFragment();
 			
 			
 			// get a supportfragmentmanager reference and attach the fragment,
@@ -60,7 +60,7 @@ public class MainActivity extends ActionBarActivity implements WorkWeekListFragm
     @Override
     public void passDayToWeek(UserDay userDay)
     {
-        //WorkWeekListFragment workWeekListFragment = new WorkWeekListFragment ();
+        //WorkWeekFragment workWeekListFragment = new WorkWeekFragment ();
 
         mainMenuFragment.addDayToWeek(userDay);
         getSupportFragmentManager().popBackStack();

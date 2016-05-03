@@ -32,7 +32,7 @@ public class TimeAndTravelActivity extends ActionBarActivity
 			TimeAndTravelFragment userInfoEntryFragment = new TimeAndTravelFragment();
 			userInfoEntryFragment.setArguments(getIntent().getExtras());
 			
-			//WorkWeekListFragment mainMenuFragment = new WorkWeekListFragment();
+			//WorkWeekFragment mainMenuFragment = new WorkWeekFragment();
 			
 			
 			// get a supportfragmentmanager reference and attach the fragment,

@@ -160,7 +160,7 @@ public class CommuteCheckAlarmService extends IntentService
 
 			file = new ObjectInputStream((new FileInputStream(new File(
 					new File(context.getFilesDir(), "") + File.separator
-							+ WorkWeekListFragment.USER_INFO_FILE))));
+							+ WorkWeekFragment.USER_INFO_FILE))));
 			savedUserInfo.copy(((UserWeek) file.readObject()));
 			
 			file.close();
