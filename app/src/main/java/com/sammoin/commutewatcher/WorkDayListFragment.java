@@ -3,10 +3,12 @@ package com.sammoin.commutewatcher;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.ContextMenu;
@@ -16,8 +18,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 //import android.support.v7.internal.widget.AdapterViewCompat.AdapterContextMenuInfo;
 
@@ -31,17 +35,31 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
     public static final String LIST_BUNDLE = "com.sammoin.commutewatcher.bundle";
     public static final String USER_DAY_OBJECT = "com.sammoin.commutewatcher.user";
     public static final String USER_DAY_POSITION = "com.sammoin.commutewatcher.user";
+    private static final int DAY_LOADER = 0;
     private UserWeek savedUserInfo;
     PassDayToWeekListener mCallback;
     private String mSelectionClause;
+    private TextView startPointTextView;
+    private TextView endPointTextView;
+    private CheckBox activeCheckBox;
+    private TextView startTimeTextView;
+
+    public static final int COL_END_POINT = 0;
+    public static final int COL_ACTIVE = 1;
+    public static final int COL_START_POINT = 2;
+    public static final int COL_START_TIME = 3;
+    public static final int COL_WORKDAY_NUM = 4;
+    public static final int COL_ID= 5;
+
 
     private String[] mProjection =
             {
-                    UserScheduleContract._ID,    // Contract class constant for the _ID column name
-                    UserScheduleContract.USER_START_ADDRESS,   // Contract class constant for the word column name
                     UserScheduleContract.USER_END_ADDRESS,
+                    UserScheduleContract.USER_ITEM_ACTIVE,
+                    UserScheduleContract.USER_START_ADDRESS,
                     UserScheduleContract.USER_START_TIME,
-                    UserScheduleContract.USER_ITEM_ACTIVE  // Contract class constant for the locale column name
+                    UserScheduleContract.USER_WORKDAY,
+                    UserScheduleContract._ID
             };
 
 
@@ -53,19 +71,60 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
     public WorkDayListFragment() {
         // TODO Auto-generated constructor stub
     }
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+
+        super.onActivityCreated(savedInstanceState);
+        mCursorAdapter = new SimpleCursorAdapter(getActivity(),
+                R.layout.list_item_workday, null, mProjection,
+                new int[] { R.id.commute_end_point_textview, R.id.commute_item_activeCheckBox, R.id.commute_start_point_textview, R.id.commute_start_time_textview, 0,  0}, 0);
+        setListAdapter(mCursorAdapter);
+
+        getLoaderManager().initLoader(DAY_LOADER, null, this);
+    }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return null;
+        Uri CONTENT_URI = UserScheduleContract.CONTENT_URI;
+        return new CursorLoader(getContext(), CONTENT_URI, mProjection, null, null, UserScheduleContract.USER_START_TIME + " ASC");
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 
+        mCursorAdapter.swapCursor(data);
+
+//        if (data != null && data.moveToFirst()) {
+//            // get ID
+//            int itemId = data.getInt(COL_ID);
+//
+//
+//            // Read rest of columns from cursor
+//            String startPoint = data.getString(COL_START_POINT);
+//            startPointTextView.setText(startPoint);
+//
+//            int startTime = data.getInt(COL_START_TIME);
+//            startTimeTextView.setText(startTime);
+//
+//            String endPoint = data.getString(COL_END_POINT);
+//            endPointTextView.setText(endPoint);
+//            boolean isActive;
+//            if (data.getInt(COL_ACTIVE)==1)
+//            {
+//                isActive=true;}
+//            else
+//            {
+//                isActive=false;}
+//
+//            activeCheckBox.setChecked(isActive);
+//
+//        }
+
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
+        mCursorAdapter.swapCursor(null);
 
     }
 
@@ -81,6 +140,7 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
         setHasOptionsMenu(true);
         Bundle args = getArguments();
         mSelectionClause = UserScheduleContract.USER_WORKDAY +"= "+ args.getInt(WorkDayListFragment.USER_DAY_POSITION);
+
         setListAdapter(mCursorAdapter);
 
     }
@@ -99,26 +159,16 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
                 null,                     // Selection criteria
                 UserScheduleContract.USER_START_TIME + " ASC");
 
-        // Some providers return null if an error occurs, others throw an exception
-        if (null == mCursor) {
-    /*
-     * Insert code here to handle the error. Be sure not to use the cursor! You may want to
-     * call android.util.Log.e() to log this error.
-     *
-     */
-    // If the Cursor is empty, the provider found no matches
-        }
-        else if (mCursor.getCount() < 1) {
-    /*
-     * Insert code here to notify the user that the search was unsuccessful. This isn't necessarily
-     * an error. You may want to offer the user the option to insert a new row, or re-type the
-     * search term.
-     */
-        }
-        else {
-            // Insert code here to do something with the results
+        startPointTextView = (TextView) view.findViewById(R.id.commute_start_point_textview);
+        endPointTextView= (TextView) view.findViewById(R.id.commute_end_point_textview);
+        activeCheckBox= (CheckBox) view.findViewById(R.id.commute_item_activeCheckBox);
+        startTimeTextView = (TextView) view.findViewById(R.id.commute_start_time_textview);
 
+        if (args!=null) {
+            mSelectionClause = UserScheduleContract.USER_WORKDAY + "= " + args.getInt(WorkDayListFragment.USER_DAY_POSITION);
         }
+        // Some providers return null if an error occurs, others throw an exception
+
 
         String[] mColumns = new String[]{  // Contract class constant for the _ID column name
                 UserScheduleContract.USER_START_ADDRESS,   // Contract class constant for the word column name
@@ -323,7 +373,7 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
         }
         //adapter = new UserDayAdapter(mWorkday);
 
-        setListAdapter(adapter);
+        setListAdapter(mCursorAdapter);
 
     }
 
