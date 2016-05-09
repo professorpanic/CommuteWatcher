@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+        <color name="ash_grey">#6000</color>
+        <color name="theme_primary">#7986cb</color>
+        <color name="theme_primary_dark">#3f51b5</color>
+        <color name="theme_accent">#d84315</color>#d84315
+        <color name="ltgray">#ffe0e0e0</color>
+
+
+</resources>

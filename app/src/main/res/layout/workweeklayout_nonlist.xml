@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:drawable/dialog_holo_light_frame"
-    >
+    android:background="@android:drawable/dialog_holo_light_frame">
 
 <LinearLayout
     android:orientation="vertical"
@@ -13,6 +13,7 @@
     android:layout_height="wrap_content"
     android:paddingEnd="2dp"
     android:paddingRight="2dp">
+
 
     <LinearLayout
         android:id="@+id/su_layout"
@@ -54,6 +55,8 @@
         android:id="@+id/su_workday_list_item_activeCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:button="@null"
+        android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:text="@string/active"
@@ -103,6 +106,8 @@
 
             <CheckBox
                 android:id="@+id/mo_workday_list_item_activeCheckBox"
+                android:button="@null"
+                android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:focusable="false"
@@ -154,6 +159,8 @@
 
             <CheckBox
                 android:id="@+id/tu_workday_list_item_activeCheckBox"
+                android:button="@null"
+                android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:focusable="false"
@@ -205,6 +212,8 @@
 
             <CheckBox
                 android:id="@+id/we_workday_list_item_activeCheckBox"
+                android:button="@null"
+                android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:focusable="false"
@@ -256,6 +265,8 @@
 
             <CheckBox
                 android:id="@+id/th_workday_list_item_activeCheckBox"
+                android:button="@null"
+                android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:focusable="false"
@@ -307,6 +318,8 @@
 
             <CheckBox
                 android:id="@+id/fr_workday_list_item_activeCheckBox"
+                android:button="@null"
+                android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:focusable="false"
@@ -358,6 +371,8 @@
 
             <CheckBox
                 android:id="@+id/sa_workday_list_item_activeCheckBox"
+                android:button="@null"
+                android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:focusable="false"
@@ -372,4 +387,6 @@
     </LinearLayout>
 
 </LinearLayout>
+
+
 </ScrollView>

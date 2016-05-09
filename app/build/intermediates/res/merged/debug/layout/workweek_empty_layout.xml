@@ -13,4 +13,3 @@
         android:text="@string/add_new_workday_button_text" />
 
 </RelativeLayout>
-<!-- From: file:/C:/Users/DoctorMondo/AndroidStudioProjects/CommuteWatcher1/app/src/main/res/layout/workweek_empty_layout.xml -->

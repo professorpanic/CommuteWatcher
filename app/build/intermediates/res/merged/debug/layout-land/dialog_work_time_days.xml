@@ -88,4 +88,4 @@
         android:visibility="visible" >
     </TimePicker>
 
-</LinearLayout><!-- From: file:/C:/Users/DoctorMondo/AndroidStudioProjects/CommuteWatcher1/app/src/main/res/layout-land/dialog_work_time_days.xml -->
+</LinearLayout>

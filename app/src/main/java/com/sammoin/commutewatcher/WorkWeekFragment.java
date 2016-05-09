@@ -1,7 +1,6 @@
 package com.sammoin.commutewatcher;
 
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -93,57 +92,59 @@ TextView saturdayTextView;
 		//UserDayItem test = mWorkWeek.get(6);
 		//test.setWorkDay(Day.MONDAY);
 
+        UserDayItem udi = new UserDayItem();
 
 
 
-        ContentValues values = new ContentValues();
 
-        values.put(UserScheduleContract.USER_START_ADDRESS, "start test");
-        values.put(UserScheduleContract.USER_END_ADDRESS, "end test");
-        values.put(UserScheduleContract.USER_WORKDAY, 2);
-        values.put(UserScheduleContract.USER_START_TIME, 1495924590);
-        values.put(UserScheduleContract.USER_ITEM_ACTIVE, 1);
-
-        mNewUri = getActivity().getContentResolver().insert(
-                UserScheduleContract.CONTENT_URI,
-                values);
-        values.put(UserScheduleContract.USER_START_ADDRESS, "start test");
-        values.put(UserScheduleContract.USER_END_ADDRESS, "end test");
-        values.put(UserScheduleContract.USER_WORKDAY, 3);
-        values.put(UserScheduleContract.USER_START_TIME, 1495924590);
-        values.put(UserScheduleContract.USER_ITEM_ACTIVE, 1);
-        mNewUri = getActivity().getContentResolver().insert(
-                UserScheduleContract.CONTENT_URI,
-                values);
-
-        values.put(UserScheduleContract.USER_START_ADDRESS, "start test");
-        values.put(UserScheduleContract.USER_END_ADDRESS, "end test");
-        values.put(UserScheduleContract.USER_WORKDAY, 4);
-        values.put(UserScheduleContract.USER_START_TIME, 1495924590);
-        values.put(UserScheduleContract.USER_ITEM_ACTIVE, 1);
-        mNewUri = getActivity().getContentResolver().insert(
-                UserScheduleContract.CONTENT_URI,
-                values);
-
-        values.put(UserScheduleContract.USER_START_ADDRESS, "start test");
-        values.put(UserScheduleContract.USER_END_ADDRESS, "end test");
-        values.put(UserScheduleContract.USER_WORKDAY, 5);
-        values.put(UserScheduleContract.USER_START_TIME, 1495924590);
-        values.put(UserScheduleContract.USER_ITEM_ACTIVE, 1);
-        mNewUri = getActivity().getContentResolver().insert(
-                UserScheduleContract.CONTENT_URI,
-                values);
-
-        values.put(UserScheduleContract.USER_START_ADDRESS, "start test");
-        values.put(UserScheduleContract.USER_END_ADDRESS, "end test");
-        values.put(UserScheduleContract.USER_WORKDAY, 1);
-        values.put(UserScheduleContract.USER_START_TIME, 1495924590);
-        values.put(UserScheduleContract.USER_ITEM_ACTIVE, 1);
-
-
-        mNewUri = getActivity().getContentResolver().insert(
-                UserScheduleContract.CONTENT_URI,
-                values);
+//        ContentValues values = new ContentValues();
+//
+//        values.put(UserScheduleContract.USER_START_ADDRESS, "start test");
+//        values.put(UserScheduleContract.USER_END_ADDRESS, "end test");
+//        values.put(UserScheduleContract.USER_WORKDAY, 2);
+//        values.put(UserScheduleContract.USER_START_TIME, udi.getStartCommuteTime().getTimeInMillis());
+//        values.put(UserScheduleContract.USER_ITEM_ACTIVE, 1);
+//
+//        mNewUri = getActivity().getContentResolver().insert(
+//                UserScheduleContract.CONTENT_URI,
+//                values);
+//        values.put(UserScheduleContract.USER_START_ADDRESS, "start test");
+//        values.put(UserScheduleContract.USER_END_ADDRESS, "end test");
+//        values.put(UserScheduleContract.USER_WORKDAY, 3);
+//        values.put(UserScheduleContract.USER_START_TIME, udi.getStartCommuteTime().getTimeInMillis());
+//        values.put(UserScheduleContract.USER_ITEM_ACTIVE, 1);
+//        mNewUri = getActivity().getContentResolver().insert(
+//                UserScheduleContract.CONTENT_URI,
+//                values);
+//
+//        values.put(UserScheduleContract.USER_START_ADDRESS, "start test");
+//        values.put(UserScheduleContract.USER_END_ADDRESS, "end test");
+//        values.put(UserScheduleContract.USER_WORKDAY, 4);
+//        values.put(UserScheduleContract.USER_START_TIME, udi.getStartCommuteTime().getTimeInMillis());
+//        values.put(UserScheduleContract.USER_ITEM_ACTIVE, 1);
+//        mNewUri = getActivity().getContentResolver().insert(
+//                UserScheduleContract.CONTENT_URI,
+//                values);
+//
+//        values.put(UserScheduleContract.USER_START_ADDRESS, "start test");
+//        values.put(UserScheduleContract.USER_END_ADDRESS, "end test");
+//        values.put(UserScheduleContract.USER_WORKDAY, 5);
+//        values.put(UserScheduleContract.USER_START_TIME, udi.getStartCommuteTime().getTimeInMillis());
+//        values.put(UserScheduleContract.USER_ITEM_ACTIVE, 1);
+//        mNewUri = getActivity().getContentResolver().insert(
+//                UserScheduleContract.CONTENT_URI,
+//                values);
+//
+//        values.put(UserScheduleContract.USER_START_ADDRESS, "start test");
+//        values.put(UserScheduleContract.USER_END_ADDRESS, "end test");
+//        values.put(UserScheduleContract.USER_WORKDAY, 1);
+//        values.put(UserScheduleContract.USER_START_TIME, udi.getStartCommuteTime().getTimeInMillis());
+//        values.put(UserScheduleContract.USER_ITEM_ACTIVE, 1);
+//
+//
+//        mNewUri = getActivity().getContentResolver().insert(
+//                UserScheduleContract.CONTENT_URI,
+//                values);
         //getActivity().getContentResolver().insert(UserScheduleContract.CONTENT_URI, values);
 
         Cursor testCursor = getActivity().getContentResolver().query(UserScheduleContract.CONTENT_URI, null, null, null, null);

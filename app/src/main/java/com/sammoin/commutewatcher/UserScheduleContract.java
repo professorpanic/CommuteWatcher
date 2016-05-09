@@ -26,7 +26,7 @@ public static final String CONTENT_AUTHORITY = "com.sammoin.commutewatcher.users
     @Column(Column.Type.INTEGER)
     public static final String USER_WORKDAY="workday_num";
 
-    @Column(Column.Type.INTEGER)
+    @Column(Column.Type.REAL)
     public static final String USER_START_TIME="start_time_int";
 
     @Column(Column.Type.INTEGER)

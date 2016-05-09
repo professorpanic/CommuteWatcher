@@ -93,4 +93,4 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textSize="12sp" />
 
-</RelativeLayout><!-- From: file:/C:/Users/DoctorMondo/AndroidStudioProjects/CommuteWatcher1/app/src/main/res/layout-land/fragment_main.xml -->
+</RelativeLayout>

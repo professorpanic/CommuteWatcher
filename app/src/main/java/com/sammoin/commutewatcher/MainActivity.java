@@ -1,9 +1,9 @@
 package com.sammoin.commutewatcher;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 
-public class MainActivity extends ActionBarActivity implements WorkWeekFragment.PassDayFromWeekListener, WorkDayListFragment.PassDayToWeekListener
+public class MainActivity extends AppCompatActivity implements WorkWeekFragment.PassDayFromWeekListener, WorkDayListFragment.PassDayToWeekListener
 {
     WorkWeekFragment mainMenuFragment;
 

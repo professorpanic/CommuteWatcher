@@ -1,32 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:theme="@style/Theme.Bacon"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true"
+    xmlns:android.support.design="http://schemas.android.com/tools">
     
     <ListView
     android:id="@id/android:list"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-     >
+    android:layout_height="wrap_content"
+    android:background="@color/ltgray"
 
+    >
 	</ListView>
 
-    <Button
-        android:id="@+id/addNewItemButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="@string/add_new_workday_button_text" />
 
-    <Button
-        android:id="@+id/saveDayButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/save"
-        android:layout_above="@+id/addNewItemButton"
-        android:layout_centerHorizontal="true" />
 
-</RelativeLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/addNewItemFAB"
+        android:elevation="@dimen/fab_elevation"
+        android:stateListAnimator="@anim/fab_state_list_anim"
+        android:background="@drawable/add_fab_background"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginBottom="@dimen/fab_margin"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        app:backgroundTint="@color/theme_accent"
+        android:src="@drawable/ic_add_24dp"
+        android:scaleType="center"
+        app:layout_anchorGravity="bottom|right|end" />
+
+</android.support.design.widget.CoordinatorLayout>

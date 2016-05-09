@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.sammoin.commutewatcher"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 21
     }
 
@@ -25,9 +25,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
     compile 'com.google.android.gms:play-services:8.4.0'
-    compile 'com.google.android.gms:play-services-ads:8.4.0'
-    compile 'com.google.android.gms:play-services-identity:8.4.0'
-    compile 'com.google.android.gms:play-services-gcm:8.4.0'
     compile 'joda-time:joda-time:2.9.3'
     compile 'com.github.provigen:ProviGen-lib:2.0.1'
 }
