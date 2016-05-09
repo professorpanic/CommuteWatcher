@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity implements WorkWeekFragment.
 		setContentView(R.layout.activity_main);
 
 
+
 		// checking to be sure that the fragment container has a fragment in it.
 		if (findViewById(R.id.container) != null)
 		{

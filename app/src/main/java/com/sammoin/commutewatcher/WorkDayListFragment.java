@@ -59,6 +59,7 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
     public static final int COL_ID= 5;
 
 
+
     private String[] mProjection =
             {
                     UserScheduleContract.USER_END_ADDRESS,
@@ -123,7 +124,7 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        setHasOptionsMenu(true);
+
         Bundle args = getArguments();
         mSelectionClause = UserScheduleContract.USER_WORKDAY +"= "+ args.getInt(WorkDayListFragment.USER_DAY_POSITION);
 
@@ -390,7 +391,8 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
         @Override
         public View newView(Context arg0, Cursor arg1, ViewGroup arg2) {
             Log.d("TAG","CursorAdapter newView");
-            View customListView=mInflator.inflate(R.layout.list_item_workday,null);
+            final View customListView=mInflator.inflate(R.layout.list_item_workday,null);
+
             return customListView;
         }
 
