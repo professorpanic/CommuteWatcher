@@ -1,12 +1,14 @@
 package com.sammoin.commutewatcher;
 
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -22,8 +24,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -57,6 +59,7 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
     public static final int COL_START_TIME = 3;
     public static final int COL_WORKDAY_NUM = 4;
     public static final int COL_ID= 5;
+    FloatingActionButton mFAB;
 
 
 
@@ -136,7 +139,14 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.workday_list_layout, container, false);
+        mFAB= (FloatingActionButton)view.findViewById(R.id.addNewItemFAB);
 
+        mFAB.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        addNewCommute();
+                                    }
+                                });
 
 
         Bundle args = getArguments();
@@ -154,10 +164,11 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
 
 
     }
-
-    @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
-
+//
+//    @Override
+//    public void onListItemClick(ListView l, View v, int position, long id) {
+//
+//
 //        UserDayItem u = ((UserDayAdapter) (getListAdapter())).getItem(position);
 //        Log.i(TAG, " " + u.toString() + position + "start " + u.getWorkAddress() + " end " + u.getHomeAddress());
 //
@@ -168,51 +179,69 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
 //        extras.putInt(TimeAndTravelFragment.WORKDAY_POSITION, position);
 //        i.putExtra(LIST_BUNDLE, extras);
 //        startActivityForResult(i, REQUEST_POSITION);
-
-    }
-
-    //quick inner class for holding info in a row in a listadapter
-//    private class RowViewHolder {
-//        private TextView dayTextView;
-//        private TextView timeTextView;
-//        private CheckBox checkBox;
 //
-//        public RowViewHolder() {
-//
-//        }
-//
-//        public RowViewHolder(TextView dayText, TextView timeText, CheckBox checkBox) {
-//            this.dayTextView = dayText;
-//            this.timeTextView = timeText;
-//            this.checkBox = checkBox;
-//        }
-//
-//        public TextView getDayTextView() {
-//            return dayTextView;
-//        }
-//
-//        public void setDayTextView(TextView dayTextView) {
-//            this.dayTextView = dayTextView;
-//        }
-//
-//        public TextView getTimeTextView() {
-//            return timeTextView;
-//        }
-//
-//        public void setTimeTextView(TextView timeTextView) {
-//            this.timeTextView = timeTextView;
-//        }
-//
-//        public CheckBox getCheckBox() {
-//            return checkBox;
-//        }
-//
-//        public void setCheckBox(CheckBox checkBox) {
-//            this.checkBox = checkBox;
-//        }
 //
 //
 //    }
+
+    //quick inner class for holding info in a row in the cursoradapter
+    private class RowViewHolder {
+        private TextView startPointTextView;
+        private TextView endPointTextView;
+        private CheckBox activeCheckBox;
+        private TextView startTimeTextView;
+
+        public RowViewHolder(View view) {
+
+            startPointTextView = (TextView) view.findViewById(R.id.commute_start_point_textview);
+            endPointTextView = (TextView) view.findViewById(R.id.commute_end_point_textview);
+            activeCheckBox = (CheckBox) view.findViewById(R.id.commute_item_activeCheckBox);
+            startTimeTextView = (TextView) view.findViewById(R.id.commute_start_time_textview);
+
+
+        }
+
+        public RowViewHolder(TextView startpoint,TextView starttime, TextView endpoint, CheckBox checkBox) {
+            this.startPointTextView = startpoint;
+            this.startTimeTextView = starttime;
+            this.endPointTextView = endpoint;
+            this.activeCheckBox = checkBox;
+        }
+
+        public TextView getStartPointTextView() {
+            return startPointTextView;
+        }
+
+        public void setStartPointTextView(TextView spTextView) {
+            this.startPointTextView = spTextView;
+        }
+
+        public TextView getTimeTextView() {
+            return startTimeTextView;
+        }
+
+        public TextView getEndPointTextView() {
+            return endPointTextView;
+        }
+
+        public void setEndPointTextView(TextView endTextView) {
+            this.startPointTextView = endTextView;
+        }
+
+        public void setTimeTextView(TextView timeTextView) {
+            this.startTimeTextView = timeTextView;
+        }
+
+        public CheckBox getCheckBox() {
+            return activeCheckBox;
+        }
+
+        public void setCheckBox(CheckBox checkBox) {
+            this.activeCheckBox = checkBox;
+        }
+
+
+    }
 
 
 
@@ -221,9 +250,19 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == getActivity().RESULT_OK) {
             if (requestCode == WorkDayListFragment.REQUEST_POSITION) {
-                mWorkday.getDayItemArrayList().set(data.getIntExtra(TimeAndTravelFragment.WORKDAY_POSITION, 0), (UserDayItem) data.getSerializableExtra(TimeAndTravelFragment.DAY_LIST_ITEM));
+                //mWorkday.getDayItemArrayList().set(data.getIntExtra(TimeAndTravelFragment.WORKDAY_POSITION, 0), (UserDayItem) data.getSerializableExtra(TimeAndTravelFragment.DAY_LIST_ITEM));
             } else if (requestCode == WorkDayListFragment.REQUEST_NEW_COMMUTE) {
-                mWorkday.addItemToDay((UserDayItem) data.getSerializableExtra(TimeAndTravelFragment.DAY_LIST_ITEM));
+                //mWorkday.addItemToDay((UserDayItem) data.getSerializableExtra(TimeAndTravelFragment.DAY_LIST_ITEM));
+            UserDayItem udi = ((UserDayItem) data.getSerializableExtra(TimeAndTravelFragment.DAY_LIST_ITEM));
+                        ContentValues values = new ContentValues();
+
+        values.put(UserScheduleContract.USER_START_ADDRESS, udi.getHomeAddress());
+        values.put(UserScheduleContract.USER_END_ADDRESS, udi.getWorkAddress());
+        values.put(UserScheduleContract.USER_WORKDAY, getArguments().getInt(WorkDayListFragment.USER_DAY_POSITION));
+        values.put(UserScheduleContract.USER_START_TIME, udi.getStartCommuteTime().getTimeInMillis());
+        values.put(UserScheduleContract.USER_ITEM_ACTIVE, 1);
+
+                getActivity().getContentResolver().insert(UserScheduleContract.CONTENT_URI, values);
             }
 
         }
@@ -330,9 +369,8 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
     public void addNewCommute() {
         Intent i = new Intent(getActivity(), TimeAndTravelActivity.class);
         Bundle bundle = new Bundle();
-        UserDayItem u = new UserDayItem();
-        u.setWorkDay(mWorkday.getDayOfTheWeek());
-        bundle.putSerializable(TimeAndTravelFragment.DAY_LIST_ITEM, u);
+
+        bundle.putInt(TimeAndTravelFragment.DAY_LIST_ITEM, getArguments().getInt(WorkDayListFragment.USER_DAY_POSITION));
         i.putExtra(LIST_BUNDLE, bundle);
         startActivityForResult(i, REQUEST_NEW_COMMUTE);
     }
@@ -351,52 +389,92 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
         }
 
         @Override
-        public void bindView(View arg0, Context arg1, Cursor cursor) {
+        public void bindView(View view, Context context, Cursor cursor) {
             String endAddress= null;
             String startAddress=null;
-            boolean isActive=false;
+            final boolean isActive=cursor.getInt(cursor.getColumnIndex(UserScheduleContract.USER_ITEM_ACTIVE))==1;
             long startTime=0;
-            Log.d("TAG","DayListBuilder BindView");
-            if(null!=cursor){
-                Log.d("TAG","DayListBuilder cursor not nuill");
-                endAddress=cursor.getString(cursor.getColumnIndex(UserScheduleContract.USER_END_ADDRESS));
-                startAddress=cursor.getString(cursor.getColumnIndex(UserScheduleContract.USER_START_ADDRESS));
-                startTime=cursor.getLong(cursor.getColumnIndex(UserScheduleContract.USER_START_TIME));
-                if (cursor.getInt(cursor.getColumnIndex(UserScheduleContract.USER_ITEM_ACTIVE))==1)
-                {
-                    isActive=true;
-                }
-            }
-
-            startPointTextView = (TextView) arg0.findViewById(R.id.commute_start_point_textview);
-            startPointTextView.setText(startAddress);
-            endPointTextView= (TextView) arg0.findViewById(R.id.commute_end_point_textview);
-            endPointTextView.setText(endAddress);
-            activeCheckBox= (CheckBox) arg0.findViewById(R.id.commute_item_activeCheckBox);
-            activeCheckBox.setChecked(isActive);
-
-
+            RowViewHolder viewHolder = (RowViewHolder) view.getTag();
             SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa ZZZZ",
                     Locale.getDefault());
 
+            Log.d("TAG","DayListBuilder BindView");
+
+                Log.d("TAG", "DayListBuilder cursor not nuill");
+            viewHolder.endPointTextView.setText(cursor.getString(cursor.getColumnIndex(UserScheduleContract.USER_END_ADDRESS)));
+            viewHolder.startPointTextView.setText(cursor.getString(cursor.getColumnIndex(UserScheduleContract.USER_START_ADDRESS)));
+            startTime=cursor.getLong(cursor.getColumnIndex(UserScheduleContract.USER_START_TIME));
+            viewHolder.startTimeTextView.setText(sdf.format(startTime));
+
+            viewHolder.activeCheckBox.setChecked(isActive);
+//                startAddress=cursor.getString(cursor.getColumnIndex(UserScheduleContract.USER_START_ADDRESS));
+//            viewHolder.startTimeTextView.setText(cursor.getString(cursor.getColumnIndex(UserScheduleContract.USER_START_TIME)));
 
 
-            startTimeTextView = (TextView) arg0.findViewById(R.id.commute_start_time_textview);
-            startTimeTextView.setText(sdf.format(startTime));
-            Log.d("TAG", ""+startTime);
+
+            final int rowId=cursor.getInt(cursor.getColumnIndex(UserScheduleContract._ID));
+
+            viewHolder.activeCheckBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    ContentValues contentValues = new ContentValues();
+                    if (isActive) {
+                        contentValues.put(UserScheduleContract.USER_ITEM_ACTIVE, 0);
+
+                    } else {
+                        contentValues.put(UserScheduleContract.USER_ITEM_ACTIVE, 1);
+
+                    }
+                    getActivity().getContentResolver().update(
+                            UserScheduleContract.CONTENT_URI,   // The content URI of the words table
+                            contentValues,                        // The columns to return for each row
+                            UserScheduleContract._ID + "=" + rowId,                    // Selection criteria
+                            null);
+
+                    //rowId = data.getInt(data.getColumnIndex(UserScheduleContract._ID));
+                    //Toast.makeText(getActivity(), ""+rowId, Toast.LENGTH_LONG).show();
+
+                }
+            });
+
+            Log.d("TAG", "" + startTime);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getActivity(), "My rowId is " + rowId, Toast.LENGTH_SHORT).show();
+                    //        UserDayItem u = ((UserDayAdapter) (getListAdapter())).getItem(position);
+
+//        Intent i = new Intent(getActivity(), TimeAndTravelActivity.class);
+//        Bundle extras = new Bundle();
+//        extras.putSerializable(TimeAndTravelFragment.DAY_LIST_ITEM, u);
+//        extras.putInt(TimeAndTravelFragment.WORKDAY_POSITION, position);
+//        i.putExtra(LIST_BUNDLE, extras);
+//        startActivityForResult(i, REQUEST_POSITION);
+
+                }
+            });
             //startTimeTextView.setText(startTime);
 
         }
 
         @Override
-        public View newView(Context arg0, Cursor arg1, ViewGroup arg2) {
-            Log.d("TAG","CursorAdapter newView");
-            final View customListView=mInflator.inflate(R.layout.list_item_workday,null);
+        public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
+            Log.d("TAG", "CursorAdapter newView");
+            View customListView=LayoutInflater.from(context).inflate(R.layout.list_item_workday, viewGroup, false);;
+
+
+
+            RowViewHolder viewHolder = new RowViewHolder(customListView);
+            customListView.setTag(viewHolder);
+
 
             return customListView;
         }
 
     }
+
+
 }
 
 

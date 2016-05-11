@@ -23,6 +23,7 @@ public class TimeAndTravelFragment extends Fragment
 	private TextView displayWorkCommute;
 	private TextView displayHomeCommute;
 	private Button saveCommuteInfoButton;
+    private Button cancelButton;
 	private EditText editWorkAddressText;
 	private EditText editHomeAddressText;
 	static final String USER_INFO_FILE = "user_info.txt";
@@ -47,13 +48,14 @@ public class TimeAndTravelFragment extends Fragment
 		Bundle extras;
 		extras = getActivity().getIntent().getBundleExtra(WorkDayListFragment.LIST_BUNDLE);
 
-		userDayItem = (UserDayItem) extras.get(DAY_LIST_ITEM);
+		userDayItem = new UserDayItem();
 		if (extras.containsKey(WORKDAY_POSITION))
 		{
 			
 		selectedDay = extras.getInt(WORKDAY_POSITION);
 		Log.i("TIMEANDTRAVEL", "selectedDay " + selectedDay + " start address " + userDayItem.getHomeAddress() + " end address " + userDayItem.getWorkAddress());
 		}
+		userDayItem.setWorkDay(selectedDay);
 
 	}	
 
@@ -97,43 +99,29 @@ public class TimeAndTravelFragment extends Fragment
 		
 		workCommuteTimeButton = (Button) v
 				.findViewById(R.id.enterWorkDateTimeButton);
-		workCommuteTimeButton.setOnClickListener(new View.OnClickListener()
-		{
+		workCommuteTimeButton.setOnClickListener(new View.OnClickListener() {
 
-			@Override
-			public void onClick(View v)
-			{
+            @Override
+            public void onClick(View v) {
 
-				FragmentManager fm = getActivity().getSupportFragmentManager();
-				WorkCommuteDayAndTimeFragment dialog = WorkCommuteDayAndTimeFragment
-						.newInstance(userDayItem);
-				dialog.setTargetFragment(TimeAndTravelFragment.this,
-						REQUEST_WORK_COMMUTE);
-				dialog.show(fm, DIALOG_WORK_COMMUTE);
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                WorkCommuteDayAndTimeFragment dialog = WorkCommuteDayAndTimeFragment
+                        .newInstance(userDayItem);
+                dialog.setTargetFragment(TimeAndTravelFragment.this,
+                        REQUEST_WORK_COMMUTE);
+                dialog.show(fm, DIALOG_WORK_COMMUTE);
 
-			}
-		});
+            }
+        });
 		
-		/*
-		homeCommuteTimeButton = (Button) v
-				.findViewById(R.id.enterHomeTimeButton);
-		homeCommuteTimeButton.setOnClickListener(new View.OnClickListener()
-		{
+		cancelButton = (Button) v.findViewById(R.id.cancelButton);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
 
-			@Override
-			public void onClick(View v)
-			{
-
-				FragmentManager fm = getActivity().getSupportFragmentManager();
-				HomeCommuteDayAndTimeFragment dialog = HomeCommuteDayAndTimeFragment
-						.newInstance(userDayItem);
-				dialog.setTargetFragment(TimeAndTravelFragment.this,
-						REQUEST_HOME_COMMUTE);
-				dialog.show(fm, DIALOG_HOME_COMMUTE);
-
-			}
-		});
-		*/
 		saveCommuteInfoButton = (Button) v
 				.findViewById(R.id.saveCommuteInfoButton);
 		saveCommuteInfoButton.setOnClickListener(new View.OnClickListener()
@@ -215,68 +203,6 @@ public class TimeAndTravelFragment extends Fragment
 
 	}
 
-	/*
-	public boolean loadSavedInfo(String filename)
-			throws StreamCorruptedException, IOException,
-			ClassNotFoundException
-	{
-
-		savedUserInfo = new UserDayItem();
-		ObjectInputStream file;
-
-		try
-		{
-			file = new ObjectInputStream(new FileInputStream(new File(new File(
-					getActivity().getApplicationContext().getFilesDir(), "")
-					+ File.separator + USER_INFO_FILE)));
-			savedUserInfo.copyUserData((UserDayItem) file.readObject());
-
-			file.close();
-			return true;
-		} 
-		catch (FileNotFoundException e)
-		{
-
-			e.printStackTrace();
-		}
-
-		return false;
-
-	}
-
-	public void saveInfo(UserDayItem user) throws IOException
-	{
-
-		ObjectOutput output = null;
-
-		if (savedUserInfo == null)
-		{
-			savedUserInfo = new UserDayItem();
-		}
-		savedUserInfo.copyUserData(user);
-
-		CommuteCheckAlarmService.setServiceAlarm(getActivity(),
-				CommuteCheckAlarmService.isServiceAlarmOn(getActivity()),
-				savedUserInfo);
-
-		try
-		{
-			output = new ObjectOutputStream(new FileOutputStream(new File(
-					getActivity().getApplicationContext().getFilesDir(), "")
-					+ File.separator + USER_INFO_FILE));
-			output.writeObject(savedUserInfo);
-			output.close();
-		} 
-		catch (FileNotFoundException e)
-		{
-			e.printStackTrace();
-		} 
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-	}
-	*/
 	
 
 }

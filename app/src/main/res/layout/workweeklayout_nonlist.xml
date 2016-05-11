@@ -4,26 +4,31 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:drawable/dialog_holo_light_frame">
+    android:background="@drawable/border_solid"
+    >
 
 <LinearLayout
     android:orientation="vertical"
+
     android:layout_gravity="center"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingEnd="2dp"
-    android:paddingRight="2dp">
+    android:paddingStart="2dp">
 
 
     <LinearLayout
         android:id="@+id/su_layout"
+        android:background="@drawable/border_stroke"
+        android:backgroundTint="@android:color/white"
         android:clickable="true"
         android:layout_width="match_parent"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
         android:elevation="4dp"
         android:orientation="vertical"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
     <TextView
 
         android:id="@+id/su_day_of_week"
@@ -72,6 +77,8 @@
         android:id="@+id/mo_layout"
         android:clickable="true"
         android:layout_width="match_parent"
+        android:background="@drawable/border_stroke"
+        android:backgroundTint="@android:color/white"
         android:elevation="4dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
@@ -127,6 +134,8 @@
         android:layout_width="match_parent"
         android:elevation="4dp"
         android:paddingTop="4dp"
+        android:background="@drawable/border_stroke"
+        android:backgroundTint="@android:color/white"
         android:paddingBottom="4dp"
         android:orientation="vertical"
         android:layout_height="wrap_content">
@@ -180,6 +189,8 @@
         android:layout_width="match_parent"
         android:elevation="4dp"
         android:paddingTop="4dp"
+        android:background="@drawable/border_stroke"
+        android:backgroundTint="@android:color/white"
         android:paddingBottom="4dp"
         android:orientation="vertical"
         android:layout_height="wrap_content">
@@ -235,6 +246,8 @@
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
         android:orientation="vertical"
+        android:background="@drawable/border_stroke"
+        android:backgroundTint="@android:color/white"
         android:layout_height="wrap_content">
         <TextView
 
@@ -288,6 +301,8 @@
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
         android:orientation="vertical"
+        android:background="@drawable/border_stroke"
+        android:backgroundTint="@android:color/white"
         android:layout_height="wrap_content">
         <TextView
 
@@ -341,6 +356,8 @@
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
         android:orientation="vertical"
+        android:background="@drawable/border_stroke"
+        android:backgroundTint="@android:color/white"
         android:layout_height="wrap_content">
         <TextView
 

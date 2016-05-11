@@ -2,6 +2,8 @@ package com.sammoin.commutewatcher;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 
 public class MainActivity extends AppCompatActivity implements WorkWeekFragment.PassDayFromWeekListener, WorkDayListFragment.PassDayToWeekListener
 {
@@ -12,7 +14,9 @@ public class MainActivity extends AppCompatActivity implements WorkWeekFragment.
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+        Transition mSlideTransition =
+                TransitionInflater.from(this).
+                        inflateTransition(android.R.transition.slide_right);
 
 
 		// checking to be sure that the fragment container has a fragment in it.
@@ -33,12 +37,13 @@ public class MainActivity extends AppCompatActivity implements WorkWeekFragment.
 			//userInfoEntryFragment.setArguments(getIntent().getExtras());
 			
 			 mainMenuFragment = new WorkWeekFragment();
-			
+
 			
 			// get a supportfragmentmanager reference and attach the fragment,
-			// when the activity is created.
+            // when the activity is created.
 			getSupportFragmentManager().beginTransaction()
-				.add(R.id.container, mainMenuFragment).commit();	
+                    .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in,android.R.anim.fade_out)
+                    .add(R.id.container, mainMenuFragment).commit();
 				//.add(R.id.container, userInfoEntryFragment).commit();
 		}
 
@@ -52,7 +57,8 @@ public class MainActivity extends AppCompatActivity implements WorkWeekFragment.
 			args.putAll(bundle);
 			workDayListFragment.setArguments(args);
 			getSupportFragmentManager().beginTransaction()
-					.replace(R.id.container, workDayListFragment )
+                    .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in,android.R.anim.fade_out)
+                    .replace(R.id.container, workDayListFragment)
 					.addToBackStack(null)
 					.commit();
 
@@ -81,5 +87,12 @@ public class MainActivity extends AppCompatActivity implements WorkWeekFragment.
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+    }
 
 }
+
+

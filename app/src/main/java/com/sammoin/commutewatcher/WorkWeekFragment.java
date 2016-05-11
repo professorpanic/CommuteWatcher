@@ -20,15 +20,7 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
-import java.io.StreamCorruptedException;
 
 //import android.support.v7.internal.widget.AdapterViewCompat.AdapterContextMenuInfo;
 
@@ -94,9 +86,9 @@ TextView saturdayTextView;
 
         UserDayItem udi = new UserDayItem();
 
-
-
-
+//
+//
+//
 //        ContentValues values = new ContentValues();
 //
 //        values.put(UserScheduleContract.USER_START_ADDRESS, "start test");
@@ -129,7 +121,7 @@ TextView saturdayTextView;
 //        values.put(UserScheduleContract.USER_START_ADDRESS, "start test");
 //        values.put(UserScheduleContract.USER_END_ADDRESS, "end test");
 //        values.put(UserScheduleContract.USER_WORKDAY, 5);
-//        values.put(UserScheduleContract.USER_START_TIME, udi.getStartCommuteTime().getTimeInMillis());
+//        values.put(UserScheduleContract.USER_START_TIME, 1495924590);
 //        values.put(UserScheduleContract.USER_ITEM_ACTIVE, 1);
 //        mNewUri = getActivity().getContentResolver().insert(
 //                UserScheduleContract.CONTENT_URI,
@@ -138,7 +130,7 @@ TextView saturdayTextView;
 //        values.put(UserScheduleContract.USER_START_ADDRESS, "start test");
 //        values.put(UserScheduleContract.USER_END_ADDRESS, "end test");
 //        values.put(UserScheduleContract.USER_WORKDAY, 1);
-//        values.put(UserScheduleContract.USER_START_TIME, udi.getStartCommuteTime().getTimeInMillis());
+//        values.put(UserScheduleContract.USER_START_TIME, 1495924590);
 //        values.put(UserScheduleContract.USER_ITEM_ACTIVE, 1);
 //
 //
@@ -147,25 +139,25 @@ TextView saturdayTextView;
 //                values);
         //getActivity().getContentResolver().insert(UserScheduleContract.CONTENT_URI, values);
 
-        Cursor testCursor = getActivity().getContentResolver().query(UserScheduleContract.CONTENT_URI, null, null, null, null);
-        testCursor.moveToFirst();
-        Log.e("WORKWEEKCURSORTEST", "index 0 " + testCursor.getString(0));
-        Log.e("WORKWEEKCURSORTEST", "index 1 " + testCursor.getString(1));
-        Log.e("WORKWEEKCURSORTEST", "index 2 " + testCursor.getString(2));
-        Log.e("WORKWEEKCURSORTEST", "index 3 " + testCursor.getString(3));
-        Log.e("WORKWEEKCURSORTEST", "index 4 " + testCursor.getString(4));
-        Log.e("WORKWEEKCURSORTEST", "index 5 " + testCursor.getString(5));
-        Log.e("WORKWEEKCURSORTEST", "column names " + testCursor.getColumnNames().toString());
-        Log.e("WORKWEEKCURSORTEST", "index 5 " + testCursor.toString());
-        testCursor.close();
-		//setListAdapter(adapter);
-        try {
-            loadSavedInfo(USER_INFO_FILE);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+//        Cursor testCursor = getActivity().getContentResolver().query(UserScheduleContract.CONTENT_URI, null, null, null, null);
+//        testCursor.moveToFirst();
+//        Log.e("WORKWEEKCURSORTEST", "index 0 " + testCursor.getString(0));
+//        Log.e("WORKWEEKCURSORTEST", "index 1 " + testCursor.getString(1));
+//        Log.e("WORKWEEKCURSORTEST", "index 2 " + testCursor.getString(2));
+//        Log.e("WORKWEEKCURSORTEST", "index 3 " + testCursor.getString(3));
+//        Log.e("WORKWEEKCURSORTEST", "index 4 " + testCursor.getString(4));
+//        Log.e("WORKWEEKCURSORTEST", "index 5 " + testCursor.getString(5));
+//        Log.e("WORKWEEKCURSORTEST", "column names " + testCursor.getColumnNames().toString());
+//        Log.e("WORKWEEKCURSORTEST", "index 5 " + testCursor.toString());
+//        testCursor.close();
+//		//setListAdapter(adapter);
+//        try {
+//            loadSavedInfo(USER_INFO_FILE);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
     }
 
 
@@ -281,68 +273,68 @@ TextView saturdayTextView;
 		
 	}
 
-	public boolean loadSavedInfo(String filename)
-			throws StreamCorruptedException, IOException,
-			ClassNotFoundException
-	{
-
-		savedUserInfo = new UserWeek();
-		ObjectInputStream file;
-
-		try
-		{
-			file = new ObjectInputStream(new FileInputStream(new File(new File(
-					getActivity().getApplicationContext().getFilesDir(), "")
-					+ File.separator + filename)));
-
-
-			savedUserInfo =(UserWeek) file.readObject();
-			mWorkWeek.copy(savedUserInfo);
-			file.close();
-			return true;
-		}
-		catch (FileNotFoundException e)
-		{
-
-			e.printStackTrace();
-		}
-
-		return false;
-
-	}
-
-	public void saveInfo() throws IOException
-	{
-
-		ObjectOutput output = null;
-
-		if (savedUserInfo == null)
-		{
-			savedUserInfo = new UserWeek();
-		}
-		savedUserInfo.copy(mWorkWeek);
-
-		CommuteCheckAlarmService.setServiceAlarm(getActivity(),
-                CommuteCheckAlarmService.isServiceAlarmOn(getActivity()),
-				savedUserInfo);
-
-		try
-		{
-			output = new ObjectOutputStream(new FileOutputStream(new File(
-					getActivity().getApplicationContext().getFilesDir(), "")
-					+ File.separator + USER_INFO_FILE));
-			output.writeObject(savedUserInfo);
-			output.close();
-		}
-		catch (FileNotFoundException e)
-		{
-			e.printStackTrace();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-	}
+//	public boolean loadSavedInfo(String filename)
+//			throws StreamCorruptedException, IOException,
+//			ClassNotFoundException
+//	{
+//
+//		savedUserInfo = new UserWeek();
+//		ObjectInputStream file;
+//
+//		try
+//		{
+//			file = new ObjectInputStream(new FileInputStream(new File(new File(
+//					getActivity().getApplicationContext().getFilesDir(), "")
+//					+ File.separator + filename)));
+//
+//
+//			savedUserInfo =(UserWeek) file.readObject();
+//			mWorkWeek.copy(savedUserInfo);
+//			file.close();
+//			return true;
+//		}
+//		catch (FileNotFoundException e)
+//		{
+//
+//			e.printStackTrace();
+//		}
+//
+//		return false;
+//
+//	}
+//
+//	public void saveInfo() throws IOException
+//	{
+//
+//		ObjectOutput output = null;
+//
+//		if (savedUserInfo == null)
+//		{
+//			savedUserInfo = new UserWeek();
+//		}
+//		savedUserInfo.copy(mWorkWeek);
+//
+//		CommuteCheckAlarmService.setServiceAlarm(getActivity(),
+//                CommuteCheckAlarmService.isServiceAlarmOn(getActivity()),
+//				savedUserInfo);
+//
+//		try
+//		{
+//			output = new ObjectOutputStream(new FileOutputStream(new File(
+//					getActivity().getApplicationContext().getFilesDir(), "")
+//					+ File.separator + USER_INFO_FILE));
+//			output.writeObject(savedUserInfo);
+//			output.close();
+//		}
+//		catch (FileNotFoundException e)
+//		{
+//			e.printStackTrace();
+//		}
+//		catch (IOException e)
+//		{
+//			e.printStackTrace();
+//		}
+//	}
 
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
 	{
@@ -401,13 +393,7 @@ TextView saturdayTextView;
 			return true;
 		
 		case R.id.action_save_all:
-			Log.i("WORKWEEKLISTFRAGMENT", "save all");
 
-			try {
-				saveInfo();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 			return true;
 		
 		case R.id.action_delete_all:

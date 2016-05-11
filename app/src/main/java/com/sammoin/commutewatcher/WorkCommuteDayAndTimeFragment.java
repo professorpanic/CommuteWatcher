@@ -50,7 +50,9 @@ public class WorkCommuteDayAndTimeFragment extends DialogFragment
 
 		userDayItem = (UserDayItem) getArguments().getSerializable(EXTRA_USER_DATA);
 		//userDayItem= (UserDayItem) getActivity().getIntent().getSerializableExtra(TimeAndTravelFragment.DAY_LIST_ITEM);
-		scheduledDay = userDayItem.getWorkDay();
+		if (userDayItem != null) {
+			scheduledDay = userDayItem.getWorkDay();
+		}
 
 		View v = getActivity().getLayoutInflater().inflate(
 				R.layout.dialog_home_time_days, null);

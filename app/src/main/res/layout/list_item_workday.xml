@@ -4,6 +4,7 @@
     android:fitsSystemWindows="true"
     android:theme="@style/Theme.Bacon"
     android:clickable="true"
+    android:background="@drawable/custom_ripple"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

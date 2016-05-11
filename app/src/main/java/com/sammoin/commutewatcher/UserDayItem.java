@@ -48,6 +48,31 @@ public class UserDayItem implements Serializable
 		this.workDay = workDay;
 	}
 
+    public void setWorkDay(int workDayInt)
+    {
+
+        switch (workDayInt) {
+            case 1:  this.workDay = Day.SUNDAY;
+                break;
+            case 2:  this.workDay = Day.MONDAY;
+                break;
+            case 3:  this.workDay = Day.TUESDAY;
+                break;
+            case 4:  this.workDay = Day.WEDNESDAY;
+                break;
+            case 5:  this.workDay = Day.THURSDAY;
+                break;
+            case 6:  this.workDay = Day.FRIDAY;
+                break;
+            case 7:  this.workDay = Day.SATURDAY;
+                break;
+
+            default: this.workDay = Day.SUNDAY;
+                break;
+        }
+
+    }
+
 
 
 
