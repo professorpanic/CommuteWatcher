@@ -28,7 +28,8 @@
         android:elevation="4dp"
         android:orientation="vertical"
         android:layout_height="wrap_content"
-        >
+        android:layout_marginBottom="@dimen/list_item_margin"
+        android:layout_marginTop="@dimen/list_item_margin">
     <TextView
 
         android:id="@+id/su_day_of_week"
@@ -83,6 +84,7 @@
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
         android:orientation="vertical"
+        android:layout_marginBottom="@dimen/list_item_margin"
         android:layout_height="wrap_content">
         <TextView
 
@@ -138,6 +140,7 @@
         android:backgroundTint="@android:color/white"
         android:paddingBottom="4dp"
         android:orientation="vertical"
+        android:layout_marginBottom="@dimen/list_item_margin"
         android:layout_height="wrap_content">
         <TextView
 
@@ -193,6 +196,7 @@
         android:backgroundTint="@android:color/white"
         android:paddingBottom="4dp"
         android:orientation="vertical"
+        android:layout_marginBottom="@dimen/list_item_margin"
         android:layout_height="wrap_content">
         <TextView
 
@@ -246,6 +250,7 @@
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
         android:orientation="vertical"
+        android:layout_marginBottom="@dimen/list_item_margin"
         android:background="@drawable/border_stroke"
         android:backgroundTint="@android:color/white"
         android:layout_height="wrap_content">
@@ -301,6 +306,7 @@
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
         android:orientation="vertical"
+        android:layout_marginBottom="@dimen/list_item_margin"
         android:background="@drawable/border_stroke"
         android:backgroundTint="@android:color/white"
         android:layout_height="wrap_content">
@@ -356,6 +362,7 @@
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
         android:orientation="vertical"
+        android:layout_marginBottom="@dimen/list_item_margin"
         android:background="@drawable/border_stroke"
         android:backgroundTint="@android:color/white"
         android:layout_height="wrap_content">
