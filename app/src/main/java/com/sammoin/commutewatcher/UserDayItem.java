@@ -120,6 +120,8 @@ public class UserDayItem implements Serializable
 		driveToHomeTime = in;
 	}
 
+
+
 	public String getHomeAddress()
 	{
 		return startAddress;

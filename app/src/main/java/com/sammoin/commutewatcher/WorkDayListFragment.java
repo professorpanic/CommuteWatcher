@@ -46,7 +46,8 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
     private static final int DAY_LOADER = 0;
     private UserWeek savedUserInfo;
     PassDayToWeekListener mCallback;
-    private String mSelectionClause;
+    private String mRowSelectionClause;
+
     private TextView startPointTextView;
     private TextView endPointTextView;
     private CheckBox activeCheckBox;
@@ -63,7 +64,7 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
 
 
 
-    private String[] mProjection =
+    private String[] mRowProjection =
             {
                     UserScheduleContract.USER_END_ADDRESS,
                     UserScheduleContract.USER_ITEM_ACTIVE,
@@ -94,15 +95,15 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         Uri CONTENT_URI = UserScheduleContract.CONTENT_URI;
-        return new CursorLoader(getContext(), CONTENT_URI, mProjection, null, null, UserScheduleContract.USER_START_TIME + " ASC");
+        return new CursorLoader(getContext(), CONTENT_URI, mRowProjection, null, null, UserScheduleContract.USER_START_TIME + " ASC");
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         data=getActivity().getContentResolver().query(
                 UserScheduleContract.CONTENT_URI,   // The content URI of the words table
-                mProjection,                        // The columns to return for each row
-                mSelectionClause,                    // Selection criteria
+                mRowProjection,                        // The columns to return for each row
+                mRowSelectionClause,                    // Selection criteria
                 null,                     // Selection criteria
                 UserScheduleContract.USER_START_TIME + " ASC");
         mDayListBuilder=new DayListBuilder(getContext(), data);
@@ -129,7 +130,7 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
         setRetainInstance(true);
 
         Bundle args = getArguments();
-        mSelectionClause = UserScheduleContract.USER_WORKDAY +"= "+ args.getInt(WorkDayListFragment.USER_DAY_POSITION);
+        mRowSelectionClause = UserScheduleContract.USER_WORKDAY +"= "+ args.getInt(WorkDayListFragment.USER_DAY_POSITION);
 
         setListAdapter(mCursorAdapter);
 
@@ -370,7 +371,7 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
         Intent i = new Intent(getActivity(), TimeAndTravelActivity.class);
         Bundle bundle = new Bundle();
 
-        bundle.putInt(TimeAndTravelFragment.DAY_LIST_ITEM, getArguments().getInt(WorkDayListFragment.USER_DAY_POSITION));
+        bundle.putInt(TimeAndTravelFragment.NEW_ITEM_PASSED_DAY, getArguments().getInt(WorkDayListFragment.USER_DAY_POSITION));
         i.putExtra(LIST_BUNDLE, bundle);
         startActivityForResult(i, REQUEST_NEW_COMMUTE);
     }
@@ -442,15 +443,31 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    String mClickSelectionClause=  UserScheduleContract._ID +"= "+ rowId;
                     Toast.makeText(getActivity(), "My rowId is " + rowId, Toast.LENGTH_SHORT).show();
-                    //        UserDayItem u = ((UserDayAdapter) (getListAdapter())).getItem(position);
+                            UserDayItem u = new UserDayItem();
 
-//        Intent i = new Intent(getActivity(), TimeAndTravelActivity.class);
-//        Bundle extras = new Bundle();
-//        extras.putSerializable(TimeAndTravelFragment.DAY_LIST_ITEM, u);
-//        extras.putInt(TimeAndTravelFragment.WORKDAY_POSITION, position);
-//        i.putExtra(LIST_BUNDLE, extras);
-//        startActivityForResult(i, REQUEST_POSITION);
+                    Cursor data=getActivity().getContentResolver().query(
+                            UserScheduleContract.CONTENT_URI,   // The content URI of the words table
+                            mRowProjection,                        // The columns to return for each row
+                            mClickSelectionClause,                    // Selection criteria
+                            null,                     // Selection criteria
+                            UserScheduleContract.USER_START_TIME + " ASC");
+                    data.moveToFirst();
+                    u.setWorkDay(data.getInt(data.getColumnIndex(UserScheduleContract.USER_WORKDAY)));
+                    u.setActive(isActive);
+                    u.setHomeAddress(data.getString(data.getColumnIndex(UserScheduleContract.USER_START_ADDRESS)));
+                    u.setWorkAddress(data.getString(data.getColumnIndex(UserScheduleContract.USER_END_ADDRESS)));
+                    u.getStartCommuteTime().setTimeInMillis((data.getLong(data.getColumnIndex(UserScheduleContract.USER_START_TIME))));
+                    data.close();
+
+
+                    Intent i = new Intent(getActivity(), TimeAndTravelActivity.class);
+                    Bundle extras = new Bundle();
+                    extras.putSerializable(TimeAndTravelFragment.DAY_LIST_ITEM, u);
+                    extras.putInt(TimeAndTravelFragment.WORKDAY_POSITION, rowId);
+                    i.putExtra(LIST_BUNDLE, extras);
+                    startActivityForResult(i, REQUEST_POSITION);
 
                 }
             });
