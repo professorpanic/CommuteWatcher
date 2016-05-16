@@ -2,21 +2,35 @@ package com.sammoin.commutewatcher;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.transition.Transition;
-import android.transition.TransitionInflater;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity implements WorkWeekFragment.PassDayFromWeekListener, WorkDayListFragment.PassDayToWeekListener
 {
     WorkWeekFragment mainMenuFragment;
+	private Toolbar mToolbar;
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        //No call for super(). Bug on API Level > 11.
+    }
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-        Transition mSlideTransition =
-                TransitionInflater.from(this).
-                        inflateTransition(android.R.transition.slide_right);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitle(R.string.app_name);
+        mToolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
+        mToolbar.setSubtitleTextColor(getResources().getColor(android.R.color.white));
+        if (getActionBar()!=null)
+        {
+            getActionBar().setDisplayShowTitleEnabled(false);
+        }
+        setSupportActionBar(mToolbar);
+
 
 
 		// checking to be sure that the fragment container has a fragment in it.
@@ -72,21 +86,27 @@ public class MainActivity extends AppCompatActivity implements WorkWeekFragment.
         mainMenuFragment.addDayToWeek(userDay);
         getSupportFragmentManager().popBackStack();
     }
-	/*
-	 * @Override public boolean onCreateOptionsMenu(Menu menu) { // Inflate the
-	 * menu; this adds items to the action bar if it is present.
-	 * getMenuInflater().inflate(R.menu.main_actions, menu); return true; }
-	 * 
-	 * @Override public boolean onOptionsItemSelected(MenuItem item) { // Handle
-	 * action bar item clicks here. The action bar will // automatically handle
-	 * clicks on the Home/Up button, so long // as you specify a parent activity
-	 * in AndroidManifest.xml. int id = item.getItemId(); if (id ==
-	 * R.id.action_settings) { return true; } return
-	 * super.onOptionsItemSelected(item); }
-	 */
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_actions, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
     @Override
     public void onBackPressed() {
         super.onBackPressed();

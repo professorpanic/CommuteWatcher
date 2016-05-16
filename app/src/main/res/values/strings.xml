@@ -25,7 +25,8 @@
     <string name="Thursday">Thursday</string>
     <string name="Friday">Friday</string>
     <string name="Saturday">Saturday</string>
-
+    <string name="preferences">Preferences</string>
+    <string name="set_preferences">Set Preferences</string>
     <string name="add_commute_short">Add Commute</string>
     <string name="action_alarms_toggle">Alarms On/Off</string>
 	<string name="action_turn_checker_on">Turn Alarm On</string>
@@ -38,4 +39,6 @@
     <string name="add_new_dayitem_button_text">Add New Commute and Time</string>
     <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">AIzaSyDqh6bZAibYs9YYScAM4-lHP_mjEcfjneE"</string>
     <string name="google_app_id">160627016003</string>
+    <string name="trips">Trips :</string>
+    <string name="trips_active"> active</string>
 </resources>

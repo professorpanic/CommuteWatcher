@@ -7,6 +7,7 @@
     android:background="@drawable/border_solid"
     >
 
+
 <LinearLayout
     android:orientation="vertical"
 
@@ -59,6 +60,7 @@
 
     <CheckBox
         android:id="@+id/su_workday_list_item_activeCheckBox"
+        android:theme="@style/CommuteCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:button="@null"
@@ -117,6 +119,7 @@
                 android:id="@+id/mo_workday_list_item_activeCheckBox"
                 android:button="@null"
                 android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+                android:theme="@style/CommuteCheckBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:focusable="false"
@@ -173,6 +176,7 @@
                 android:id="@+id/tu_workday_list_item_activeCheckBox"
                 android:button="@null"
                 android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+                android:theme="@style/CommuteCheckBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:focusable="false"
@@ -229,6 +233,7 @@
                 android:id="@+id/we_workday_list_item_activeCheckBox"
                 android:button="@null"
                 android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+                android:theme="@style/CommuteCheckBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:focusable="false"
@@ -285,6 +290,7 @@
                 android:id="@+id/th_workday_list_item_activeCheckBox"
                 android:button="@null"
                 android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+                android:theme="@style/CommuteCheckBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:focusable="false"
@@ -341,6 +347,7 @@
                 android:id="@+id/fr_workday_list_item_activeCheckBox"
                 android:button="@null"
                 android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+                android:theme="@style/CommuteCheckBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:focusable="false"
@@ -397,6 +404,7 @@
                 android:id="@+id/sa_workday_list_item_activeCheckBox"
                 android:button="@null"
                 android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+                android:theme="@style/CommuteCheckBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:focusable="false"

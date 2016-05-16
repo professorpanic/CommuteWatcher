@@ -38,8 +38,9 @@ public class TimeAndTravelFragment extends Fragment
 	public static final int REQUEST_WORK_COMMUTE = 0;
 	public static final int REQUEST_HOME_COMMUTE = 1;
 	public static final String DAY_LIST_ITEM = "com.sammoin.commutewatcher.user";
-    public static final String NEW_ITEM_PASSED_DAY="com.sammoin.commutewatcher.workday";
+    public static final String NEW_ITEM_PASSED_DAY="com.sammoin.commutewatcher.workday_item";
 	public static final String WORKDAY_POSITION = "com.sammoin.commutewatcher.position";
+	public static final String WORKDAY = "com.sammoin.commutewatcher.day";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -53,16 +54,16 @@ public class TimeAndTravelFragment extends Fragment
 		userDayItem = new UserDayItem();
 		if (extras.containsKey(WORKDAY_POSITION))
 		{
-			
-		//selectedDay = extras.getInt(WORKDAY_POSITION);
-		sqlRowId=extras.getInt(WORKDAY_POSITION);
+            sqlRowId=extras.getInt(WORKDAY_POSITION);
+		    //selectedDay = extras.getInt(WORKDAY_POSITION);
+
 		//Log.i("TIMEANDTRAVEL", "selectedDay " + selectedDay + " start address " + userDayItem.getHomeAddress() + " end address " + userDayItem.getWorkAddress());
 		}
         if (extras.containsKey(DAY_LIST_ITEM))
         {
             userDayItem.copyUserData((UserDayItem)extras.getSerializable(DAY_LIST_ITEM));
         }
-		//userDayItem.setWorkDay(selectedDay);
+		selectedDay = userDayItem.getWorkDay().get();
 
 	}	
 
@@ -139,13 +140,14 @@ public class TimeAndTravelFragment extends Fragment
 			{
 				userDayItem.setHomeAddress(editHomeAddressText.getText().toString());
 				userDayItem.setWorkAddress(editWorkAddressText.getText().toString());
+                //userDayItem.setWorkDay(selectedDay);
 				
 				
 				
 				Intent i = new Intent();
 				if (selectedDay > -1)
 				{
-				i.putExtra(WORKDAY_POSITION, selectedDay);
+				i.putExtra(WORKDAY_POSITION, sqlRowId);
 				}
 				i.putExtra(DAY_LIST_ITEM, userDayItem);
 				getActivity().setResult(getActivity().RESULT_OK, i);

@@ -16,4 +16,10 @@
 
     </style>
 
+    <style name="CommuteCheckBox" parent="Theme.Bacon">
+        <item name="colorControlNormal">@color/theme_primary_dark</item>   <!-- normal border color change as you wish -->
+        <item name="colorControlActivated">@color/theme_primary_dark</item> <!-- activated color change as you wish -->
+        <item name="android:textColor">@android:color/black</item> <!-- checkbox text color -->
+    </style>
+
 </resources>

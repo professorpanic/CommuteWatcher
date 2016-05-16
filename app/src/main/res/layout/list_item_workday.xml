@@ -6,7 +6,7 @@
     android:clickable="true"
     android:backgroundTint="@android:color/white"
     android:background="@drawable/custom_ripple"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:paddingBottom="10dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -33,6 +33,7 @@
         android:layout_height="wrap_content"
         android:button="@null"
         android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+        android:theme="@style/CommuteCheckBox"
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:text="@string/active"

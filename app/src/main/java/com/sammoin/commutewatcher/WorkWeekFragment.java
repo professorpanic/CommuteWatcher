@@ -1,22 +1,21 @@
 package com.sammoin.commutewatcher;
 
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.widget.Toolbar;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -26,24 +25,30 @@ import java.io.IOException;
 
 public class WorkWeekFragment extends Fragment
 {
-private UserWeek mWorkWeek;
-
-private Uri mNewUri;
-
-public static final int REQUEST_POSITION = 3;
-public static final int REQUEST_NEW_COMMUTE = 4;
-public static final String LIST_BUNDLE = "com.sammoin.commutewatcher.bundle";
-static final String USER_INFO_FILE = "CommuteWatcher_user_info.txt";
-private UserWeek savedUserInfo;
-PassDayFromWeekListener mCallback;
-private View view;
-TextView sundayTextView;
-TextView mondayTextView;
-TextView tuesdayTextView;
-TextView wednesdayTextView;
-TextView thursdayTextView;
-TextView fridayTextView;
-TextView saturdayTextView;
+    private UserWeek mWorkWeek;
+    private Uri mNewUri;
+    public static final int REQUEST_POSITION = 3;
+    public static final int REQUEST_NEW_COMMUTE = 4;
+    public static final String LIST_BUNDLE = "com.sammoin.commutewatcher.bundle";
+    static final String USER_INFO_FILE = "CommuteWatcher_user_info.txt";
+    private UserWeek savedUserInfo;
+    PassDayFromWeekListener mCallback;
+    private Toolbar mToolbar;
+    private View view;
+    TextView sundayTextView;
+    CheckBox sundayCheckbox;
+    TextView mondayTextView;
+    CheckBox mondayCheckbox;
+    TextView tuesdayTextView;
+    CheckBox tuesdayCheckbox;
+    TextView wednesdayTextView;
+    CheckBox wednesdayCheckbox;
+    TextView thursdayTextView;
+    CheckBox thursdayCheckbox;
+    TextView fridayTextView;
+    CheckBox fridayCheckbox;
+    TextView saturdayTextView;
+    CheckBox saturdayCheckbox;
 
 
 
@@ -68,7 +73,8 @@ TextView saturdayTextView;
 	{
 		super.onCreate(savedInstanceState);
 		setRetainInstance(true);
-		setHasOptionsMenu(true);
+
+		//setHasOptionsMenu(true);
 
         if (mWorkWeek != null) {
             mWorkWeek.setContext(getActivity().getApplicationContext());
@@ -158,6 +164,7 @@ TextView saturdayTextView;
 //        } catch (ClassNotFoundException e) {
 //            e.printStackTrace();
 //        }
+
     }
 
 
@@ -171,14 +178,22 @@ TextView saturdayTextView;
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.workweeklayout_nonlist, container, false);
 
-        registerForContextMenu(view);
+
+
         sundayTextView = (TextView) view.findViewById(R.id.su_trips_TextView);
+        sundayCheckbox = (CheckBox) view.findViewById(R.id.su_workday_list_item_activeCheckBox);
         mondayTextView = (TextView) view.findViewById(R.id.mo_trips_TextView);
+        mondayCheckbox = (CheckBox) view.findViewById(R.id.mo_workday_list_item_activeCheckBox);
         tuesdayTextView = (TextView) view.findViewById(R.id.tu_trips_TextView);
+        tuesdayCheckbox = (CheckBox) view.findViewById(R.id.tu_workday_list_item_activeCheckBox);
         wednesdayTextView = (TextView) view.findViewById(R.id.we_trips_TextView);
+        wednesdayCheckbox = (CheckBox) view.findViewById(R.id.we_workday_list_item_activeCheckBox);
         thursdayTextView = (TextView) view.findViewById(R.id.th_trips_TextView);
+        thursdayCheckbox = (CheckBox) view.findViewById(R.id.th_workday_list_item_activeCheckBox);
         fridayTextView = (TextView) view.findViewById(R.id.fr_trips_TextView);
+        fridayCheckbox = (CheckBox) view.findViewById(R.id.fr_workday_list_item_activeCheckBox);
         saturdayTextView = (TextView) view.findViewById(R.id.sa_trips_TextView);
+        saturdayCheckbox = (CheckBox) view.findViewById(R.id.sa_workday_list_item_activeCheckBox);
         updateDayView();
 
         Bundle extras = new Bundle();
@@ -195,12 +210,24 @@ TextView saturdayTextView;
             proceedToWorkDayList(1);
             }
         });
+        sundayCheckbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setDayActivity(1, sundayCheckbox.isChecked());
+            }
+        });
 
         LinearLayout mondayBar = (LinearLayout) view.findViewById(R.id.mo_layout);
         mondayBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 proceedToWorkDayList(2);
+            }
+        });
+        mondayCheckbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setDayActivity(2, mondayCheckbox.isChecked());
             }
         });
 
@@ -211,12 +238,24 @@ TextView saturdayTextView;
                 proceedToWorkDayList(3);
             }
         });
+        tuesdayCheckbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setDayActivity(3, tuesdayCheckbox.isChecked());
+            }
+        });
 
         LinearLayout wednesdayBar = (LinearLayout) view.findViewById(R.id.we_layout);
         wednesdayBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 proceedToWorkDayList(4);
+            }
+        });
+        wednesdayCheckbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setDayActivity(4, wednesdayCheckbox.isChecked());
             }
         });
 
@@ -227,6 +266,12 @@ TextView saturdayTextView;
                 proceedToWorkDayList(5);
             }
         });
+        thursdayCheckbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setDayActivity(5, thursdayCheckbox.isChecked());
+            }
+        });
 
         LinearLayout fridayBar = (LinearLayout) view.findViewById(R.id.fr_layout);
         fridayBar.setOnClickListener(new View.OnClickListener() {
@@ -235,12 +280,24 @@ TextView saturdayTextView;
                 proceedToWorkDayList(6);
             }
         });
+        fridayCheckbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setDayActivity(6, fridayCheckbox.isChecked());
+            }
+        });
 
         LinearLayout saturdayBar = (LinearLayout) view.findViewById(R.id.sa_layout);
         saturdayBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 proceedToWorkDayList(7);
+            }
+        });
+        saturdayCheckbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setDayActivity(7, saturdayCheckbox.isChecked());
             }
         });
 
@@ -373,7 +430,7 @@ TextView saturdayTextView;
 		switch (item.getItemId())
 		{
 
-		case R.id.action_settings:
+		case R.id.preferences:
 			return true;
 
 		case R.id.action_alarm_toggle:
@@ -389,63 +446,41 @@ TextView saturdayTextView;
 				e.printStackTrace();
 			}
 			Log.i("WORKWEEKLISTFRAGMENT", "alarm on has been clicked "+ turnAlarmOn + " and user object is " + savedUserInfo.toString());
-			honeyCombOptionsInvalidate();
-			return true;
-		
-		case R.id.action_save_all:
 
 			return true;
 		
-		case R.id.action_delete_all:
-			Log.i("WORKWEEKLISTFRAGMENT", "delete");
-			clearAllRecords();
-            updateDayView();
 
-			return true;
 		
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
 	
-	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-		getActivity().getMenuInflater().inflate(R.menu.commute_list_item_context, menu);
-	}
-	
-	@Override
-	public boolean onContextItemSelected(MenuItem item)
-	{
-		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
-		int position = info.position;
-
-		switch (item.getItemId())
-		{
-		case R.id.menu_item_delete_commute:
 
 
 
-			return true;
-			
-		}
-		
-		
-		return super.onContextItemSelected(item);
-	}
 
-	
-	public void honeyCombOptionsInvalidate()
-	{
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-		{
-
-			getActivity().invalidateOptionsMenu();
-		}
-	}
 
     public void clearAllRecords() {
         getActivity().getContentResolver().delete(UserScheduleContract.CONTENT_URI, "", null);
+    }
 
+    public void setDayActivity(int dayInt, boolean isActive)
+    {
+        ContentValues contentValues= new ContentValues();
+        if (!isActive) {
+            contentValues.put(UserScheduleContract.USER_ITEM_ACTIVE, 0);
+
+        } else {
+            contentValues.put(UserScheduleContract.USER_ITEM_ACTIVE, 1);
+
+        }
+        getActivity().getContentResolver().update(
+                UserScheduleContract.CONTENT_URI,   // The content URI of the schedule table
+                contentValues,                        // The columns to return for each row
+                UserScheduleContract.USER_WORKDAY + "=" + dayInt,                    // Selection criteria
+                null);
+        updateDayView();
     }
 
     public void proceedToWorkDayList(int dayInt)
@@ -540,12 +575,73 @@ TextView saturdayTextView;
             }
             testCursor.close();
             sundayTextView.setText("Trips: " + sunNum + ", " + sunAct + " active");
+            if (sunNum==sunAct && sunAct != 0)
+            {
+                sundayCheckbox.setChecked(true);
+            }
+            else
+            {
+                sundayCheckbox.setChecked(false);
+            }
             mondayTextView.setText("Trips: " + monNum + ", " + monAct + " active");
+            if (monNum==monAct && monAct != 0)
+            {
+                mondayCheckbox.setChecked(true);
+            }
+            else
+            {
+                mondayCheckbox.setChecked(false);
+            }
+
             tuesdayTextView.setText("Trips: " + tueNum + ", " + tueAct + " active");
+            if (tueNum==tueAct && tueAct != 0)
+            {
+                tuesdayCheckbox.setChecked(true);
+            }
+            else
+            {
+                tuesdayCheckbox.setChecked(false);
+            }
+
             wednesdayTextView.setText("Trips: " + wedNum + ", " + wedAct + " active");
+            if (wedNum==wedAct && wedAct != 0)
+            {
+                wednesdayCheckbox.setChecked(true);
+            }
+            else
+            {
+                wednesdayCheckbox.setChecked(false);
+            }
+
             thursdayTextView.setText("Trips: " + thurNum + ", " + thurAct + " active");
+            if (thurNum==thurAct && thurAct != 0)
+            {
+                thursdayCheckbox.setChecked(true);
+            }
+            else
+            {
+                thursdayCheckbox.setChecked(false);
+            }
+
             fridayTextView.setText("Trips: " + friNum + ", " + friAct + " active");
+            if (friNum==friAct && friAct != 0)
+            {
+                fridayCheckbox.setChecked(true);
+            }
+            else
+            {
+                fridayCheckbox.setChecked(false);
+            }
+
             saturdayTextView.setText("Trips: " + satNum + ", " + satAct + " active");
+            if (satNum==satAct && satAct != 0)
+            {
+                saturdayCheckbox.setChecked(true);
+            }
+            else
+            {
+                saturdayCheckbox.setChecked(false);
+            }
         }
     }
 }

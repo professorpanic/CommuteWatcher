@@ -1,10 +1,7 @@
 package com.sammoin.commutewatcher;
 
 import android.os.Bundle;
-
 import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 
 public class TimeAndTravelActivity extends ActionBarActivity
 {
@@ -38,7 +35,8 @@ public class TimeAndTravelActivity extends ActionBarActivity
 			// get a supportfragmentmanager reference and attach the fragment,
 			// when the activity is created.
 			getSupportFragmentManager().beginTransaction()
-				//.add(R.id.container, mainMenuFragment).commit();	
+				//.add(R.id.container, mainMenuFragment).commit();
+					//.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in,android.R.anim.fade_out)
 				.add(R.id.container, userInfoEntryFragment).commit();
 		}
 

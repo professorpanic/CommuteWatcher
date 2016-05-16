@@ -306,6 +306,7 @@
     <dimen name="place_autocomplete_progress_horizontal_margin">16dp</dimen>
     <dimen name="place_autocomplete_progress_size">24dp</dimen>
     <dimen name="place_autocomplete_separator_start">72dp</dimen>
+    <dimen name="toolbar_title_size">18dp</dimen>
     <drawable name="notification_template_icon_bg">#3333B5E5</drawable>
     <item format="float" name="detail_body_line_spacing_multiplier" type="fraction">1.25</item>
     <item name="action_bar_activity_content" type="id"/>
@@ -431,14 +432,18 @@
     <string name="mr_user_route_category_name">Devices</string>
     <string name="place_autocomplete_clear_button">Clear search</string>
     <string name="place_autocomplete_search_hint">Search</string>
+    <string name="preferences">Preferences</string>
     <string name="save">Save Day</string>
     <string name="save_all">Save</string>
     <string name="save_commute_info">Save commute info</string>
     <string name="set_hours_to_home">Set time to check your home commute</string>
+    <string name="set_preferences">Set Preferences</string>
     <string name="set_to_work_time">Set time to check your commute</string>
     <string name="status_bar_notification_info_overflow">999+</string>
     <string name="store_picture_message">"Allow Ad to store image in Picture gallery?"</string>
     <string name="store_picture_title">Save image</string>
+    <string name="trips">Trips :</string>
+    <string name="trips_active"> active</string>
     <string name="wallet_buy_button_place_holder">Buy with Google</string>
     <style name="AlertDialog.AppCompat" parent="Base.AlertDialog.AppCompat"/>
     <style name="AlertDialog.AppCompat.Light" parent="Base.AlertDialog.AppCompat.Light"/>
@@ -1388,6 +1393,11 @@
         <item name="tabBackground">?attr/selectableItemBackground</item>
         <item name="tabTextAppearance">@style/TextAppearance.Design.Tab</item>
         <item name="tabSelectedTextColor">?android:textColorPrimary</item>
+    </style>
+    <style name="CommuteCheckBox" parent="Theme.Bacon">
+        <item name="colorControlNormal">@color/theme_primary_dark</item>   <!-- normal border color change as you wish -->
+        <item name="colorControlActivated">@color/theme_primary_dark</item> <!-- activated color change as you wish -->
+        <item name="android:textColor">@android:color/black</item> <!-- checkbox text color -->
     </style>
     <style name="Platform.AppCompat" parent="android:Theme">
         <item name="android:windowNoTitle">true</item>
