@@ -89,14 +89,7 @@ public class UserDayItem implements Serializable
 		return workDay.toString() + " from " + startAddress + " at " + toWorkTimeString + "to " + endAddress +  " at " + toHomeTimeString;
 	}
 
-	public void clear()
-	{
-		setHomeAddress("");
-		setWorkAddress("");
-		setDriveToHomeTime(new GregorianCalendar());
-		setStartCommuteTime(new GregorianCalendar());
-		setActive(false);
-	}
+
 
 	
 
@@ -105,9 +98,11 @@ public class UserDayItem implements Serializable
 		return startCommuteTime;
 	}
 
-	public void setStartCommuteTime(GregorianCalendar in)
+	public void setStartCommuteTime(GregorianCalendar in, int scheduledDay)
 	{
+
 		startCommuteTime = in;
+		startCommuteTime.set(GregorianCalendar.DAY_OF_WEEK, scheduledDay);
 	}
 
 	public GregorianCalendar getDriveToHomeTime()

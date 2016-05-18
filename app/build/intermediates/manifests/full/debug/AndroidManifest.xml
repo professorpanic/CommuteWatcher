@@ -55,7 +55,23 @@
         <activity android:name="com.sammoin.commutewatcher.TimeAndTravelActivity" >
         </activity>
 
-        <service android:name="com.sammoin.commutewatcher.CommuteCheckAlarmService" />
+        <receiver
+            android:name="com.sammoin.commutewatcher.CommuteWidgetProvider"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.sammoin.commutewatcher.ACTION_DATA_UPDATED" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_provider" />
+        </receiver>
+
+        <service android:name="com.sammoin.commutewatcher.CommuteCheckAlarmService" >
+        </service>
+        <service android:name="com.sammoin.commutewatcher.CommuteWidgetIntentService" >
+        </service>
 
         <receiver android:name="com.sammoin.commutewatcher.DeviceStartupReceiver" >
             <intent-filter>

@@ -36,7 +36,7 @@ public class TimeAndTravelActivity extends ActionBarActivity
 			// when the activity is created.
 			getSupportFragmentManager().beginTransaction()
 				//.add(R.id.container, mainMenuFragment).commit();
-					//.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in,android.R.anim.fade_out)
+					.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in,android.R.anim.fade_out)
 				.add(R.id.container, userInfoEntryFragment).commit();
 		}
 

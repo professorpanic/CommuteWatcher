@@ -15,5 +15,10 @@
     <dimen name="list_toolbar_side_margin">0dp</dimen>
     <dimen name="toolbar_title_size">18dp</dimen>
     <integer name="list_column_count">2</integer>
+    <dimen name="widget_today_default_width">250dp</dimen>
+    <dimen name="widget_today_default_height">82dp</dimen>
+    <dimen name="widget_today_min_resize_width">40dp</dimen>
+    <dimen name="widget_today_min_resize_height">@dimen/widget_today_default_height</dimen>
+    <dimen name="widget_today_large_width">250dp</dimen>
 
 </resources>

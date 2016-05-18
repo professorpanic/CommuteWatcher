@@ -106,7 +106,7 @@ public class WorkCommuteDayAndTimeFragment extends DialogFragment
 
 		Intent i = new Intent();
 		userDayItem.setWorkDay(scheduledDay);
-		userDayItem.setStartCommuteTime(commuteStartTime);
+		userDayItem.setStartCommuteTime(commuteStartTime, scheduledDay.get());
 
 		userDayItem.getStartCommuteTime().setTimeZone(TimeZone.getDefault());
 		Log.i(WORK_TIME_DIALOG, "in sendResult "

@@ -307,6 +307,11 @@
     <dimen name="place_autocomplete_progress_size">24dp</dimen>
     <dimen name="place_autocomplete_separator_start">72dp</dimen>
     <dimen name="toolbar_title_size">18dp</dimen>
+    <dimen name="widget_today_default_height">82dp</dimen>
+    <dimen name="widget_today_default_width">250dp</dimen>
+    <dimen name="widget_today_large_width">250dp</dimen>
+    <dimen name="widget_today_min_resize_height">@dimen/widget_today_default_height</dimen>
+    <dimen name="widget_today_min_resize_width">40dp</dimen>
     <drawable name="notification_template_icon_bg">#3333B5E5</drawable>
     <item format="float" name="detail_body_line_spacing_multiplier" type="fraction">1.25</item>
     <item name="action_bar_activity_content" type="id"/>
@@ -414,6 +419,7 @@
     <string name="delete_all">Delete All Commutes</string>
     <string name="delete_this_commute">Delete this commute</string>
     <string name="done">Done</string>
+    <string name="end_point">End Point </string>
     <string name="enter_home_address">Enter your starting address</string>
     <string name="enter_work_address">Enter your destination address</string>
     <string name="google_app_id">160627016003</string>
@@ -430,6 +436,8 @@
     <string name="mr_media_route_controller_stop">Stop casting</string>
     <string name="mr_system_route_name">System</string>
     <string name="mr_user_route_category_name">Devices</string>
+    <string name="next_commute_label">Next commute today:</string>
+    <string name="no_remaining_commutes_today">No more commutes are remaining. Time to relax!</string>
     <string name="place_autocomplete_clear_button">Clear search</string>
     <string name="place_autocomplete_search_hint">Search</string>
     <string name="preferences">Preferences</string>
@@ -439,6 +447,8 @@
     <string name="set_hours_to_home">Set time to check your home commute</string>
     <string name="set_preferences">Set Preferences</string>
     <string name="set_to_work_time">Set time to check your commute</string>
+    <string name="start_point">Start Point</string>
+    <string name="start_time">Start Time: </string>
     <string name="status_bar_notification_info_overflow">999+</string>
     <string name="store_picture_message">"Allow Ad to store image in Picture gallery?"</string>
     <string name="store_picture_title">Save image</string>

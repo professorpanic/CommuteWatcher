@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.joda.time.DateTime;
+
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
@@ -29,7 +31,7 @@ public class TimeAndTravelFragment extends Fragment
 	static final String USER_INFO_FILE = "user_info.txt";
 	private UserDayItem savedUserInfo;
 	private UserDayItem userDayItem;
-	private int selectedDay = -1;
+	private int selectedDay = DateTime.now().getDayOfWeek();
 	private int sqlRowId;
 
 	public static final String DIALOG_WORK_COMMUTE = "to work";
@@ -189,7 +191,7 @@ public class TimeAndTravelFragment extends Fragment
 					{
 						userDayItem.setWorkDay(tempUser.getWorkDay());
 					}
-					userDayItem.setStartCommuteTime(tempUser.getStartCommuteTime());
+					userDayItem.setStartCommuteTime(tempUser.getStartCommuteTime(), selectedDay);
 					displayWorkCommute.setText(sdf.format(userDayItem
 							.getStartCommuteTime().getTime()));
 

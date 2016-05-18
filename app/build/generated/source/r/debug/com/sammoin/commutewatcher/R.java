@@ -2631,6 +2631,11 @@ containing a value of this type.
         public static final int place_autocomplete_progress_size=0x7f0a007c;
         public static final int place_autocomplete_separator_start=0x7f0a007d;
         public static final int toolbar_title_size=0x7f0a007e;
+        public static final int widget_today_default_height=0x7f0a007f;
+        public static final int widget_today_default_width=0x7f0a0080;
+        public static final int widget_today_large_width=0x7f0a0081;
+        public static final int widget_today_min_resize_height=0x7f0a0082;
+        public static final int widget_today_min_resize_width=0x7f0a0083;
     }
     public static final class drawable {
         public static final int abc_ab_share_pack_mtrl_alpha=0x7f020000;
@@ -2808,7 +2813,7 @@ containing a value of this type.
     }
     public static final class id {
         public static final int action0=0x7f0f00c6;
-        public static final int action_alarm_toggle=0x7f0f00fc;
+        public static final int action_alarm_toggle=0x7f0f0101;
         public static final int action_bar=0x7f0f0081;
         public static final int action_bar_activity_content=0x7f0f0000;
         public static final int action_bar_container=0x7f0f0080;
@@ -2823,9 +2828,9 @@ containing a value of this type.
         public static final int action_mode_bar=0x7f0f007e;
         public static final int action_mode_bar_stub=0x7f0f007d;
         public static final int action_mode_close_button=0x7f0f0063;
-        public static final int action_settings=0x7f0f00fb;
+        public static final int action_settings=0x7f0f0100;
         public static final int activity_chooser_view_content=0x7f0f0064;
-        public static final int addNewItemFAB=0x7f0f00db;
+        public static final int addNewItemFAB=0x7f0f00e0;
         public static final int adjust_height=0x7f0f0034;
         public static final int adjust_width=0x7f0f0035;
         public static final int alertTitle=0x7f0f0070;
@@ -2883,7 +2888,7 @@ containing a value of this type.
         public static final int editHomeAddressTextView=0x7f0f00a8;
         public static final int editWorkAddressTextView=0x7f0f00ae;
         public static final int edit_query=0x7f0f0083;
-        public static final int empty_list_with_button=0x7f0f00dc;
+        public static final int empty_list_with_button=0x7f0f00e1;
         public static final int end=0x7f0f0021;
         public static final int end_padder=0x7f0f00d2;
         public static final int enterAlways=0x7f0f0016;
@@ -2898,10 +2903,10 @@ containing a value of this type.
         public static final int fill_horizontal=0x7f0f002f;
         public static final int fill_vertical=0x7f0f0022;
         public static final int fixed=0x7f0f0044;
-        public static final int fr_day_of_week=0x7f0f00f3;
-        public static final int fr_layout=0x7f0f00f2;
-        public static final int fr_trips_TextView=0x7f0f00f4;
-        public static final int fr_workday_list_item_activeCheckBox=0x7f0f00f5;
+        public static final int fr_day_of_week=0x7f0f00f8;
+        public static final int fr_layout=0x7f0f00f7;
+        public static final int fr_trips_TextView=0x7f0f00f9;
+        public static final int fr_workday_list_item_activeCheckBox=0x7f0f00fa;
         public static final int fragment_main=0x7f0f00a6;
         public static final int fridayButton=0x7f0f00a4;
         public static final int google_wallet_classic=0x7f0f005b;
@@ -2936,19 +2941,20 @@ containing a value of this type.
         public static final int media_route_list=0x7f0f00b8;
         public static final int media_route_volume_layout=0x7f0f00c1;
         public static final int media_route_volume_slider=0x7f0f00c2;
-        public static final int menu_item_delete_commute=0x7f0f00fa;
+        public static final int menu_item_delete_commute=0x7f0f00ff;
         public static final int middle=0x7f0f0033;
         public static final int mini=0x7f0f0031;
-        public static final int mo_day_of_week=0x7f0f00e3;
-        public static final int mo_layout=0x7f0f00e2;
-        public static final int mo_trips_TextView=0x7f0f00e4;
-        public static final int mo_workday_list_item_activeCheckBox=0x7f0f00e5;
+        public static final int mo_day_of_week=0x7f0f00e8;
+        public static final int mo_layout=0x7f0f00e7;
+        public static final int mo_trips_TextView=0x7f0f00e9;
+        public static final int mo_workday_list_item_activeCheckBox=0x7f0f00ea;
         public static final int mondayButton=0x7f0f00a0;
         public static final int monochrome=0x7f0f005f;
         public static final int multiply=0x7f0f0027;
         public static final int navigation_header_container=0x7f0f0095;
         public static final int never=0x7f0f003c;
-        public static final int new_workday_button=0x7f0f00dd;
+        public static final int new_workday_button=0x7f0f00e2;
+        public static final int next_commute_label=0x7f0f00dc;
         public static final int none=0x7f0f0011;
         public static final int normal=0x7f0f000d;
         public static final int parallax=0x7f0f001b;
@@ -2963,17 +2969,17 @@ containing a value of this type.
         public static final int place_autocomplete_search_input=0x7f0f00d4;
         public static final int place_autocomplete_separator=0x7f0f00d6;
         public static final int play_pause=0x7f0f00bf;
-        public static final int preferences=0x7f0f00fd;
+        public static final int preferences=0x7f0f0102;
         public static final int production=0x7f0f0049;
         public static final int progress_circular=0x7f0f0007;
         public static final int progress_horizontal=0x7f0f0008;
         public static final int radio=0x7f0f007b;
         public static final int right=0x7f0f0024;
         public static final int route_name=0x7f0f00ba;
-        public static final int sa_day_of_week=0x7f0f00f7;
-        public static final int sa_layout=0x7f0f00f6;
-        public static final int sa_trips_TextView=0x7f0f00f8;
-        public static final int sa_workday_list_item_activeCheckBox=0x7f0f00f9;
+        public static final int sa_day_of_week=0x7f0f00fc;
+        public static final int sa_layout=0x7f0f00fb;
+        public static final int sa_trips_TextView=0x7f0f00fd;
+        public static final int sa_workday_list_item_activeCheckBox=0x7f0f00fe;
         public static final int sandbox=0x7f0f004a;
         public static final int satellite=0x7f0f0037;
         public static final int saturdayButton=0x7f0f00a5;
@@ -3015,10 +3021,10 @@ containing a value of this type.
         public static final int status_bar_latest_event_content=0x7f0f00c8;
         public static final int stop=0x7f0f00c5;
         public static final int strict_sandbox=0x7f0f004b;
-        public static final int su_day_of_week=0x7f0f00df;
-        public static final int su_layout=0x7f0f00de;
-        public static final int su_trips_TextView=0x7f0f00e0;
-        public static final int su_workday_list_item_activeCheckBox=0x7f0f00e1;
+        public static final int su_day_of_week=0x7f0f00e4;
+        public static final int su_layout=0x7f0f00e3;
+        public static final int su_trips_TextView=0x7f0f00e5;
+        public static final int su_workday_list_item_activeCheckBox=0x7f0f00e6;
         public static final int submit_area=0x7f0f008c;
         public static final int subtitle=0x7f0f00c0;
         public static final int sundayButton=0x7f0f009f;
@@ -3028,10 +3034,10 @@ containing a value of this type.
         public static final int text=0x7f0f00d0;
         public static final int text2=0x7f0f00ce;
         public static final int textSpacerNoButtons=0x7f0f0074;
-        public static final int th_day_of_week=0x7f0f00ef;
-        public static final int th_layout=0x7f0f00ee;
-        public static final int th_trips_TextView=0x7f0f00f0;
-        public static final int th_workday_list_item_activeCheckBox=0x7f0f00f1;
+        public static final int th_day_of_week=0x7f0f00f4;
+        public static final int th_layout=0x7f0f00f3;
+        public static final int th_trips_TextView=0x7f0f00f5;
+        public static final int th_workday_list_item_activeCheckBox=0x7f0f00f6;
         public static final int thursdayButton=0x7f0f00a3;
         public static final int time=0x7f0f00cc;
         public static final int title=0x7f0f006a;
@@ -3041,22 +3047,26 @@ containing a value of this type.
         public static final int toolbar_container=0x7f0f0091;
         public static final int top=0x7f0f0026;
         public static final int topPanel=0x7f0f006e;
-        public static final int tu_day_of_week=0x7f0f00e7;
-        public static final int tu_layout=0x7f0f00e6;
-        public static final int tu_trips_TextView=0x7f0f00e8;
-        public static final int tu_workday_list_item_activeCheckBox=0x7f0f00e9;
+        public static final int tu_day_of_week=0x7f0f00ec;
+        public static final int tu_layout=0x7f0f00eb;
+        public static final int tu_trips_TextView=0x7f0f00ed;
+        public static final int tu_workday_list_item_activeCheckBox=0x7f0f00ee;
         public static final int tuesdayButton=0x7f0f00a1;
         public static final int up=0x7f0f000a;
         public static final int useLogo=0x7f0f0015;
         public static final int userHomeTimeTextView=0x7f0f00b1;
         public static final int userWorkDateTimeTextView=0x7f0f00a9;
         public static final int view_offset_helper=0x7f0f000b;
-        public static final int we_day_of_week=0x7f0f00eb;
-        public static final int we_layout=0x7f0f00ea;
-        public static final int we_trips_TextView=0x7f0f00ec;
-        public static final int we_workday_list_item_activeCheckBox=0x7f0f00ed;
+        public static final int we_day_of_week=0x7f0f00f0;
+        public static final int we_layout=0x7f0f00ef;
+        public static final int we_trips_TextView=0x7f0f00f1;
+        public static final int we_workday_list_item_activeCheckBox=0x7f0f00f2;
         public static final int wednesdayButton=0x7f0f00a2;
         public static final int wide=0x7f0f0040;
+        public static final int widget=0x7f0f00db;
+        public static final int widget_end_point_textview=0x7f0f00df;
+        public static final int widget_start_point_textview=0x7f0f00dd;
+        public static final int widget_start_time_textview=0x7f0f00de;
         public static final int withText=0x7f0f003d;
         public static final int workAddressTextView=0x7f0f00ad;
         public static final int work_time_dialog_buttonsLayout=0x7f0f009e;
@@ -3136,10 +3146,11 @@ containing a value of this type.
         public static final int select_dialog_multichoice_material=0x7f03003c;
         public static final int select_dialog_singlechoice_material=0x7f03003d;
         public static final int support_simple_spinner_dropdown_item=0x7f03003e;
-        public static final int workday_list_layout=0x7f03003f;
-        public static final int workweek_empty_layout=0x7f030040;
-        public static final int workweek_list_layout=0x7f030041;
-        public static final int workweeklayout_nonlist=0x7f030042;
+        public static final int widget_layout=0x7f03003f;
+        public static final int workday_list_layout=0x7f030040;
+        public static final int workweek_empty_layout=0x7f030041;
+        public static final int workweek_list_layout=0x7f030042;
+        public static final int workweeklayout_nonlist=0x7f030043;
     }
     public static final class menu {
         public static final int commute_list_item_context=0x7f100000;
@@ -3235,11 +3246,12 @@ containing a value of this type.
         public static final int delete_all=0x7f080061;
         public static final int delete_this_commute=0x7f080062;
         public static final int done=0x7f080063;
-        public static final int enter_home_address=0x7f080064;
-        public static final int enter_work_address=0x7f080065;
-        public static final int google_app_id=0x7f080066;
-        public static final int google_maps_key=0x7f080067;
-        public static final int hello_world=0x7f080068;
+        public static final int end_point=0x7f080064;
+        public static final int enter_home_address=0x7f080065;
+        public static final int enter_work_address=0x7f080066;
+        public static final int google_app_id=0x7f080067;
+        public static final int google_maps_key=0x7f080068;
+        public static final int hello_world=0x7f080069;
         public static final int mr_media_route_button_content_description=0x7f080030;
         public static final int mr_media_route_chooser_searching=0x7f080031;
         public static final int mr_media_route_chooser_title=0x7f080032;
@@ -3251,20 +3263,24 @@ containing a value of this type.
         public static final int mr_media_route_controller_stop=0x7f080038;
         public static final int mr_system_route_name=0x7f080039;
         public static final int mr_user_route_category_name=0x7f08003a;
+        public static final int next_commute_label=0x7f08006a;
+        public static final int no_remaining_commutes_today=0x7f08006b;
         public static final int place_autocomplete_clear_button=0x7f08003b;
         public static final int place_autocomplete_search_hint=0x7f08003c;
-        public static final int preferences=0x7f080069;
-        public static final int save=0x7f08006a;
-        public static final int save_all=0x7f08006b;
-        public static final int save_commute_info=0x7f08006c;
-        public static final int set_hours_to_home=0x7f08006d;
-        public static final int set_preferences=0x7f08006e;
-        public static final int set_to_work_time=0x7f08006f;
+        public static final int preferences=0x7f08006c;
+        public static final int save=0x7f08006d;
+        public static final int save_all=0x7f08006e;
+        public static final int save_commute_info=0x7f08006f;
+        public static final int set_hours_to_home=0x7f080070;
+        public static final int set_preferences=0x7f080071;
+        public static final int set_to_work_time=0x7f080072;
+        public static final int start_point=0x7f080073;
+        public static final int start_time=0x7f080074;
         public static final int status_bar_notification_info_overflow=0x7f08003d;
-        public static final int store_picture_message=0x7f080070;
-        public static final int store_picture_title=0x7f080071;
-        public static final int trips=0x7f080072;
-        public static final int trips_active=0x7f080073;
+        public static final int store_picture_message=0x7f080075;
+        public static final int store_picture_title=0x7f080076;
+        public static final int trips=0x7f080077;
+        public static final int trips_active=0x7f080078;
         public static final int wallet_buy_button_place_holder=0x7f08003e;
     }
     public static final class style {
@@ -3615,6 +3631,7 @@ containing a value of this type.
     }
     public static final class xml {
         public static final int commute_day_time=0x7f060000;
+        public static final int widget_provider=0x7f060001;
     }
     public static final class styleable {
         /** Attributes that can be used with a ActionBar.
