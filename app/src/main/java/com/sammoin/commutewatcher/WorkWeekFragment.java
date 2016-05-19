@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,8 +17,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import java.io.IOException;
+import android.widget.Toolbar;
 
 //import android.support.v7.internal.widget.AdapterViewCompat.AdapterContextMenuInfo;
 
@@ -90,7 +88,7 @@ public class WorkWeekFragment extends Fragment
 		//UserDayItem test = mWorkWeek.get(6);
 		//test.setWorkDay(Day.MONDAY);
 
-        UserDayItem udi = new UserDayItem();
+        UserDayItem udi = new UserDayItem(getContext());
 
 //
 //
@@ -406,19 +404,7 @@ public class WorkWeekFragment extends Fragment
 	{
 		super.onPrepareOptionsMenu(menu);
 
-		MenuItem toggleItem = menu.findItem(R.id.action_alarm_toggle);
-		getActivity().invalidateOptionsMenu();
 
-		if (CommuteCheckAlarmService.isServiceAlarmOn(getActivity()))
-		{
-			toggleItem.setTitle(R.string.action_turn_checker_off);
-
-		} 
-		else
-		{
-			toggleItem.setTitle(R.string.action_turn_checker_on);
-
-		}
 	}
 
 	@Override
@@ -430,24 +416,25 @@ public class WorkWeekFragment extends Fragment
 		switch (item.getItemId())
 		{
 
-		case R.id.preferences:
-			return true;
+		case R.id.action_settings:
+            startActivity(new Intent(getActivity(), SettingsActivity.class));
+            return true;
 
-		case R.id.action_alarm_toggle:
-		
-			boolean turnAlarmOn = !CommuteCheckAlarmService
-					.isServiceAlarmOn(getActivity());
-			try {
-				CommuteCheckAlarmService.setServiceAlarm(getActivity(),
-                        turnAlarmOn);
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-			Log.i("WORKWEEKLISTFRAGMENT", "alarm on has been clicked "+ turnAlarmOn + " and user object is " + savedUserInfo.toString());
-
-			return true;
+//		case R.id.action_alarm_toggle:
+//
+//			boolean turnAlarmOn = !CommuteCheckAlarmService
+//					.isServiceAlarmOn(getActivity());
+//			try {
+//				CommuteCheckAlarmService.setServiceAlarm(getActivity(),
+//                        turnAlarmOn);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			} catch (ClassNotFoundException e) {
+//				e.printStackTrace();
+//			}
+//			Log.i("WORKWEEKLISTFRAGMENT", "alarm on has been clicked "+ turnAlarmOn + " and user object is " + savedUserInfo.toString());
+//
+//			return true;
 		
 
 		

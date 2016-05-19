@@ -452,7 +452,7 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
                 public void onClick(View v) {
                     String mClickSelectionClause = UserScheduleContract._ID + "= " + rowId;
                     Toast.makeText(getActivity(), "My rowId is " + rowId, Toast.LENGTH_SHORT).show();
-                    UserDayItem u = new UserDayItem();
+                    UserDayItem u = new UserDayItem(getContext());
 
                     Cursor data = getActivity().getContentResolver().query(
                             UserScheduleContract.CONTENT_URI,   // The content URI of the words table

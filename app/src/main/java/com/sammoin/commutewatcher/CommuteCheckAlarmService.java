@@ -16,9 +16,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -155,22 +154,8 @@ public class CommuteCheckAlarmService extends IntentService
 		//ArrayList<UserDayItem> tempSavedUserInfo = WorkWeek.get(context);
 		ObjectInputStream file;
         savedUserInfo = new UserWeek();
-		try
-		{
 
-			file = new ObjectInputStream((new FileInputStream(new File(
-					new File(context.getFilesDir(), "") + File.separator
-							+ WorkWeekFragment.USER_INFO_FILE))));
-			savedUserInfo.copy(((UserWeek) file.readObject()));
-			
-			file.close();
 
-		} 
-		catch (FileNotFoundException e)
-		{
-
-			e.printStackTrace();
-		}
 		setServiceAlarm(context, isOn, savedUserInfo);
 
 	}
@@ -179,6 +164,7 @@ public class CommuteCheckAlarmService extends IntentService
 	public static void setServiceAlarm(Context context, boolean isOn,
 			UserWeek userInfo)
 	{
+		Toast.makeText(context, "Service checked!", Toast.LENGTH_SHORT).show();
 		//these two arraylists are for holding pendingintents to load into the alarm manager, and an intent list to build the pending list from.
 		ArrayList<PendingIntent> pendingIntentList = new ArrayList<PendingIntent>();
 		ArrayList<Intent> intentList = new ArrayList<Intent>();

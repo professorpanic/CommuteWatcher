@@ -1,5 +1,6 @@
 package com.sammoin.commutewatcher;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -102,6 +103,10 @@ public class MainActivity extends AppCompatActivity implements WorkWeekFragment.
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent newIntent = new Intent(this, SettingsActivity.class);
+                    newIntent.putExtra(SettingsActivity.EXTRA_SHOW_FRAGMENT, SettingsActivity.GeneralPreferenceFragment.class.getName());
+            newIntent.putExtra(SettingsActivity.EXTRA_NO_HEADERS, true);
+            startActivity(newIntent);
             return true;
         }
 

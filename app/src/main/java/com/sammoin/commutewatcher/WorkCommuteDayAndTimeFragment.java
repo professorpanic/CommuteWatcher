@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TimePicker;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
@@ -26,7 +27,8 @@ public class WorkCommuteDayAndTimeFragment extends DialogFragment
 	private GregorianCalendar commuteStartTime = new GregorianCalendar();
 	private UserDayItem userDayItem;
 	private Day scheduledDay;
-	
+	SimpleDateFormat debugformatter = new SimpleDateFormat(
+			"yyyy-MM-dd HH:mm:ss z");
 	public WorkCommuteDayAndTimeFragment()
 	{
 		// TODO Auto-generated constructor stub
@@ -93,6 +95,7 @@ public class WorkCommuteDayAndTimeFragment extends DialogFragment
 								commuteStartTime.set(Calendar.MINUTE,
 										timePicker.getCurrentMinute());
 								sendResult(Activity.RESULT_OK);
+								String debugstoredtime = debugformatter.format(commuteStartTime.getTimeInMillis());
 							}
 						}).create();
 	}

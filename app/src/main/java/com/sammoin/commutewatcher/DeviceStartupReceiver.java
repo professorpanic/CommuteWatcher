@@ -1,14 +1,13 @@
 package com.sammoin.commutewatcher;
 
-import java.io.IOException;
-import java.io.StreamCorruptedException;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
+
+import java.io.IOException;
+import java.io.StreamCorruptedException;
 
 public class DeviceStartupReceiver extends BroadcastReceiver
 {
@@ -26,7 +25,7 @@ public class DeviceStartupReceiver extends BroadcastReceiver
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(context);
 		boolean isOn = prefs.getBoolean(
-				CommuteCheckAlarmService.PREF_IS_ALARM_ON, false);
+				context.getString(R.string.pref_enable_disable_key), false);
 
 		try
 		{

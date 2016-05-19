@@ -72,6 +72,8 @@ public class CommuteWidgetIntentService extends IntentService {
         //sql query to get score
         String dateFormat = "yyyy-MM-dd";
         String timeFormat = "HH:mm EEEE";
+        SimpleDateFormat debugformatter = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss z");
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat, Locale.US);
         SimpleDateFormat simpleTime = new SimpleDateFormat(timeFormat, Locale.US);
         String formattedDate = simpleDateFormat.format(new Date());
@@ -80,6 +82,7 @@ public class CommuteWidgetIntentService extends IntentService {
         int dayInt = DateTime.now().getDayOfWeek();
 
         long comparisonStartTime = DateTime.now().getMillis();
+        String debugcurrenttime = debugformatter.format(DateTime.now().getMillis());
         LocalTime comparisonLocalTime = LocalTime.now();
         String mRowSelectionClause = UserScheduleContract.USER_START_TIME +">= "+ comparisonStartTime;
 
@@ -102,6 +105,8 @@ public class CommuteWidgetIntentService extends IntentService {
         while (cursor.moveToNext()) {
             Log.e("IntentServiceHere", "movetofirst");
             startTime = LocalTime.fromMillisOfDay( cursor.getLong(cursor.getColumnIndex(UserScheduleContract.USER_START_TIME)));
+            String debugstoredtime = debugformatter.format(cursor.getLong(cursor.getColumnIndex(UserScheduleContract.USER_START_TIME)));
+
             if (startTime.isAfter( comparisonLocalTime)
                     && 1==cursor.getInt(cursor.getColumnIndex(UserScheduleContract.USER_ITEM_ACTIVE))
                     && DateTime.now().getDayOfWeek()==cursor.getInt(cursor.getColumnIndex(UserScheduleContract.USER_WORKDAY)))
@@ -124,11 +129,6 @@ public class CommuteWidgetIntentService extends IntentService {
 
 
         }
-
-
-
-
-
 
         cursor.close();
 
@@ -162,12 +162,6 @@ public class CommuteWidgetIntentService extends IntentService {
                views.setTextViewText(R.id.widget_end_point_textview, endAddress);
 
            }
-
-
-
-
-
-
 
 
             // Create an Intent to launch MainActivity

@@ -1,5 +1,9 @@
 package com.sammoin.commutewatcher;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
@@ -17,6 +21,7 @@ public class UserDayItem implements Serializable
 	private GregorianCalendar driveToHomeTime = new GregorianCalendar();
 	private Day workDay = Day.SUNDAY;
 	private boolean active;
+
 	
 	//NEW DESIGN PLAN - STATIC ARRAY OF DAYS, CONTAINS COMMUTE IN EACH DAY. SHOULD BE EASIER TO USE WITH ALARMS AND SAVE.
 	public Day getWorkDay()
@@ -25,10 +30,12 @@ public class UserDayItem implements Serializable
 		return this.workDay;
 	}
 
-	public UserDayItem()
+	public UserDayItem(Context context)
 	{
-		startAddress="Start Address";
-		endAddress="End Address";
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+
+        startAddress=prefs.getString(context.getString(R.string.pref_default_start_key), "");
+		endAddress="";
         workDay = Day.SUNDAY;
 		active=false;
 	}

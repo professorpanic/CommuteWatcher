@@ -22,7 +22,7 @@ public class HomeCommuteDayAndTimeFragment extends DialogFragment
 	public static final String HOME_TIME_DIALOG = "home time dialog fragment";
 
 	private GregorianCalendar homeCommuteStartTime = new GregorianCalendar();
-	private UserDayItem userDayItem = new UserDayItem();
+	private UserDayItem userDayItem = new UserDayItem(getContext());
 
 	public HomeCommuteDayAndTimeFragment()
 	{

@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" 
       xmlns:commutewatcher="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/action_alarm_toggle"
-          android:title="@string/action_alarms_toggle"
 
-          commutewatcher:showAsAction="collapseActionView"/>
     
-    <item android:id="@+id/preferences"
-          android:title="@string/set_preferences"
+    <item android:id="@+id/action_settings"
+          android:title="@string/action_settings"
           commutewatcher:showAsAction="collapseActionView"/>
     
 

@@ -371,6 +371,8 @@
     <string name="add_new_workday_button_text">Add New Commute and Time</string>
     <string name="address_example">Ex. 1700 Walnut Street, Philadelphia PA 19104</string>
     <string name="alt_address_example"> Ex. 500 Main Street, Anytown PA 19123</string>
+    <string name="app_active">Active</string>
+    <string name="app_inactive">Inactive</string>
     <string name="app_name">CommuteWatcher</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
     <string name="auth_google_play_services_client_facebook_display_name">Facebook</string>
@@ -440,6 +442,19 @@
     <string name="no_remaining_commutes_today">No more commutes are remaining. Time to relax!</string>
     <string name="place_autocomplete_clear_button">Clear search</string>
     <string name="place_autocomplete_search_hint">Search</string>
+    <string name="pref_default_display_start"/>
+    <string name="pref_default_start_descrip">Enter an address here to use as a default start point.</string>
+    <string name="pref_default_start_key">enable_disable</string>
+    <string name="pref_default_start_point">Default Starting Address</string>
+    <string name="pref_enable_disable_app">Enable/Disable App</string>
+    <string name="pref_enable_disable_descrip">Uncheck this if you don\'t need to hear from this app.</string>
+    <string name="pref_enable_disable_key">default_start_address</string>
+    <string name="pref_header_general">General</string>
+    <string name="pref_header_notifications">Notifications</string>
+    <string name="pref_ringtone_silent">Silent</string>
+    <string name="pref_title_new_message_notifications">New message notifications</string>
+    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_title_vibrate">Vibrate</string>
     <string name="preferences">Preferences</string>
     <string name="save">Save Day</string>
     <string name="save_all">Save</string>
@@ -452,6 +467,7 @@
     <string name="status_bar_notification_info_overflow">999+</string>
     <string name="store_picture_message">"Allow Ad to store image in Picture gallery?"</string>
     <string name="store_picture_title">Save image</string>
+    <string name="title_activity_settings">Settings</string>
     <string name="trips">Trips :</string>
     <string name="trips_active"> active</string>
     <string name="wallet_buy_button_place_holder">Buy with Google</string>

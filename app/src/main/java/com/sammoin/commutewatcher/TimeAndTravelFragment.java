@@ -53,7 +53,7 @@ public class TimeAndTravelFragment extends Fragment
 		Bundle extras;
 		extras = getActivity().getIntent().getBundleExtra(WorkDayListFragment.LIST_BUNDLE);
 
-		userDayItem = new UserDayItem();
+		userDayItem = new UserDayItem(getContext());
 		if (extras.containsKey(WORKDAY_POSITION))
 		{
             sqlRowId=extras.getInt(WORKDAY_POSITION);
