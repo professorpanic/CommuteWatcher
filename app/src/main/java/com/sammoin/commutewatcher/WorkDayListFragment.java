@@ -25,8 +25,7 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
-import java.util.Locale;
+import org.joda.time.LocalTime;
 
 //import android.support.v7.internal.widget.AdapterViewCompat.AdapterContextMenuInfo;
 
@@ -258,7 +257,7 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
                 values.put(UserScheduleContract.USER_START_ADDRESS, udi.getHomeAddress());
                 values.put(UserScheduleContract.USER_END_ADDRESS, udi.getWorkAddress());
                 values.put(UserScheduleContract.USER_WORKDAY, udi.getWorkDay().get());
-                values.put(UserScheduleContract.USER_START_TIME, udi.getStartCommuteTime().getTimeInMillis());
+                values.put(UserScheduleContract.USER_START_TIME, udi.getStartCommuteTime().getMillisOfDay());
                 values.put(UserScheduleContract.USER_ITEM_ACTIVE, 1);
                 getActivity().getContentResolver().update(
                         UserScheduleContract.CONTENT_URI,   // The content URI of the words table
@@ -274,7 +273,7 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
         values.put(UserScheduleContract.USER_START_ADDRESS, udi.getHomeAddress());
         values.put(UserScheduleContract.USER_END_ADDRESS, udi.getWorkAddress());
         values.put(UserScheduleContract.USER_WORKDAY, getArguments().getInt(WorkDayListFragment.USER_DAY_POSITION));
-        values.put(UserScheduleContract.USER_START_TIME, udi.getStartCommuteTime().getTimeInMillis());
+        values.put(UserScheduleContract.USER_START_TIME, udi.getStartCommuteTime().getMillisOfDay());
         values.put(UserScheduleContract.USER_ITEM_ACTIVE, 1);
 
                 getActivity().getContentResolver().insert(UserScheduleContract.CONTENT_URI, values);
@@ -407,8 +406,7 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
             long startTime=0;
 
             RowViewHolder viewHolder = (RowViewHolder) view.getTag();
-            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa ZZZZ",
-                    Locale.getDefault());
+
 
             Log.d("TAG","DayListBuilder BindView");
 
@@ -416,7 +414,7 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
             viewHolder.endPointTextView.setText(cursor.getString(cursor.getColumnIndex(UserScheduleContract.USER_END_ADDRESS)));
             viewHolder.startPointTextView.setText(cursor.getString(cursor.getColumnIndex(UserScheduleContract.USER_START_ADDRESS)));
             startTime=cursor.getLong(cursor.getColumnIndex(UserScheduleContract.USER_START_TIME));
-            viewHolder.startTimeTextView.setText(sdf.format(startTime));
+            viewHolder.startTimeTextView.setText(LocalTime.fromMillisOfDay(startTime).toString("hh:mm aa"));
 
             viewHolder.activeCheckBox.setChecked(isActive);
 
@@ -465,7 +463,7 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
                     u.setActive(isActive);
                     u.setHomeAddress(data.getString(data.getColumnIndex(UserScheduleContract.USER_START_ADDRESS)));
                     u.setWorkAddress(data.getString(data.getColumnIndex(UserScheduleContract.USER_END_ADDRESS)));
-                    u.getStartCommuteTime().setTimeInMillis((data.getLong(data.getColumnIndex(UserScheduleContract.USER_START_TIME))));
+                    u.setStartCommuteTime(data.getLong(data.getColumnIndex(UserScheduleContract.USER_START_TIME)));
                     data.close();
 
 

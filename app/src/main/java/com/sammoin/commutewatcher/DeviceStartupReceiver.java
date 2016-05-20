@@ -26,7 +26,7 @@ public class DeviceStartupReceiver extends BroadcastReceiver
 				.getDefaultSharedPreferences(context);
 		boolean isOn = prefs.getBoolean(
 				context.getString(R.string.pref_enable_disable_key), false);
-
+		context.startService(new Intent(context, CommuteWidgetIntentService.class));
 		try
 		{
 			CommuteCheckAlarmService.setServiceAlarm(context, isOn);
@@ -46,6 +46,7 @@ public class DeviceStartupReceiver extends BroadcastReceiver
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 
 	}
 

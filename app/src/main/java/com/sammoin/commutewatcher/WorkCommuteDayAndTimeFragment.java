@@ -12,10 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TimePicker;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.TimeZone;
+import org.joda.time.LocalTime;
 
 
 public class WorkCommuteDayAndTimeFragment extends DialogFragment
@@ -24,11 +21,14 @@ public class WorkCommuteDayAndTimeFragment extends DialogFragment
 	public static final String WORK_TIME_DIALOG = "work time dialog frgmt";
 
 	
-	private GregorianCalendar commuteStartTime = new GregorianCalendar();
+	private LocalTime commuteStartTime = new LocalTime();
+
+
 	private UserDayItem userDayItem;
 	private Day scheduledDay;
-	SimpleDateFormat debugformatter = new SimpleDateFormat(
-			"yyyy-MM-dd HH:mm:ss z");
+
+
+
 	public WorkCommuteDayAndTimeFragment()
 	{
 		// TODO Auto-generated constructor stub
@@ -86,16 +86,14 @@ public class WorkCommuteDayAndTimeFragment extends DialogFragment
 									int which)
 							{
 
-								commuteStartTime = new GregorianCalendar();
-								commuteStartTime.clear(Calendar.HOUR_OF_DAY);
-								commuteStartTime.clear(Calendar.MINUTE);
-								commuteStartTime.set(Calendar.DAY_OF_WEEK, scheduledDay.get());
-								commuteStartTime.set(Calendar.HOUR_OF_DAY,
-										timePicker.getCurrentHour());
-								commuteStartTime.set(Calendar.MINUTE,
-										timePicker.getCurrentMinute());
+								commuteStartTime = new LocalTime();
+								commuteStartTime =commuteStartTime.hourOfDay().setCopy(timePicker.getCurrentHour());
+                                commuteStartTime = commuteStartTime.minuteOfHour().setCopy(timePicker.getCurrentMinute());
+
+
 								sendResult(Activity.RESULT_OK);
-								String debugstoredtime = debugformatter.format(commuteStartTime.getTimeInMillis());
+
+
 							}
 						}).create();
 	}
@@ -111,7 +109,7 @@ public class WorkCommuteDayAndTimeFragment extends DialogFragment
 		userDayItem.setWorkDay(scheduledDay);
 		userDayItem.setStartCommuteTime(commuteStartTime, scheduledDay.get());
 
-		userDayItem.getStartCommuteTime().setTimeZone(TimeZone.getDefault());
+		//userDayItem.getStartCommuteTime().setTimeZone(TimeZone.getDefault());
 		Log.i(WORK_TIME_DIALOG, "in sendResult "
 				+ userDayItem.getStartCommuteTime().toString());
 		i.putExtra(EXTRA_USER_DATA, userDayItem);

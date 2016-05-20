@@ -4,10 +4,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import org.joda.time.LocalTime;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 
 public class UserDayItem implements Serializable
 {
@@ -17,11 +18,12 @@ public class UserDayItem implements Serializable
 	 */
 	private String startAddress = "";
 	private String endAddress = "";
-	private GregorianCalendar startCommuteTime = new GregorianCalendar();
+	private LocalTime startCommuteTime = LocalTime.now();
 	private GregorianCalendar driveToHomeTime = new GregorianCalendar();
+
 	private Day workDay = Day.SUNDAY;
 	private boolean active;
-
+    SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa");
 	
 	//NEW DESIGN PLAN - STATIC ARRAY OF DAYS, CONTAINS COMMUTE IN EACH DAY. SHOULD BE EASIER TO USE WITH ALARMS AND SAVE.
 	public Day getWorkDay()
@@ -30,7 +32,9 @@ public class UserDayItem implements Serializable
 		return this.workDay;
 	}
 
-	public UserDayItem(Context context)
+
+
+    public UserDayItem(Context context)
 	{
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 
@@ -38,6 +42,8 @@ public class UserDayItem implements Serializable
 		endAddress="";
         workDay = Day.SUNDAY;
 		active=false;
+        startCommuteTime = LocalTime.now();
+
 	}
 
 	public boolean isActive()
@@ -86,31 +92,30 @@ public class UserDayItem implements Serializable
 	@Override 
 	public String toString()
 	{
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa ZZZZ",
-				Locale.getDefault());
-		
-		String toWorkTimeString = sdf.format(startCommuteTime.getTime());
-		String toHomeTimeString = sdf.format(driveToHomeTime.getTime());
-		
-		return workDay.toString() + " from " + startAddress + " at " + toWorkTimeString + "to " + endAddress +  " at " + toHomeTimeString;
+		return workDay.toString() + " from " + startAddress + " at " + startCommuteTime.toString("hh:mm aa") + "to " + endAddress;
 	}
 
 
 
 	
 
-	public GregorianCalendar getStartCommuteTime()
+	public LocalTime getStartCommuteTime()
 	{
 		return startCommuteTime;
 	}
 
-	public void setStartCommuteTime(GregorianCalendar in, int scheduledDay)
+	public void setStartCommuteTime(LocalTime in, int scheduledDay)
 	{
 
-		startCommuteTime = in;
-		startCommuteTime.set(GregorianCalendar.DAY_OF_WEEK, scheduledDay);
+		startCommuteTime= in;
+		setWorkDay(scheduledDay);
 	}
+
+    public void setStartCommuteTime(long in)
+    {
+
+        startCommuteTime = startCommuteTime.millisOfDay().setCopy((int)in);
+    }
 
 	public GregorianCalendar getDriveToHomeTime()
 	{
@@ -149,7 +154,7 @@ public class UserDayItem implements Serializable
 	public void copyUserData(UserDayItem inboundUserDayItem)
 	{
 		driveToHomeTime.setTime(inboundUserDayItem.getDriveToHomeTime().getTime());
-		startCommuteTime.setTime(inboundUserDayItem.getStartCommuteTime().getTime());
+		startCommuteTime=inboundUserDayItem.getStartCommuteTime();
 		startAddress = inboundUserDayItem.getHomeAddress();
 		endAddress = inboundUserDayItem.getWorkAddress();
 		workDay = inboundUserDayItem.getWorkDay();

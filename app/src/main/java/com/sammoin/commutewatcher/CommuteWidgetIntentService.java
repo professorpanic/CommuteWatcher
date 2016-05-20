@@ -13,12 +13,10 @@ import android.os.Build;
 import android.util.Log;
 import android.widget.RemoteViews;
 
-import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  * Created by DoctorMondo on 5/16/2016.
@@ -70,20 +68,12 @@ public class CommuteWidgetIntentService extends IntentService {
         Log.e("IntentServiceHere", "IntentService OnHandleIntent");
         Configuration config = context.getResources().getConfiguration();
         //sql query to get score
-        String dateFormat = "yyyy-MM-dd";
-        String timeFormat = "HH:mm EEEE";
-        SimpleDateFormat debugformatter = new SimpleDateFormat(
-                "yyyy-MM-dd HH:mm:ss z");
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat, Locale.US);
-        SimpleDateFormat simpleTime = new SimpleDateFormat(timeFormat, Locale.US);
-        String formattedDate = simpleDateFormat.format(new Date());
-        String formattedTime = simpleTime.format(new Date());
 
-        int dayInt = DateTime.now().getDayOfWeek();
 
-        long comparisonStartTime = DateTime.now().getMillis();
-        String debugcurrenttime = debugformatter.format(DateTime.now().getMillis());
-        LocalTime comparisonLocalTime = LocalTime.now();
+
+
+        long comparisonStartTime = LocalTime.now().getMillisOfDay();
+
         String mRowSelectionClause = UserScheduleContract.USER_START_TIME +">= "+ comparisonStartTime;
 
         Cursor cursor=getContentResolver().query(
@@ -96,7 +86,7 @@ public class CommuteWidgetIntentService extends IntentService {
         String endAddress = null;
         int isActive;
         String startAddress = null;
-        LocalTime startTime = null;
+        long startTime = 0;
 
 
         int workDayInt;
@@ -104,18 +94,18 @@ public class CommuteWidgetIntentService extends IntentService {
 
         while (cursor.moveToNext()) {
             Log.e("IntentServiceHere", "movetofirst");
-            startTime = LocalTime.fromMillisOfDay( cursor.getLong(cursor.getColumnIndex(UserScheduleContract.USER_START_TIME)));
-            String debugstoredtime = debugformatter.format(cursor.getLong(cursor.getColumnIndex(UserScheduleContract.USER_START_TIME)));
-
-            if (startTime.isAfter( comparisonLocalTime)
-                    && 1==cursor.getInt(cursor.getColumnIndex(UserScheduleContract.USER_ITEM_ACTIVE))
-                    && DateTime.now().getDayOfWeek()==cursor.getInt(cursor.getColumnIndex(UserScheduleContract.USER_WORKDAY)))
+            startTime = cursor.getLong(cursor.getColumnIndex(UserScheduleContract.USER_START_TIME));
+            int activeBoolAsNum = cursor.getInt(cursor.getColumnIndex(UserScheduleContract.USER_ITEM_ACTIVE));
+            int dayOfWeek = GregorianCalendar.getInstance().get(Calendar.DAY_OF_WEEK);
+            if (startTime > comparisonStartTime
+                    && 1==activeBoolAsNum
+                    && dayOfWeek==cursor.getInt(cursor.getColumnIndex(UserScheduleContract.USER_WORKDAY)))
             {
                 // Extract the data from the Cursor, we need to look for the first row that is later than the current time
                 endAddress = cursor.getString(cursor.getColumnIndex(UserScheduleContract.USER_END_ADDRESS));
                 isActive = cursor.getInt(cursor.getColumnIndex(UserScheduleContract.USER_ITEM_ACTIVE));
                 startAddress = cursor.getString(cursor.getColumnIndex(UserScheduleContract.USER_START_ADDRESS));
-                //startTime = cursor.getLong(cursor.getColumnIndex(UserScheduleContract.USER_START_TIME));
+                startTime = cursor.getLong(cursor.getColumnIndex(UserScheduleContract.USER_START_TIME));
                 workDayInt = cursor.getInt(cursor.getColumnIndex(UserScheduleContract.USER_WORKDAY));
                 rowId = cursor.getInt(cursor.getColumnIndex(UserScheduleContract._ID));
                 break;
@@ -124,7 +114,7 @@ public class CommuteWidgetIntentService extends IntentService {
             {
                 startAddress="";
                 endAddress="";
-                startTime=null;
+                startTime=0;
             }
 
 
@@ -149,9 +139,9 @@ public class CommuteWidgetIntentService extends IntentService {
 
 
 
-           if (startTime!=null)
+           if (startTime> 0)
            {
-               views.setTextViewText(R.id.widget_start_time_textview, getString(R.string.start_time) + " " + startTime.toString("hh:mm aa", Locale.getDefault()));
+               views.setTextViewText(R.id.widget_start_time_textview, getString(R.string.start_time) + " " + LocalTime.fromMillisOfDay(startTime).toString("hh:mm aa"));
                views.setTextViewText(R.id.widget_start_point_textview, getString(R.string.start_point) + ": " +startAddress);
                views.setTextViewText(R.id.widget_end_point_textview, getString(R.string.end_point) + ": " + endAddress);
            }

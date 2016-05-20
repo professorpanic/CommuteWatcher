@@ -210,7 +210,7 @@ public class CommuteCheckAlarmService extends IntentService
             //for loop goes through the intentlist, grabs the commute time from each extra, and sets the corresponding pendingintent as a repeating alarm as well.
 			for (int i=0; i < intentList.size(); i++)
 			{
-				long commuteTime= ((UserDayItem) intentList.get(i).getSerializableExtra(COMMUTE_DAY)).getStartCommuteTime().getTimeInMillis();
+				long commuteTime= ((UserDayItem) intentList.get(i).getSerializableExtra(COMMUTE_DAY)).getStartCommuteTime().getMillisOfDay();
 				alarmManager.setRepeating(AlarmManager.RTC, commuteTime, AlarmManager.INTERVAL_DAY, pendingIntentList.get(i));
 			}
 

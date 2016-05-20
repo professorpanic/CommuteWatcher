@@ -13,7 +13,6 @@ import android.widget.TimePicker.OnTimeChangedListener;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.TimeZone;
 
 
 public class HomeCommuteDayAndTimeFragment extends DialogFragment
@@ -98,7 +97,7 @@ public class HomeCommuteDayAndTimeFragment extends DialogFragment
 		Intent i = new Intent();
 		userDayItem.setDriveToHomeTime(homeCommuteStartTime);
 
-		userDayItem.getStartCommuteTime().setTimeZone(TimeZone.getDefault());
+		userDayItem.getStartCommuteTime().getMillisOfDay();
 //		Log.i(HOME_TIME_DIALOG, "Result "
 //				+ userDayItem.getDriveToHomeTime().toString());
 		i.putExtra(EXTRA_USER_DATA, userDayItem);

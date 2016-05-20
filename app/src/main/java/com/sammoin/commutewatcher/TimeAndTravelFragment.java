@@ -13,8 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import org.joda.time.DateTime;
-
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
@@ -31,7 +29,7 @@ public class TimeAndTravelFragment extends Fragment
 	static final String USER_INFO_FILE = "user_info.txt";
 	private UserDayItem savedUserInfo;
 	private UserDayItem userDayItem;
-	private int selectedDay = DateTime.now().getDayOfWeek();
+	private int selectedDay;
 	private int sqlRowId;
 
 	public static final String DIALOG_WORK_COMMUTE = "to work";
@@ -93,8 +91,7 @@ public class TimeAndTravelFragment extends Fragment
 				SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa ZZZZ",
 						Locale.getDefault());
 
-				displayWorkCommute.setText((sdf.format(userDayItem
-						.getStartCommuteTime().getTime())));
+				displayWorkCommute.setText(userDayItem.getStartCommuteTime().toString("hh:mm aa"));
 				/*
 				displayHomeCommute.setText((sdf.format(userDayItem
 						.getDriveToHomeTime().getTime())));
@@ -180,8 +177,7 @@ public class TimeAndTravelFragment extends Fragment
 			UserDayItem tempUser;
 			tempUser = ((UserDayItem) data.getSerializableExtra(WorkCommuteDayAndTimeFragment.EXTRA_USER_DATA));
 
-			SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa ZZZZ",
-					Locale.getDefault());
+
 
 			if (requestCode == REQUEST_WORK_COMMUTE)
 			{
@@ -192,8 +188,7 @@ public class TimeAndTravelFragment extends Fragment
 						userDayItem.setWorkDay(tempUser.getWorkDay());
 					}
 					userDayItem.setStartCommuteTime(tempUser.getStartCommuteTime(), selectedDay);
-					displayWorkCommute.setText(sdf.format(userDayItem
-							.getStartCommuteTime().getTime()));
+					displayWorkCommute.setText(userDayItem.getStartCommuteTime().toString("hh:mm aa"));
 
 				}
 			}
