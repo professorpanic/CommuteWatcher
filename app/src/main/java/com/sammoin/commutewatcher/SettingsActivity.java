@@ -22,7 +22,6 @@ import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.view.MenuItem;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -145,27 +144,19 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 if (value==true) {
                     preference.setSummary(R.string.app_active);
 
-                            try {
+
                                 CommuteCheckAlarmService.setServiceAlarm(context,
                                         true);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            } catch (ClassNotFoundException e) {
-                                e.printStackTrace();
-                            }
+
 
                 }
                 else
                 {
                     preference.setSummary(R.string.app_inactive);
-                    try {
+
                         CommuteCheckAlarmService.setServiceAlarm(context,
                                 false);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
+
                 }
             }
 

@@ -59,9 +59,9 @@
     <string name="pref_default_start_point">Default Starting Address</string>
     <string name="pref_default_display_start"></string>
     <string name="pref_default_start_descrip">Enter an address here to use as a default start point.</string>
-    <string name="pref_default_start_key">enable_disable</string>
+    <string name="pref_default_start_key">default_start_address</string>
     <string name="pref_enable_disable_app">Enable/Disable App</string>
-    <string name="pref_enable_disable_key">default_start_address</string>
+    <string name="pref_enable_disable_key">enable_disable</string>
     <string name="pref_enable_disable_descrip">Uncheck this if you don\'t need to hear from this app.</string>
 
 
