@@ -6,91 +6,91 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.sammoin.commutewatcher.MainActivity$PlaceholderFragment" >
-
-    <EditText
-        android:id="@+id/editWorkAddressTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/enterWorkDateTimeButton"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:ems="10"
-        android:hint="@string/address_example" />
-
-    <TextView
-        android:id="@+id/workAddressTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/editWorkAddressTextView"
-        android:layout_alignLeft="@+id/homeAddressTextView"
-        android:text="@string/enter_work_address"
-        android:textSize="12sp" />
-
-    <EditText
-        android:id="@+id/editHomeAddressTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/homeAddressTextView"
-        android:ems="10"
-        android:hint="@string/alt_address_example" >
-
-        <requestFocus />
-    </EditText>
+    android:paddingTop="?attr/actionBarSize"
+    >
 
     <TextView
         android:id="@+id/homeAddressTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:text="@string/enter_home_address" />
+
+    <EditText
+        android:id="@+id/editHomeAddressTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/homeAddressTextView"
+        android:layout_below="@+id/homeAddressTextView"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/enter_home_address"
-        android:textSize="12sp" />
-
-    <Button
-        android:id="@+id/saveCommuteInfoButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:text="@string/save_commute_info"
-        android:textSize="12sp" />
-
-    <Button
-        android:id="@+id/enterWorkDateTimeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/saveCommuteInfoButton"
-        android:layout_alignRight="@+id/editWorkAddressTextView"
-        android:text="@string/set_to_work_time"
-        android:textSize="12sp" />
+        android:ems="10" />
 
     <TextView
         android:id="@+id/userWorkDateTimeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/enterWorkDateTimeButton"
-        android:layout_alignLeft="@+id/editWorkAddressTextView"
-        android:layout_below="@+id/editWorkAddressTextView"
-        android:layout_marginLeft="14dp"
-        android:layout_toLeftOf="@+id/enterWorkDateTimeButton"
-        android:layout_toStartOf="@id/enterWorkDateTimeButton"
-        android:paddingTop="3dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="12sp" />
+        android:layout_below="@+id/enterWorkDateTimeButton"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <TextView
-        android:id="@+id/userHomeTimeTextView"
+    <Button
+        android:id="@+id/saveCommuteInfoButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/saveCommuteInfoButton"
-        android:layout_alignLeft="@+id/userWorkDateTimeTextView"
-        android:paddingBottom="4dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/done"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/homeAddressTextView"
+        android:layout_alignEnd="@+id/homeAddressTextView"
+        android:layout_marginRight="25dp" />
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/workAddressTextView"
+        android:layout_toEndOf="@+id/workAddressTextView" />
+
+    <EditText
+        android:id="@+id/editWorkAddressTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/exampleHomeAddressTextView"
+        android:layout_alignStart="@+id/exampleHomeAddressTextView"
+        android:layout_alignRight="@+id/editHomeAddressTextView"
+        android:layout_alignEnd="@+id/editHomeAddressTextView"
+        android:layout_below="@+id/exampleHomeAddressTextView"
+        android:layout_marginTop="40dp"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/workAddressTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editWorkAddressTextView"
+        android:layout_below="@+id/exampleHomeAddressTextView"
+        android:layout_marginTop="20dp"
+        android:text="@string/enter_work_address" />
+
+    <Button
+        android:id="@+id/enterWorkDateTimeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/set_to_work_time" />
+
+    <TextView
+        android:id="@+id/exampleHomeAddressTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editHomeAddressTextView"
+        android:layout_below="@+id/editHomeAddressTextView"
+        android:text="@string/alt_address_example"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#696969"
         android:textSize="12sp" />
 
 </RelativeLayout>

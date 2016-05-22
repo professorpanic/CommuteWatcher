@@ -3,16 +3,21 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
 
     defaultConfig {
         applicationId "com.sammoin.commutewatcher"
         minSdkVersion 21
         targetSdkVersion 21
+        multiDexEnabled true
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
@@ -24,7 +29,10 @@ dependencies {
     compile 'com.android.support:support-v13:23.1.1'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
+    compile 'com.android.support:multidex:1.0.0'
     compile 'com.google.android.gms:play-services:8.4.0'
     compile 'joda-time:joda-time:2.9.3'
     compile 'com.github.provigen:ProviGen-lib:2.0.1'
+    compile 'com.google.maps:google-maps-services:0.1.14'
+    compile 'com.google.maps.android:android-maps-utils:0.4.3'
 }

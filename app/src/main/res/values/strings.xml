@@ -28,6 +28,7 @@
     <string name="Thursday">Thursday</string>
     <string name="Friday">Friday</string>
     <string name="Saturday">Saturday</string>
+    <string name="fetching_commute">Fetching next commute...</string>
     <string name="preferences">Preferences</string>
     <string name="set_preferences">Set Preferences</string>
     <string name="add_commute_short">Add Commute</string>
@@ -40,7 +41,11 @@
     <string name="content_authority">com.sammoin.commutewatcher.userscheduleprovider</string>
 	<string name="add_new_workday_button_text">Add New Commute and Time</string>
     <string name="add_new_dayitem_button_text">Add New Commute and Time</string>
+    <string name="time_to_check_commute">Next shortest commute distance and time: </string>
+    <string name="and">and</string>
     <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">AIzaSyDqh6bZAibYs9YYScAM4-lHP_mjEcfjneE"</string>
+    <string name="google_maps_browser_key" translatable="false" templateMergeStrategy="preserve">AIzaSyDTtlibd098MTVHMia7E9lKcdKogBnGRK4</string>
+
     <string name="google_app_id">160627016003</string>
     <string name="trips">Trips :</string>
     <string name="trips_active"> active</string>

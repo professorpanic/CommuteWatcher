@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements WorkWeekFragment.
             getActionBar().setDisplayShowTitleEnabled(false);
         }
         setSupportActionBar(mToolbar);
-
+        CommuteCheckAlarmService.setServiceAlarm(getApplicationContext(), CommuteCheckAlarmService.isServiceAlarmOn(getApplicationContext()));
 
 
 		// checking to be sure that the fragment container has a fragment in it.

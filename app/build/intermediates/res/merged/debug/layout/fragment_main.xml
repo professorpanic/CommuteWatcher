@@ -66,17 +66,6 @@
         android:ems="10" />
 
     <TextView
-        android:id="@+id/exampleWorkAddressTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/exampleHomeAddressTextView"
-        android:layout_below="@+id/editWorkAddressTextView"
-        android:text="@string/address_example"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="#696969"
-        android:textSize="12sp" />
-
-    <TextView
         android:id="@+id/workAddressTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -5,9 +5,11 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
@@ -159,8 +161,10 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
 
     @Override
     public void onResume() {
-        ;
+
         super.onResume();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        CommuteCheckAlarmService.setServiceAlarm(getContext(), preferences.getBoolean(getString(R.string.pref_enable_disable_key), false));
 
 
     }
@@ -277,6 +281,7 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
         values.put(UserScheduleContract.USER_ITEM_ACTIVE, 1);
 
                 getActivity().getContentResolver().insert(UserScheduleContract.CONTENT_URI, values);
+
             }
 
         }

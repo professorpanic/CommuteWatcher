@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="?attr/actionBarSize"
-    tools:context="com.sammoin.commutewatcher.MainActivity$PlaceholderFragment" >
+     >
 
     <TextView
         android:id="@+id/homeAddressTextView"
@@ -64,17 +64,6 @@
         android:layout_below="@+id/exampleHomeAddressTextView"
         android:layout_marginTop="40dp"
         android:ems="10" />
-
-    <TextView
-        android:id="@+id/exampleWorkAddressTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/exampleHomeAddressTextView"
-        android:layout_below="@+id/editWorkAddressTextView"
-        android:text="@string/address_example"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="#696969"
-        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/workAddressTextView"

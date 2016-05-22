@@ -324,6 +324,7 @@
     <item name="progress_circular" type="id"/>
     <item name="progress_horizontal" type="id"/>
     <item name="split_action_bar" type="id"/>
+    <item name="text" type="id"/>
     <item name="up" type="id"/>
     <item name="view_offset_helper" type="id"/>
     <integer name="abc_config_activityDefaultDur">220</integer>
@@ -371,6 +372,7 @@
     <string name="add_new_workday_button_text">Add New Commute and Time</string>
     <string name="address_example">Ex. 1700 Walnut Street, Philadelphia PA 19104</string>
     <string name="alt_address_example"> Ex. 500 Main Street, Anytown PA 19123</string>
+    <string name="and">and</string>
     <string name="app_active">Active</string>
     <string name="app_inactive">Inactive</string>
     <string name="app_name">CommuteWatcher</string>
@@ -424,7 +426,9 @@
     <string name="end_point">End Point </string>
     <string name="enter_home_address">Enter your starting address</string>
     <string name="enter_work_address">Enter your destination address</string>
+    <string name="fetching_commute">Fetching next commute...</string>
     <string name="google_app_id">160627016003</string>
+    <string name="google_maps_browser_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDTtlibd098MTVHMia7E9lKcdKogBnGRK4</string>
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDqh6bZAibYs9YYScAM4-lHP_mjEcfjneE"</string>
     <string name="hello_world">Hello world!</string>
     <string name="mr_media_route_button_content_description">Cast</string>
@@ -444,11 +448,11 @@
     <string name="place_autocomplete_search_hint">Search</string>
     <string name="pref_default_display_start"/>
     <string name="pref_default_start_descrip">Enter an address here to use as a default start point.</string>
-    <string name="pref_default_start_key">enable_disable</string>
+    <string name="pref_default_start_key">default_start_address</string>
     <string name="pref_default_start_point">Default Starting Address</string>
     <string name="pref_enable_disable_app">Enable/Disable App</string>
     <string name="pref_enable_disable_descrip">Uncheck this if you don\'t need to hear from this app.</string>
-    <string name="pref_enable_disable_key">default_start_address</string>
+    <string name="pref_enable_disable_key">enable_disable</string>
     <string name="pref_header_general">General</string>
     <string name="pref_header_notifications">Notifications</string>
     <string name="pref_ringtone_silent">Silent</string>
@@ -467,6 +471,7 @@
     <string name="status_bar_notification_info_overflow">999+</string>
     <string name="store_picture_message">"Allow Ad to store image in Picture gallery?"</string>
     <string name="store_picture_title">Save image</string>
+    <string name="time_to_check_commute">Next shortest commute distance and time: </string>
     <string name="title_activity_settings">Settings</string>
     <string name="trips">Trips :</string>
     <string name="trips_active"> active</string>
@@ -1419,6 +1424,18 @@
         <item name="tabBackground">?attr/selectableItemBackground</item>
         <item name="tabTextAppearance">@style/TextAppearance.Design.Tab</item>
         <item name="tabSelectedTextColor">?android:textColorPrimary</item>
+    </style>
+    <style name="Bubble.TextAppearance.Dark" parent="android:TextAppearance.Medium">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#ff7f7f7f</item>
+    </style>
+    <style name="Bubble.TextAppearance.Light" parent="Bubble.TextAppearance.Dark">
+        <item name="android:textColor">#ffeeeeee</item>
+    </style>
+    <style name="ClusterIcon.TextAppearance" parent="android:TextAppearance">
+        <item name="android:textColor">#ffeeeeee</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
     <style name="CommuteCheckBox" parent="Theme.Bacon">
         <item name="colorControlNormal">@color/theme_primary_dark</item>   <!-- normal border color change as you wish -->

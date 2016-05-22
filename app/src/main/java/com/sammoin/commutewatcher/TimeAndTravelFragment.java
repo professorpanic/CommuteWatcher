@@ -78,8 +78,8 @@ public class TimeAndTravelFragment extends Fragment
 		editWorkAddressText = (EditText) v
 				.findViewById(R.id.editWorkAddressTextView);
 		
-		displayHomeCommute = (TextView) v
-				.findViewById(R.id.userHomeTimeTextView);
+//		displayHomeCommute = (TextView) v
+//				.findViewById(R.id.userHomeTimeTextView);
 		
 		editHomeAddressText = (EditText) v
 				.findViewById(R.id.editHomeAddressTextView);
