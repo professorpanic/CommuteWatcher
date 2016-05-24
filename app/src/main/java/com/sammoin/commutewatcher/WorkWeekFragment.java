@@ -57,13 +57,12 @@ public class WorkWeekFragment extends Fragment
 
 	public WorkWeekFragment()
 	{
-		// TODO Auto-generated constructor stub
+		
 	}
 
     public void addDayToWeek(UserDay userDay)
     {
-//        mWorkWeek.set(userDay);
-//        adapter.notifyDataSetInvalidated();
+
     }
 
 
