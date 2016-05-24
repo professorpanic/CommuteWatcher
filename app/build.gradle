@@ -8,9 +8,9 @@ android {
     }
     signingConfigs {
         config {
-            keyAlias 'commutewatcher'
+            keyAlias 'commutewatcherv2'
             keyPassword 'boldstrategy'
-            storeFile file('C:/Users/DoctorMondo/commutewatcherkeystore.jks')
+            storeFile file('keystores/release/commutewatcherkeystore.jks')
             storePassword 'boldstrategy'
         }
     }
