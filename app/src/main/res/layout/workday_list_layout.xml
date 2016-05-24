@@ -31,6 +31,7 @@
         android:layout_marginBottom="@dimen/fab_margin"
         android:layout_width="56dp"
         android:layout_height="56dp"
+        android:contentDescription="@string/add_commute_short"
         app:backgroundTint="@color/theme_accent"
         android:src="@drawable/ic_add_24dp"
         android:scaleType="center"

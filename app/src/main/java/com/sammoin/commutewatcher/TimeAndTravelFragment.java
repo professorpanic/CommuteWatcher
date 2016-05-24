@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,9 +58,7 @@ public class TimeAndTravelFragment extends Fragment
 		if (extras.containsKey(WORKDAY_POSITION))
 		{
             sqlRowId=extras.getInt(WORKDAY_POSITION);
-		    //selectedDay = extras.getInt(WORKDAY_POSITION);
 
-		//Log.i("TIMEANDTRAVEL", "selectedDay " + selectedDay + " start address " + userDayItem.getHomeAddress() + " end address " + userDayItem.getWorkAddress());
 		}
         if (extras.containsKey(DAY_LIST_ITEM))
         {
@@ -79,45 +76,26 @@ public class TimeAndTravelFragment extends Fragment
     {
         public void updateTravelActivityTitle(int in);
     }
-
+    //testing out google analytics in here.
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState)
 	{
 		View v = inflater.inflate(R.layout.fragment_main, container, false);
 
-		displayWorkCommute = (TextView) v
-				.findViewById(R.id.userWorkDateTimeTextView);
-		editWorkAddressText = (EditText) v
-				.findViewById(R.id.editWorkAddressTextView);
-		
-//		displayHomeCommute = (TextView) v
-//				.findViewById(R.id.userHomeTimeTextView);
-		
-		editHomeAddressText = (EditText) v
-				.findViewById(R.id.editHomeAddressTextView);
+		displayWorkCommute = (TextView) v.findViewById(R.id.userWorkDateTimeTextView);
+		editWorkAddressText = (EditText) v.findViewById(R.id.editWorkAddressTextView);
+		editHomeAddressText = (EditText) v.findViewById(R.id.editHomeAddressTextView);
+		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa ZZZZ",Locale.getDefault());
 
-
-
-				
-				SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa ZZZZ",
-						Locale.getDefault());
-
-				displayWorkCommute.setText(userDayItem.getStartCommuteTime().toString("hh:mm aa"));
-				/*
-				displayHomeCommute.setText((sdf.format(userDayItem
-						.getDriveToHomeTime().getTime())));
-				*/
-				Log.i("TIMEANDTRAVEL", "try loop start address " + userDayItem.getHomeAddress() + " end address " + userDayItem.getWorkAddress());
-				
-				editWorkAddressText.setText(userDayItem.getWorkAddress());
-				editHomeAddressText.setText(userDayItem.getHomeAddress());
+		displayWorkCommute.setText(userDayItem.getStartCommuteTime().toString("hh:mm aa"));
+		editWorkAddressText.setText(userDayItem.getWorkAddress());
+		editHomeAddressText.setText(userDayItem.getHomeAddress());
 				
 		
 		
 		
-		workCommuteTimeButton = (Button) v
-				.findViewById(R.id.enterWorkDateTimeButton);
+		workCommuteTimeButton = (Button) v.findViewById(R.id.enterWorkDateTimeButton);
 		workCommuteTimeButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -163,10 +141,10 @@ public class TimeAndTravelFragment extends Fragment
                         .build());
 				userDayItem.setHomeAddress(editHomeAddressText.getText().toString());
 				userDayItem.setWorkAddress(editWorkAddressText.getText().toString());
-                //userDayItem.setWorkDay(selectedDay);
+
 				
 				
-				
+				//if there's no selected day, that means is this a new item..
 				Intent i = new Intent();
 				if (selectedDay > -1)
 				{
@@ -175,17 +153,13 @@ public class TimeAndTravelFragment extends Fragment
 				i.putExtra(DAY_LIST_ITEM, userDayItem);
 				getActivity().setResult(getActivity().RESULT_OK, i);
 				getActivity().finish();
-                Log.i("TIMEANDTRAVEL", "save button-selectedDay " + selectedDay + " userdayitem " + userDayItem.toString());
+
 
 			}
 		});
 
 		return v;
 	}
-
-	
-	
-	
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data)
@@ -201,8 +175,6 @@ public class TimeAndTravelFragment extends Fragment
 			UserDayItem tempUser;
 			tempUser = ((UserDayItem) data.getSerializableExtra(WorkCommuteDayAndTimeFragment.EXTRA_USER_DATA));
 
-
-
 			if (requestCode == REQUEST_WORK_COMMUTE)
 			{
 				if (tempUser.getStartCommuteTime().toString() != null)
@@ -216,23 +188,6 @@ public class TimeAndTravelFragment extends Fragment
 
 				}
 			}
-				
-			/*
-			if (requestCode == REQUEST_HOME_COMMUTE)
-			{
-				if (tempUser.getDriveToHomeTime().toString() != null)
-				{
-					userDayItem.setDriveToHomeTime(tempUser.getDriveToHomeTime());
-					displayHomeCommute.setText(sdf.format(userDayItem
-							.getDriveToHomeTime().getTime()));
-
-				}
-			}
-			*/
 		}
-
 	}
-
-	
-
 }

@@ -21,6 +21,7 @@
 
     <LinearLayout
         android:id="@+id/su_layout"
+        android:contentDescription="@string/Sunday"
         android:background="@drawable/border_stroke"
         android:backgroundTint="@android:color/white"
         android:clickable="true"
@@ -79,6 +80,7 @@
 
     <LinearLayout
         android:id="@+id/mo_layout"
+        android:contentDescription="@string/Monday"
         android:clickable="true"
         android:layout_width="match_parent"
         android:background="@drawable/border_stroke"
@@ -136,6 +138,7 @@
 
     <LinearLayout
         android:id="@+id/tu_layout"
+        android:contentDescription="@string/Tuesday"
         android:clickable="true"
         android:layout_width="match_parent"
         android:elevation="4dp"
@@ -193,6 +196,7 @@
 
     <LinearLayout
         android:id="@+id/we_layout"
+        android:contentDescription="@string/Wednesday"
         android:clickable="true"
         android:layout_width="match_parent"
         android:elevation="4dp"
@@ -250,6 +254,7 @@
 
     <LinearLayout
         android:id="@+id/th_layout"
+        android:contentDescription="@string/Thursday"
         android:clickable="true"
         android:layout_width="match_parent"
         android:elevation="4dp"
@@ -307,6 +312,7 @@
 
     <LinearLayout
         android:id="@+id/fr_layout"
+        android:contentDescription="@string/Friday"
         android:clickable="true"
         android:layout_width="match_parent"
         android:elevation="4dp"
@@ -364,6 +370,7 @@
 
     <LinearLayout
         android:id="@+id/sa_layout"
+        android:contentDescription="@string/Saturday"
         android:clickable="true"
         android:layout_width="match_parent"
         android:elevation="4dp"

@@ -7,7 +7,6 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.Build;
 import android.util.Log;
@@ -64,10 +63,10 @@ public class CommuteWidgetIntentService extends IntentService {
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this,
                 CommuteWidgetProvider.class));
         Context context = getApplicationContext();
-        // Get data from the ContentProvider
-        Log.e("IntentServiceHere", "IntentService OnHandleIntent");
-        Configuration config = context.getResources().getConfiguration();
-        //sql query to get score
+
+
+
+
 
 
 
@@ -93,7 +92,8 @@ public class CommuteWidgetIntentService extends IntentService {
         int rowId;
 
         while (cursor.moveToNext()) {
-            Log.e("IntentServiceHere", "movetofirst");
+            //slightly different from the alarm service because we're only displaying what's next of that day. Give the user a break!
+
             startTime = cursor.getLong(cursor.getColumnIndex(UserScheduleContract.USER_START_TIME));
             int activeBoolAsNum = cursor.getInt(cursor.getColumnIndex(UserScheduleContract.USER_ITEM_ACTIVE));
             int dayOfWeek = GregorianCalendar.getInstance().get(Calendar.DAY_OF_WEEK);

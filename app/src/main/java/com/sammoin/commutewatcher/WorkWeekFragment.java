@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -74,89 +73,10 @@ public class WorkWeekFragment extends Fragment
 		super.onCreate(savedInstanceState);
 		setRetainInstance(true);
 
-		//setHasOptionsMenu(true);
-
-
-		//System.out.println(mWorkWeek);
 		mCallback = (PassDayFromWeekListener)getActivity();
-		//Log.i("ON CREATE UPDATE", " " + mWorkWeek);
-		//UserDayItem test = mWorkWeek.get(6);
-		//test.setWorkDay(Day.MONDAY);
 
         UserDayItem udi = new UserDayItem(getContext());
 
-//
-//
-//
-//        ContentValues values = new ContentValues();
-//
-//        values.put(UserScheduleContract.USER_START_ADDRESS, "start test");
-//        values.put(UserScheduleContract.USER_END_ADDRESS, "end test");
-//        values.put(UserScheduleContract.USER_WORKDAY, 2);
-//        values.put(UserScheduleContract.USER_START_TIME, udi.getStartCommuteTime().getTimeInMillis());
-//        values.put(UserScheduleContract.USER_ITEM_ACTIVE, 1);
-//
-//        mNewUri = getActivity().getContentResolver().insert(
-//                UserScheduleContract.CONTENT_URI,
-//                values);
-//        values.put(UserScheduleContract.USER_START_ADDRESS, "start test");
-//        values.put(UserScheduleContract.USER_END_ADDRESS, "end test");
-//        values.put(UserScheduleContract.USER_WORKDAY, 3);
-//        values.put(UserScheduleContract.USER_START_TIME, udi.getStartCommuteTime().getTimeInMillis());
-//        values.put(UserScheduleContract.USER_ITEM_ACTIVE, 1);
-//        mNewUri = getActivity().getContentResolver().insert(
-//                UserScheduleContract.CONTENT_URI,
-//                values);
-//
-//        values.put(UserScheduleContract.USER_START_ADDRESS, "start test");
-//        values.put(UserScheduleContract.USER_END_ADDRESS, "end test");
-//        values.put(UserScheduleContract.USER_WORKDAY, 4);
-//        values.put(UserScheduleContract.USER_START_TIME, udi.getStartCommuteTime().getTimeInMillis());
-//        values.put(UserScheduleContract.USER_ITEM_ACTIVE, 1);
-//        mNewUri = getActivity().getContentResolver().insert(
-//                UserScheduleContract.CONTENT_URI,
-//                values);
-//
-//        values.put(UserScheduleContract.USER_START_ADDRESS, "start test");
-//        values.put(UserScheduleContract.USER_END_ADDRESS, "end test");
-//        values.put(UserScheduleContract.USER_WORKDAY, 5);
-//        values.put(UserScheduleContract.USER_START_TIME, 1495924590);
-//        values.put(UserScheduleContract.USER_ITEM_ACTIVE, 1);
-//        mNewUri = getActivity().getContentResolver().insert(
-//                UserScheduleContract.CONTENT_URI,
-//                values);
-//
-//        values.put(UserScheduleContract.USER_START_ADDRESS, "start test");
-//        values.put(UserScheduleContract.USER_END_ADDRESS, "end test");
-//        values.put(UserScheduleContract.USER_WORKDAY, 1);
-//        values.put(UserScheduleContract.USER_START_TIME, 1495924590);
-//        values.put(UserScheduleContract.USER_ITEM_ACTIVE, 1);
-//
-//
-//        mNewUri = getActivity().getContentResolver().insert(
-//                UserScheduleContract.CONTENT_URI,
-//                values);
-        //getActivity().getContentResolver().insert(UserScheduleContract.CONTENT_URI, values);
-
-//        Cursor testCursor = getActivity().getContentResolver().query(UserScheduleContract.CONTENT_URI, null, null, null, null);
-//        testCursor.moveToFirst();
-//        Log.e("WORKWEEKCURSORTEST", "index 0 " + testCursor.getString(0));
-//        Log.e("WORKWEEKCURSORTEST", "index 1 " + testCursor.getString(1));
-//        Log.e("WORKWEEKCURSORTEST", "index 2 " + testCursor.getString(2));
-//        Log.e("WORKWEEKCURSORTEST", "index 3 " + testCursor.getString(3));
-//        Log.e("WORKWEEKCURSORTEST", "index 4 " + testCursor.getString(4));
-//        Log.e("WORKWEEKCURSORTEST", "index 5 " + testCursor.getString(5));
-//        Log.e("WORKWEEKCURSORTEST", "column names " + testCursor.getColumnNames().toString());
-//        Log.e("WORKWEEKCURSORTEST", "index 5 " + testCursor.toString());
-//        testCursor.close();
-//		//setListAdapter(adapter);
-//        try {
-//            loadSavedInfo(USER_INFO_FILE);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
 
     }
 
@@ -194,9 +114,6 @@ public class WorkWeekFragment extends Fragment
         Bundle extras = new Bundle();
 
 
-
-        //mCallback.passDayFromWeek(extras);
-        //startActivityForResult(i, REQUEST_POSITION);
 
         LinearLayout sundayBar = (LinearLayout) view.findViewById(R.id.su_layout);
         sundayBar.setOnClickListener(new View.OnClickListener() {
@@ -298,95 +215,7 @@ public class WorkWeekFragment extends Fragment
 
         return view;
     }
-	
-	
 
-	
-	
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data)
-	{
-//		if (resultCode==getActivity().RESULT_OK)
-//		{
-//			if (requestCode==WorkWeekFragment.REQUEST_POSITION)
-//			{
-//			//mWorkWeek.set(data.getIntExtra(TimeAndTravelFragment.WORKDAY_POSITION, 0), (UserDayItem) data.getSerializableExtra(TimeAndTravelFragment.DAY_LIST_ITEM));
-//			}
-//
-//			else if (requestCode==WorkWeekFragment.REQUEST_NEW_COMMUTE)
-//			{
-//				//mWorkWeek.add((UserDayItem) data.getSerializableExtra(TimeAndTravelFragment.DAY_LIST_ITEM));
-//			}
-//
-//		}
-
-		Log.e("WORKWEEKLISTFRAGMENT", "in onActivityResult. Do I even need to override this now?");
-		//setListAdapter(adapter);
-		
-	}
-
-//	public boolean loadSavedInfo(String filename)
-//			throws StreamCorruptedException, IOException,
-//			ClassNotFoundException
-//	{
-//
-//		savedUserInfo = new UserWeek();
-//		ObjectInputStream file;
-//
-//		try
-//		{
-//			file = new ObjectInputStream(new FileInputStream(new File(new File(
-//					getActivity().getApplicationContext().getFilesDir(), "")
-//					+ File.separator + filename)));
-//
-//
-//			savedUserInfo =(UserWeek) file.readObject();
-//			mWorkWeek.copy(savedUserInfo);
-//			file.close();
-//			return true;
-//		}
-//		catch (FileNotFoundException e)
-//		{
-//
-//			e.printStackTrace();
-//		}
-//
-//		return false;
-//
-//	}
-//
-//	public void saveInfo() throws IOException
-//	{
-//
-//		ObjectOutput output = null;
-//
-//		if (savedUserInfo == null)
-//		{
-//			savedUserInfo = new UserWeek();
-//		}
-//		savedUserInfo.copy(mWorkWeek);
-//
-//		CommuteCheckAlarmService.setServiceAlarm(getActivity(),
-//                CommuteCheckAlarmService.isServiceAlarmOn(getActivity()),
-//				savedUserInfo);
-//
-//		try
-//		{
-//			output = new ObjectOutputStream(new FileOutputStream(new File(
-//					getActivity().getApplicationContext().getFilesDir(), "")
-//					+ File.separator + USER_INFO_FILE));
-//			output.writeObject(savedUserInfo);
-//			output.close();
-//		}
-//		catch (FileNotFoundException e)
-//		{
-//			e.printStackTrace();
-//		}
-//		catch (IOException e)
-//		{
-//			e.printStackTrace();
-//		}
-//	}
 
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
 	{
@@ -417,37 +246,12 @@ public class WorkWeekFragment extends Fragment
             startActivity(new Intent(getActivity(), SettingsActivity.class));
             return true;
 
-//		case R.id.action_alarm_toggle:
-//
-//			boolean turnAlarmOn = !CommuteCheckAlarmService
-//					.isServiceAlarmOn(getActivity());
-//			try {
-//				CommuteCheckAlarmService.setServiceAlarm(getActivity(),
-//                        turnAlarmOn);
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			} catch (ClassNotFoundException e) {
-//				e.printStackTrace();
-//			}
-//			Log.i("WORKWEEKLISTFRAGMENT", "alarm on has been clicked "+ turnAlarmOn + " and user object is " + savedUserInfo.toString());
-//
-//			return true;
-		
-
-		
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
 	
 
-
-
-
-
-    public void clearAllRecords() {
-        getActivity().getContentResolver().delete(UserScheduleContract.CONTENT_URI, "", null);
-    }
 
     public void setDayActivity(int dayInt, boolean isActive)
     {
@@ -469,9 +273,7 @@ public class WorkWeekFragment extends Fragment
 
     public void proceedToWorkDayList(int dayInt)
     {
-//        Bundle extras = new Bundle();
-//        extras.putInt(WorkDayListFragment.USER_DAY_POSITION, dayInt);
-//        mCallback.passDayFromWeek(extras);
+
         //this is a horrible way to go between fragments, but calling for a fragment transaction using supportfragmentmanager causes an issue going into detail here
         //http://www.androiddesignpatterns.com/2013/08/fragment-transaction-commit-state-loss.html
         Bundle extras = new Bundle();
@@ -485,7 +287,7 @@ public class WorkWeekFragment extends Fragment
                 .replace(R.id.container, workDayListFragment)
                 .addToBackStack(null)
                 .commit();
-        //startActivityForResult(i, REQUEST_POSITION);
+
 
     }
 
@@ -564,7 +366,7 @@ public class WorkWeekFragment extends Fragment
 
 
                 }
-                Log.e("WORKWEEKCURSORTEST", "test cursor loop, rowNum is " + sunNum);
+
 
 
 

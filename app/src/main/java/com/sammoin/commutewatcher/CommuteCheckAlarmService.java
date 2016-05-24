@@ -73,13 +73,11 @@ public class CommuteCheckAlarmService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        Log.i(TAG, "MapQueryService is handing intent: " + intent);
+        //better to keep this as an intentservice due to the one-off nature of the alarms.
         UserDayItem userDayItem = (UserDayItem)intent.getSerializableExtra(COMMUTE_DAY);
         startAddress = userDayItem.getHomeAddress();
         endAddress = userDayItem.getWorkAddress();
-        //String endAddress = intent.getStringExtra(END_ADDRESS);
-//        FetchLatLongAsynchTask startAddressTask = new FetchLatLongAsynchTask();
-//        startAddressTask.doInBackground(getApplicationContext());
+
         String formattedStartAddress = startAddress.replace(" ", "+");
         String formattedEndAddress = endAddress.replace(" ", "+");
         String duration = "";
@@ -87,25 +85,14 @@ public class CommuteCheckAlarmService extends IntentService {
         String timeOfShortestTripWithoutTraffic =getApproxTimeByURL(formattedStartAddress, formattedEndAddress);
         String startResponse = getLatLongByURL("http://maps.google.com/maps/api/geocode/json?address=" + formattedStartAddress + "&sensor=false");
         String endResponse = getLatLongByURL("http://maps.google.com/maps/api/geocode/json?address="+formattedEndAddress + "&sensor=false");
-//        Geocoder startGeocoder = new Geocoder(this, Locale.getDefault());
-//        Geocoder endGeocoder = new Geocoder(this, Locale.getDefault());
+
 
         startLatitude = 0.0;
         startLongitude = 0.0;
         endLatitude = 0.0;
         endLongitude = 0.0;
 
-//        try {
-//            List<Address> startGeocoderAddress = startGeocoder.getFromLocationName(startAddress, 1);
-//            startLatitude = startGeocoderAddress.get(0).getLatitude();
-//            startLongitude = startGeocoderAddress.get(0).getLongitude();
-//
-//            List<Address> endGeocoderAddress = endGeocoder.getFromLocationName(endAddress, 1);
-//            endLatitude = endGeocoderAddress.get(0).getLatitude();
-//            endLongitude = endGeocoderAddress.get(0).getLongitude();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+
         JSONObject jsonStartObject;
         JSONObject jsonEndObject;
         JSONObject jsonTravelTimeObject;
@@ -138,8 +125,7 @@ public class CommuteCheckAlarmService extends IntentService {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-//        Log.d("latitude", "" + startLatitude);
-//        Log.d("longitude", "" + startLongitude);
+
 
         Uri startAndEndUri = Uri.parse("http://maps.google.com/maps?saddr="
                 + startLatitude + "," + startLongitude + "&daddr="
@@ -151,7 +137,7 @@ public class CommuteCheckAlarmService extends IntentService {
 
         PendingIntent notificationIntent = PendingIntent.getActivity(this, 0,
                 mapIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        setServiceAlarm(getApplicationContext(), true); //this will queue up the next alarm.
+        setServiceAlarm(getApplicationContext(), true); //this will queue up the next alarm. The intent won't actually be sent unless the alarm service is already on, so no worries about loops.
         Notification notification = new NotificationCompat.Builder(this)
                 .setTicker(getString(R.string.upcoming_info_avail))
                 .setSmallIcon(android.R.drawable.ic_dialog_alert)
@@ -178,17 +164,19 @@ public class CommuteCheckAlarmService extends IntentService {
     @SuppressWarnings("static-access")
     public static void setServiceAlarm(Context context, boolean isOn) {
 
-        //these two arraylists are for holding pendingintents to load into the alarm manager, and an intent list to build the pending list from.
+
         PendingIntent alarmPendingIntent = null;
         Intent alarmIntent;
 
-        Log.i(TAG, "setService alarm is up is called, boolean is " + isOn);
+
         AlarmManager alarmManager = (AlarmManager) context
                 .getSystemService(Context.ALARM_SERVICE);
         long comparisonStartTime = LocalTime.now().getMillisOfDay();
 
-        String mRowSelectionClause = UserScheduleContract.USER_START_TIME + "> " + comparisonStartTime;
 
+        //we're essentially just grabbing the next commute that's active,
+        // building a userdayitem with all of the relevant info, and loading into an intent and then
+        //putting it into a pendingintent
         if (isOn) {
             Cursor cursor = context.getContentResolver().query(
                     UserScheduleContract.CONTENT_URI,   // The content URI of the sched table
@@ -212,8 +200,7 @@ public class CommuteCheckAlarmService extends IntentService {
                 int activeBoolAsNum = cursor.getInt(cursor.getColumnIndex(UserScheduleContract.USER_ITEM_ACTIVE));
                 int dayOfWeek = GregorianCalendar.getInstance().get(Calendar.DAY_OF_WEEK);
                 if (startTime > comparisonStartTime
-                        && 1 == activeBoolAsNum
-                        && dayOfWeek == cursor.getInt(cursor.getColumnIndex(UserScheduleContract.USER_WORKDAY))) {
+                        && 1 == activeBoolAsNum) {
                     // Extract the data from the Cursor, we need to look for the first row that is later than the current time
                     endAddress = cursor.getString(cursor.getColumnIndex(UserScheduleContract.USER_END_ADDRESS));
                     isActive = cursor.getInt(cursor.getColumnIndex(UserScheduleContract.USER_ITEM_ACTIVE));
@@ -244,7 +231,7 @@ public class CommuteCheckAlarmService extends IntentService {
                 Intent commuteIntent = new Intent(context,
                         CommuteCheckAlarmService.class);
                 Bundle bundle = new Bundle();
-                //bundle.putSerializable(Comm);
+
                 commuteIntent.putExtra(COMMUTE_DAY, userDayItem);
 
 
@@ -279,8 +266,7 @@ public class CommuteCheckAlarmService extends IntentService {
         }
 
 
-//        PreferenceManager.getDefaultSharedPreferences(context).edit()
-//                .putBoolean(context.getString(R.string.pref_enable_disable_key), isOn).commit();
+
     }
 
 
@@ -295,102 +281,7 @@ public class CommuteCheckAlarmService extends IntentService {
 
 
 
-//    private class FetchLatLongAsynchTask extends AsyncTask<Context, Void, String[]> {
-//        ProgressDialog dialog = new ProgressDialog(CommuteCheckAlarmService.this);
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//
-//        }
-//
-//        @Override
-//        protected String[] doInBackground(Context... params) {
-//            String response;
-//            try {
-//
-////                Geocoder startGeocoder = new Geocoder(params[0], Locale.getDefault());
-////                Geocoder endGeocoder = new Geocoder(params[0], Locale.getDefault());
-//                String formattedAddress = startAddress.replace(" ", "+");
-//
-//                response = getLatLongByURL("http://maps.google.com/maps/api/geocode/json?address="+formattedAddress + "&sensor=false");
-//                startLatitude = 0.0;
-//                startLongitude = 0.0;
-//                endLatitude = 0.0;
-//                endLongitude = 0.0;
-////                boolean startIsPresent = startGeocoder.isPresent();
-////                boolean endIsPresent = endGeocoder.isPresent();
-////                try {
-////                    List<Address> startGeocoderAddress = startGeocoder.getFromLocationName(startAddress, 1);
-////                    startLatitude = startGeocoderAddress.get(0).getLatitude();
-////                    startLongitude = startGeocoderAddress.get(0).getLongitude();
-////
-////                    List<Address> endGeocoderAddress = endGeocoder.getFromLocationName(endAddress, 1);
-////                    endLatitude = endGeocoderAddress.get(0).getLatitude();
-////                    endLongitude = endGeocoderAddress.get(0).getLongitude();
-////                } catch (IOException e) {
-////                    e.printStackTrace();
-////                }
-//
-//                startAndEndUri = Uri.parse("http://maps.google.com/maps?saddr="
-//                        + startLatitude + "," + startLongitude + "&daddr="
-//                        + endLatitude + "," + endLongitude);
-//
-//
-//
-//
-//
-//
-////                Log.d("response",""+response);
-//                return new String[]{response};
-//            } catch (Exception e) {
-//                return new String[]{"error"};
-//            }
-//        }
-//
-//        @Override
-//        protected void onPostExecute(String... result) {
-//            try {
-//                JSONObject jsonObject = new JSONObject(result[0]);
-//
-//                double lng = ((JSONArray)jsonObject.get("results")).getJSONObject(0)
-//                        .getJSONObject("geometry").getJSONObject("location")
-//                        .getDouble("lng");
-//
-//                double lat = ((JSONArray)jsonObject.get("results")).getJSONObject(0)
-//                        .getJSONObject("geometry").getJSONObject("location")
-//                        .getDouble("lat");
-//
-//                Log.d("latitude", "" + lat);
-//                Log.d("longitude", "" + lng);
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//            if (dialog.isShowing()) {
-//                dialog.dismiss();
-//            }
-//            Intent mapIntent = new Intent(android.content.Intent.ACTION_VIEW,
-//                    startAndEndUri);
-//            mapIntent.setPackage("com.google.android.apps.maps");
-//
-//            PendingIntent notificationIntent = PendingIntent.getActivity(getApplicationContext(), 0,
-//                    mapIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-//
-//            Notification notification = new NotificationCompat.Builder(getApplicationContext())
-//                    .setTicker("Time to check your commute!")
-//                    .setSmallIcon(android.R.drawable.ic_dialog_alert)
-//                    .setContentTitle("CommuteWatcher")
-//                    .setContentText(
-//                            "It's time to check your commute! Tap this notification to start.")
-//                    .setContentIntent(notificationIntent).setAutoCancel(true)
-//                    .build();
-//
-//            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//
-//            notificationManager.notify(0, notification);
-//
-//            setServiceAlarm(getApplicationContext(), true);
-//        }
-//    }
+
 
     //found this method and above class on stackoverflow
     //http://stackoverflow.com/questions/15711499/get-latitude-and-longitude-with-geocoder-and-android-google-maps-api-v2
@@ -466,8 +357,7 @@ public class CommuteCheckAlarmService extends IntentService {
         URL url;
         String response = "";
         try {
-            //https://maps.googleapis.com/maps/api/distancematrix
-            //String startResponse = getLatLongByURL("http://maps.google.com/maps/api/geocode/json?address=" + formattedStartAddress + "&sensor=false");
+
             Uri.Builder builder = new Uri.Builder();
             builder.scheme("https")
                     .authority("maps.googleapis.com")

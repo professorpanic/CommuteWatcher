@@ -25,7 +25,7 @@ public class UserDayItem implements Serializable
 	private boolean active;
     SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa");
 	
-	//NEW DESIGN PLAN - STATIC ARRAY OF DAYS, CONTAINS COMMUTE IN EACH DAY. SHOULD BE EASIER TO USE WITH ALARMS AND SAVE.
+
 	public Day getWorkDay()
 	
 	{

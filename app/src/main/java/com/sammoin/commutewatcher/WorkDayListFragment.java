@@ -18,7 +18,6 @@ import android.support.v4.content.Loader;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +30,7 @@ import org.joda.time.LocalTime;
 //import android.support.v7.internal.widget.AdapterViewCompat.AdapterContextMenuInfo;
 
 public class WorkDayListFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>{
-    private UserDay mWorkday;
+
     ListAdapter adapter;
     private SimpleCursorAdapter mCursorAdapter;
     private Cursor mCursor;
@@ -42,7 +41,7 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
     public static final String USER_DAY_OBJECT = "com.sammoin.commutewatcher.user";
     public static final String USER_DAY_POSITION = "com.sammoin.commutewatcher.user";
     private static final int DAY_LOADER = 0;
-    WorkWeek mWorkWeek;
+
     UpdateTitleListener mCallback;
     private String mRowSelectionClause;
     private TextView startPointTextView;
@@ -73,11 +72,6 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
                     UserScheduleContract._ID
             };
 
-
-
-
-
-
     //test
     public WorkDayListFragment() {
         // TODO Auto-generated constructor stub
@@ -102,7 +96,7 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         data=getActivity().getContentResolver().query(
-                UserScheduleContract.CONTENT_URI,   // The content URI of the words table
+                UserScheduleContract.CONTENT_URI,   // The content URI of the sched table
                 mRowProjection,                        // The columns to return for each row
                 mRowSelectionClause,                    // Selection criteria
                 null,                     // Selection criteria
@@ -153,7 +147,6 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
     }
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -164,9 +157,7 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
         mRowSelectionClause = UserScheduleContract.USER_WORKDAY +"= "+ args.getInt(WorkDayListFragment.USER_DAY_POSITION);
 
         setListAdapter(mCursorAdapter);
-
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -187,35 +178,16 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
         return view;
     }
 
-
     @Override
     public void onResume() {
 
         super.onResume();
+        //making sure the intentservice stays on in case it gets killed during idling, the next time the app is opened and the pref is true.
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         CommuteCheckAlarmService.setServiceAlarm(getContext(), preferences.getBoolean(getString(R.string.pref_enable_disable_key), false));
 
-
     }
-//
-//    @Override
-//    public void onListItemClick(ListView l, View v, int position, long id) {
-//
-//
-//        UserDayItem u = ((UserDayAdapter) (getListAdapter())).getItem(position);
-//        Log.i(TAG, " " + u.toString() + position + "start " + u.getWorkAddress() + " end " + u.getHomeAddress());
-//
-//        //TODO: revamp WorkWeekFragment to use Intent with OnResult
-//        Intent i = new Intent(getActivity(), TimeAndTravelActivity.class);
-//        Bundle extras = new Bundle();
-//        extras.putSerializable(TimeAndTravelFragment.DAY_LIST_ITEM, u);
-//        extras.putInt(TimeAndTravelFragment.WORKDAY_POSITION, position);
-//        i.putExtra(LIST_BUNDLE, extras);
-//        startActivityForResult(i, REQUEST_POSITION);
-//
-//
-//
-//    }
+
 
     //quick inner class for holding info in a row in the cursoradapter
     private class RowViewHolder {
@@ -272,12 +244,7 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
         public void setCheckBox(CheckBox checkBox) {
             this.activeCheckBox = checkBox;
         }
-
-
     }
-
-
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -293,106 +260,33 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
                 values.put(UserScheduleContract.USER_START_TIME, udi.getStartCommuteTime().getMillisOfDay());
                 values.put(UserScheduleContract.USER_ITEM_ACTIVE, 1);
                 getActivity().getContentResolver().update(
-                        UserScheduleContract.CONTENT_URI,   // The content URI of the words table
+                        UserScheduleContract.CONTENT_URI,   // The content URI of the sched table
                         values,                        // The columns to return for each row
                         UserScheduleContract._ID + "=" + row,                    // Selection criteria
                         null);
-                //mWorkday.getDayItemArrayList().set(data.getIntExtra(TimeAndTravelFragment.WORKDAY_POSITION, 0), (UserDayItem) data.getSerializableExtra(TimeAndTravelFragment.DAY_LIST_ITEM));
-            } else if (requestCode == WorkDayListFragment.REQUEST_NEW_COMMUTE) {
-                //mWorkday.addItemToDay((UserDayItem) data.getSerializableExtra(TimeAndTravelFragment.DAY_LIST_ITEM));
+            }
+            else if (requestCode == WorkDayListFragment.REQUEST_NEW_COMMUTE)
+            {
+
             UserDayItem udi = ((UserDayItem) data.getSerializableExtra(TimeAndTravelFragment.DAY_LIST_ITEM));
-                        ContentValues values = new ContentValues();
+                ContentValues values = new ContentValues();
 
-        values.put(UserScheduleContract.USER_START_ADDRESS, udi.getHomeAddress());
-        values.put(UserScheduleContract.USER_END_ADDRESS, udi.getWorkAddress());
-        values.put(UserScheduleContract.USER_WORKDAY, getArguments().getInt(WorkDayListFragment.USER_DAY_POSITION));
-        values.put(UserScheduleContract.USER_START_TIME, udi.getStartCommuteTime().getMillisOfDay());
-        values.put(UserScheduleContract.USER_ITEM_ACTIVE, 1);
+            values.put(UserScheduleContract.USER_START_ADDRESS, udi.getHomeAddress());
+            values.put(UserScheduleContract.USER_END_ADDRESS, udi.getWorkAddress());
+            values.put(UserScheduleContract.USER_WORKDAY, getArguments().getInt(WorkDayListFragment.USER_DAY_POSITION));
+            values.put(UserScheduleContract.USER_START_TIME, udi.getStartCommuteTime().getMillisOfDay());
+            values.put(UserScheduleContract.USER_ITEM_ACTIVE, 1);
 
-                getActivity().getContentResolver().insert(UserScheduleContract.CONTENT_URI, values);
+            getActivity().getContentResolver().insert(UserScheduleContract.CONTENT_URI, values);
 
             }
-
         }
-
-
-
-
     }
-
-
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//
-//        super.onCreateOptionsMenu(menu, inflater);
-//        inflater.inflate(R.menu.main_actions, menu);
-//
-//    }
-//
-//    @Override
-//    public void onPrepareOptionsMenu(Menu menu) {
-//        super.onPrepareOptionsMenu(menu);
-//
-//        MenuItem toggleItem = menu.findItem(R.id.action_alarm_toggle);
-//        getActivity().invalidateOptionsMenu();
-//
-//        if (CommuteCheckAlarmService.isServiceAlarmOn(getActivity())) {
-//            toggleItem.setTitle(R.string.action_turn_checker_off);
-//
-//        } else {
-//            toggleItem.setTitle(R.string.action_turn_checker_on);
-//
-//        }
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        switch (item.getItemId()) {
-//
-//            case R.id.action_settings:
-//                return true;
-//
-//            case R.id.action_alarm_toggle:
-//
-//			boolean turnAlarmOn = !CommuteCheckAlarmService
-//					.isServiceAlarmOn(getActivity());
-//			CommuteCheckAlarmService.setServiceAlarm(getActivity(),
-//					turnAlarmOn, savedUserInfo);
-//			Log.i(TAG, "alarm on has been clicked "+ turnAlarmOn);
-//                honeyCombOptionsInvalidate();
-//                return true;
-//
-//            case R.id.action_add_new:
-//                Log.i(TAG, "add new options item");
-//                addNewCommute();
-//                adapter = new UserDayAdapter(mWorkday);
-//                setListAdapter(adapter);
-//                return true;
-//
-//		case R.id.action_delete_all:
-//			Log.i(TAG, "add delete all options item");
-//			for (UserDayItem ud : mWorkday)
-//			{
-//				ud.clear();
-//			}
-//            adapter.notifyDataSetChanged();
-//			adapter = new UserDayAdapter(mWorkday);
-//			setListAdapter(adapter);
-//			return true;
-//
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
-
-
 
     private void deleteCommute(final long rowId) {
         if (rowId>0) {
             new AlertDialog.Builder(getContext())
-                    //.setTitle(R.string.clear_day)
+
                     .setPositiveButton(R.string.delete_this_commute,
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog,
@@ -428,23 +322,18 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
     class DayListBuilder extends CursorAdapter {
         public DayListBuilder(Context context, Cursor c) {
             super(context, c);
-            Log.d("TAG", "DayListBuilder Create");
+
             mInflator=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
 
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
-            String endAddress= null;
-            String startAddress=null;
+
             final boolean isActive=cursor.getInt(cursor.getColumnIndex(UserScheduleContract.USER_ITEM_ACTIVE))==1;
             long startTime=0;
 
             RowViewHolder viewHolder = (RowViewHolder) view.getTag();
 
-
-            Log.d("TAG","DayListBuilder BindView");
-
-                Log.d("TAG", "DayListBuilder cursor not nuill");
             viewHolder.endPointTextView.setText(cursor.getString(cursor.getColumnIndex(UserScheduleContract.USER_END_ADDRESS)));
             viewHolder.startPointTextView.setText(cursor.getString(cursor.getColumnIndex(UserScheduleContract.USER_START_ADDRESS)));
             startTime=cursor.getLong(cursor.getColumnIndex(UserScheduleContract.USER_START_TIME));
@@ -467,7 +356,7 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
 
                     }
                     getActivity().getContentResolver().update(
-                            UserScheduleContract.CONTENT_URI,   // The content URI of the words table
+                            UserScheduleContract.CONTENT_URI,   // The content URI of the sched table
                             contentValues,                        // The columns to return for each row
                             UserScheduleContract._ID + "=" + rowId,                    // Selection criteria
                             null);
@@ -477,7 +366,7 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
                 }
             });
 
-            Log.d("TAG", "" + startTime);
+            //easier to handle info using the UDI item.
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -486,11 +375,12 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
                     UserDayItem u = new UserDayItem(getContext());
 
                     Cursor data = getActivity().getContentResolver().query(
-                            UserScheduleContract.CONTENT_URI,   // The content URI of the words table
+                            UserScheduleContract.CONTENT_URI,   // The content URI of the ached table
                             mRowProjection,                        // The columns to return for each row
                             mClickSelectionClause,                    // Selection criteria
                             null,                     // Selection criteria
                             UserScheduleContract.USER_START_TIME + " ASC");
+
                     data.moveToFirst();
                     u.setWorkDay(data.getInt(data.getColumnIndex(UserScheduleContract.USER_WORKDAY)));
                     u.setActive(isActive);
@@ -498,7 +388,6 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
                     u.setWorkAddress(data.getString(data.getColumnIndex(UserScheduleContract.USER_END_ADDRESS)));
                     u.setStartCommuteTime(data.getLong(data.getColumnIndex(UserScheduleContract.USER_START_TIME)));
                     data.close();
-
 
                     Intent i = new Intent(getActivity(), TimeAndTravelActivity.class);
                     Bundle extras = new Bundle();
@@ -517,27 +406,21 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
                     return true;
                 }
             });
-            //startTimeTextView.setText(startTime);
+
 
         }
 
         @Override
         public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
-            Log.d("TAG", "CursorAdapter newView");
+
             View customListView=LayoutInflater.from(context).inflate(R.layout.list_item_workday, viewGroup, false);
-
-
-
             RowViewHolder viewHolder = new RowViewHolder(customListView);
             customListView.setTag(viewHolder);
 
 
             return customListView;
         }
-
     }
-
-
 }
 
 

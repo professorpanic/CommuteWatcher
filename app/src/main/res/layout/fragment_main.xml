@@ -43,6 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/done"
+        android:contentDescription="@string/done"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/homeAddressTextView"
         android:layout_alignEnd="@+id/homeAddressTextView"
@@ -54,6 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cancel"
+        android:contentDescription="@string/cancel"
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@+id/workAddressTextView"
         android:layout_toEndOf="@+id/workAddressTextView" />
@@ -86,6 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:contentDescription="@string/set_to_work_time"
         android:text="@string/set_to_work_time" />
 
     <TextView

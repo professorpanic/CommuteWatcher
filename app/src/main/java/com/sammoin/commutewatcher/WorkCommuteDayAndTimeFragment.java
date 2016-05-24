@@ -51,7 +51,7 @@ public class WorkCommuteDayAndTimeFragment extends DialogFragment
 	{
 
 		userDayItem = (UserDayItem) getArguments().getSerializable(EXTRA_USER_DATA);
-		//userDayItem= (UserDayItem) getActivity().getIntent().getSerializableExtra(TimeAndTravelFragment.DAY_LIST_ITEM);
+
 		if (userDayItem != null) {
 			scheduledDay = userDayItem.getWorkDay();
 		}
@@ -109,7 +109,7 @@ public class WorkCommuteDayAndTimeFragment extends DialogFragment
 		userDayItem.setWorkDay(scheduledDay);
 		userDayItem.setStartCommuteTime(commuteStartTime, scheduledDay.get());
 
-		//userDayItem.getStartCommuteTime().setTimeZone(TimeZone.getDefault());
+
 		Log.i(WORK_TIME_DIALOG, "in sendResult "
 				+ userDayItem.getStartCommuteTime().toString());
 		i.putExtra(EXTRA_USER_DATA, userDayItem);

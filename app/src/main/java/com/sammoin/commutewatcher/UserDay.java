@@ -8,9 +8,7 @@ public class UserDay implements Serializable
 
 
 
-	/**
-	 * 
-	 */
+	//keeping this in here in case I ever want to use the old data model for some reason and ditch content providers.
 	private ArrayList<UserDayItem> dayItemArrayList;
 	private Day dayOfTheWeek;
     private boolean active;
@@ -66,7 +64,7 @@ public class UserDay implements Serializable
 		if (item.getWorkDay().equals(dayOfTheWeek))
 		{
 
-			//item.getStartCommuteTime().set
+
 			dayItemArrayList.add(item);
 			return true;
 		}

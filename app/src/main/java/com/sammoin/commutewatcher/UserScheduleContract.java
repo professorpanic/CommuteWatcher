@@ -12,8 +12,7 @@ import com.tjeannin.provigen.annotation.ContentUri;
 
 public interface UserScheduleContract extends ProviGenBaseContract {
 
-//    @Column(Column.Type.INTEGER)
-//    public static final String _ID="_ID";
+
 public static final String CONTENT_AUTHORITY = "com.sammoin.commutewatcher.userscheduleprovider";
 
 
@@ -36,10 +35,6 @@ public static final String CONTENT_AUTHORITY = "com.sammoin.commutewatcher.users
     public static final Uri CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY + "/userschedule" );
 
 
-
-
-//    @ContentUri
-//    public static final Uri CONTENT_URI = Uri.parse("content://com.sammoin.commutewatcher.userscheduleprovider");
 
 
 }

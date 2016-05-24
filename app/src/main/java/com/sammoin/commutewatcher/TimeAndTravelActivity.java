@@ -42,33 +42,20 @@ public class TimeAndTravelActivity extends AppCompatActivity implements TimeAndT
 
 			userInfoEntryFragment.setArguments(getIntent().getExtras());
 			
-			//WorkWeekFragment mainMenuFragment = new WorkWeekFragment();
+
 			
 			
 			// get a supportfragmentmanager reference and attach the fragment,
 			// when the activity is created.
 			getSupportFragmentManager().beginTransaction()
-				//.add(R.id.container, mainMenuFragment).commit();
+
 					.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in,android.R.anim.fade_out)
 				.add(R.id.container, userInfoEntryFragment).commit();
 		}
 
 	}
-	/*
-	 * @Override public boolean onCreateOptionsMenu(Menu menu) { // Inflate the
-	 * menu; this adds items to the action bar if it is present.
-	 * getMenuInflater().inflate(R.menu.main_actions, menu); return true; }
-	 * 
-	 * @Override public boolean onOptionsItemSelected(MenuItem item) { // Handle
-	 * action bar item clicks here. The action bar will // automatically handle
-	 * clicks on the Home/Up button, so long // as you specify a parent activity
-	 * in AndroidManifest.xml. int id = item.getItemId(); if (id ==
-	 * R.id.action_settings) { return true; } return
-	 * super.onOptionsItemSelected(item); }
-	 */
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
+
+
 
     private void setTitleFromInt(int in)
     {
