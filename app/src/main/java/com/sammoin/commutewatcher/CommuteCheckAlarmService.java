@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.joda.time.LocalTime;
 import org.joda.time.Seconds;
@@ -85,7 +84,7 @@ public class CommuteCheckAlarmService extends IntentService {
         String formattedEndAddress = endAddress.replace(" ", "+");
         String duration = "";
         String distance = "";
-        String timeOfShortestTripWithoutTraffic =getApproxTimeByURL(formattedStartAddress, formattedEndAddress);;
+        String timeOfShortestTripWithoutTraffic =getApproxTimeByURL(formattedStartAddress, formattedEndAddress);
         String startResponse = getLatLongByURL("http://maps.google.com/maps/api/geocode/json?address=" + formattedStartAddress + "&sensor=false");
         String endResponse = getLatLongByURL("http://maps.google.com/maps/api/geocode/json?address="+formattedEndAddress + "&sensor=false");
 //        Geocoder startGeocoder = new Geocoder(this, Locale.getDefault());
@@ -154,12 +153,10 @@ public class CommuteCheckAlarmService extends IntentService {
                 mapIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         setServiceAlarm(getApplicationContext(), true); //this will queue up the next alarm.
         Notification notification = new NotificationCompat.Builder(this)
-                .setTicker("Time to check your commute!")
-
+                .setTicker(getString(R.string.upcoming_info_avail))
                 .setSmallIcon(android.R.drawable.ic_dialog_alert)
-                .setContentTitle("CommuteWatcher")
-                .setContentText( getString(R.string.time_to_check_commute) + distance + ", " + duration +
-                        " Tap to send commute info to a map app.")
+                .setContentTitle(getString(R.string.upcoming_info_avail))
+                .setContentText( getString(R.string.distance) + distance + ", " + getString(R.string.duration)+duration)
                 .setContentIntent(notificationIntent).setAutoCancel(true)
                 .build();
 
@@ -180,7 +177,7 @@ public class CommuteCheckAlarmService extends IntentService {
 
     @SuppressWarnings("static-access")
     public static void setServiceAlarm(Context context, boolean isOn) {
-        Toast.makeText(context, "Service checked!", Toast.LENGTH_SHORT).show();
+
         //these two arraylists are for holding pendingintents to load into the alarm manager, and an intent list to build the pending list from.
         PendingIntent alarmPendingIntent = null;
         Intent alarmIntent;
@@ -478,6 +475,7 @@ public class CommuteCheckAlarmService extends IntentService {
                     .appendPath("api")
                     .appendPath("distancematrix")
                     .appendPath("json")
+                    .appendQueryParameter("units", "imperial")
                     .appendQueryParameter("origins", startPoint)
                     .appendQueryParameter("destinations", endPoint)
                     .appendQueryParameter("key", getString(R.string.google_maps_browser_key));

@@ -23,14 +23,15 @@ import android.widget.Toolbar;
 
 public class WorkWeekFragment extends Fragment
 {
-    private UserWeek mWorkWeek;
+
     private Uri mNewUri;
     public static final int REQUEST_POSITION = 3;
     public static final int REQUEST_NEW_COMMUTE = 4;
     public static final String LIST_BUNDLE = "com.sammoin.commutewatcher.bundle";
     static final String USER_INFO_FILE = "CommuteWatcher_user_info.txt";
-    private UserWeek savedUserInfo;
+
     PassDayFromWeekListener mCallback;
+    WorkDayListFragment.UpdateTitleListener mTitleCallback;
     private Toolbar mToolbar;
     private View view;
     TextView sundayTextView;
@@ -47,6 +48,7 @@ public class WorkWeekFragment extends Fragment
     CheckBox fridayCheckbox;
     TextView saturdayTextView;
     CheckBox saturdayCheckbox;
+
 
 
 
@@ -74,17 +76,10 @@ public class WorkWeekFragment extends Fragment
 
 		//setHasOptionsMenu(true);
 
-        if (mWorkWeek != null) {
-            mWorkWeek.setContext(getActivity().getApplicationContext());
-        }
-        else
-        {
-            mWorkWeek = new UserWeek();
-            mWorkWeek.setContext(getActivity().getApplicationContext());
-        }
-		System.out.println(mWorkWeek);
+
+		//System.out.println(mWorkWeek);
 		mCallback = (PassDayFromWeekListener)getActivity();
-		Log.i("ON CREATE UPDATE", " " + mWorkWeek);
+		//Log.i("ON CREATE UPDATE", " " + mWorkWeek);
 		//UserDayItem test = mWorkWeek.get(6);
 		//test.setWorkDay(Day.MONDAY);
 
@@ -169,6 +164,8 @@ public class WorkWeekFragment extends Fragment
     @Override
     public void onResume() {
         super.onResume();
+        mTitleCallback = (WorkDayListFragment.UpdateTitleListener)getActivity();
+        mTitleCallback.updateTitle(R.string.app_name);
         updateDayView();
     }
 
@@ -472,9 +469,22 @@ public class WorkWeekFragment extends Fragment
 
     public void proceedToWorkDayList(int dayInt)
     {
+//        Bundle extras = new Bundle();
+//        extras.putInt(WorkDayListFragment.USER_DAY_POSITION, dayInt);
+//        mCallback.passDayFromWeek(extras);
+        //this is a horrible way to go between fragments, but calling for a fragment transaction using supportfragmentmanager causes an issue going into detail here
+        //http://www.androiddesignpatterns.com/2013/08/fragment-transaction-commit-state-loss.html
         Bundle extras = new Bundle();
         extras.putInt(WorkDayListFragment.USER_DAY_POSITION, dayInt);
-        mCallback.passDayFromWeek(extras);
+        WorkDayListFragment workDayListFragment = new WorkDayListFragment ();
+        Bundle args = new Bundle();
+        args.putAll(extras);
+        workDayListFragment.setArguments(args);
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in,android.R.anim.fade_out)
+                .replace(R.id.container, workDayListFragment)
+                .addToBackStack(null)
+                .commit();
         //startActivityForResult(i, REQUEST_POSITION);
 
     }

@@ -7,14 +7,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity implements WorkWeekFragment.PassDayFromWeekListener, WorkDayListFragment.PassDayToWeekListener
+public class MainActivity extends AppCompatActivity implements WorkWeekFragment.PassDayFromWeekListener, WorkDayListFragment.PassDayToWeekListener, WorkDayListFragment.UpdateTitleListener
 {
     WorkWeekFragment mainMenuFragment;
 	private Toolbar mToolbar;
 
+    WorkDayListFragment workDayListFragment;
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        //No call for super(). Bug on API Level > 11.
+        super.onSaveInstanceState(outState);
     }
 
 	@Override
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements WorkWeekFragment.
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitle(R.string.app_name);
         mToolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
@@ -57,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements WorkWeekFragment.
 			// get a supportfragmentmanager reference and attach the fragment,
             // when the activity is created.
 			getSupportFragmentManager().beginTransaction()
-                    .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in,android.R.anim.fade_out)
+                    .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in, android.R.anim.fade_out)
                     .add(R.id.container, mainMenuFragment).commit();
 				//.add(R.id.container, userInfoEntryFragment).commit();
 		}
@@ -67,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements WorkWeekFragment.
 	@Override
 	public void passDayFromWeek(Bundle bundle) {
 
-			WorkDayListFragment workDayListFragment = new WorkDayListFragment ();
+			workDayListFragment = new WorkDayListFragment ();
 			Bundle args = new Bundle();
 			args.putAll(bundle);
 			workDayListFragment.setArguments(args);
@@ -78,6 +81,21 @@ public class MainActivity extends AppCompatActivity implements WorkWeekFragment.
 					.commit();
 
 	}
+
+
+//    @Override
+//    protected void onPostResume() {
+//
+//        super.onPostResume();
+//        if (workDayListFragment!=null) {
+//            getSupportFragmentManager().beginTransaction()
+//                    .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in, android.R.anim.fade_out)
+//                    .replace(R.id.container, workDayListFragment)
+//                    .addToBackStack(null)
+//                    .commit();
+//        }
+//
+//    }
 
     @Override
     public void passDayToWeek(UserDay userDay)
@@ -116,6 +134,12 @@ public class MainActivity extends AppCompatActivity implements WorkWeekFragment.
     public void onBackPressed() {
         super.onBackPressed();
 
+    }
+
+    @Override
+    public void updateTitle(int in)
+    {
+       mToolbar.setTitle(in);
     }
 
 }

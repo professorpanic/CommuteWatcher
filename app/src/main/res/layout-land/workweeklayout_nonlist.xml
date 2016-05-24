@@ -15,7 +15,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingEnd="2dp"
-    android:paddingTop="?attr/actionBarSize"
+    android:paddingTop="240dp"
     android:paddingStart="2dp">
 
 

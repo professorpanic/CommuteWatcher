@@ -16,7 +16,7 @@
         android:backgroundTint="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="4dp">
+        android:layout_marginEnd="4dp">
     <TextView
 
         android:id="@+id/commute_start_point_textview"

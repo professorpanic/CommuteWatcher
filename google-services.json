@@ -1,36 +1,32 @@
 {
   "project_info": {
-    "project_id": "commutewatcher",
     "project_number": "160627016003",
-    "name": "CommuteWatcher"
+    "project_id": "commutewatcher"
   },
   "client": [
     {
       "client_info": {
         "mobilesdk_app_id": "1:160627016003:android:45298899787963a1",
-        "client_id": "android:com.sammoin.commutewatcher",
-        "client_type": 1,
         "android_client_info": {
-          "package_name": "com.sammoin.commutewatcher",
-          "certificate_hash": []
+          "package_name": "com.sammoin.commutewatcher"
         }
       },
       "oauth_client": [],
-      "api_key": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_ocb6-Cd9xElIC5thXvHlF9FxV5GltCY"
+        }
+      ],
       "services": {
         "analytics_service": {
-          "status": 1
-        },
-        "cloud_messaging_service": {
           "status": 2,
-          "apns_config": []
+          "analytics_property": {
+            "tracking_id": "UA-78099069-1"
+          }
         },
         "appinvite_service": {
           "status": 1,
           "other_platform_oauth_client": []
-        },
-        "google_signin_service": {
-          "status": 1
         },
         "ads_service": {
           "status": 1
@@ -38,6 +34,5 @@
       }
     }
   ],
-  "client_info": [],
-  "ARTIFACT_VERSION": "1"
+  "configuration_version": "1"
 }

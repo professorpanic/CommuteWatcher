@@ -9,6 +9,7 @@
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/toolbar_container"
+
         android:theme="@style/Theme.Bacon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,9 +23,12 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
+
             android:theme="@style/Theme.Bacon"
             android:layout_marginLeft="@dimen/list_toolbar_side_margin"
+            android:layout_marginStart="@dimen/list_toolbar_side_margin"
             android:layout_marginRight="@dimen/list_toolbar_side_margin"
+            android:layout_marginEnd="@dimen/list_toolbar_side_margin"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:layout_gravity="bottom">

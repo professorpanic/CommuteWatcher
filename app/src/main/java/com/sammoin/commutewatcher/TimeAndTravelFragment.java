@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
@@ -29,9 +32,10 @@ public class TimeAndTravelFragment extends Fragment
 	static final String USER_INFO_FILE = "user_info.txt";
 	private UserDayItem savedUserInfo;
 	private UserDayItem userDayItem;
+    private UpdateTravelActivityTitleListener mTitleCallback;
 	private int selectedDay;
 	private int sqlRowId;
-
+    private Tracker mTracker;
 	public static final String DIALOG_WORK_COMMUTE = "to work";
 	public static final String DIALOG_HOME_COMMUTE = "to home";
 	public static final String MAIN_MENU = "main menu";
@@ -62,10 +66,19 @@ public class TimeAndTravelFragment extends Fragment
         if (extras.containsKey(DAY_LIST_ITEM))
         {
             userDayItem.copyUserData((UserDayItem)extras.getSerializable(DAY_LIST_ITEM));
-        }
-		selectedDay = userDayItem.getWorkDay().get();
+            selectedDay = userDayItem.getWorkDay().get();
+            mTitleCallback= (UpdateTravelActivityTitleListener)getActivity();
+            mTitleCallback.updateTravelActivityTitle(selectedDay);
 
-	}	
+        }
+        AnalyticsApplication application = (AnalyticsApplication) getActivity().getApplication();
+        mTracker = application.getDefaultTracker();
+	}
+
+    public interface UpdateTravelActivityTitleListener
+    {
+        public void updateTravelActivityTitle(int in);
+    }
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,10 +96,9 @@ public class TimeAndTravelFragment extends Fragment
 		
 		editHomeAddressText = (EditText) v
 				.findViewById(R.id.editHomeAddressTextView);
-		
-		
-		
-			
+
+
+
 				
 				SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa ZZZZ",
 						Locale.getDefault());
@@ -110,7 +122,10 @@ public class TimeAndTravelFragment extends Fragment
 
             @Override
             public void onClick(View v) {
-
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("Time and Travel Frag")
+                        .setAction("Enter Time Button")
+                        .build());
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 WorkCommuteDayAndTimeFragment dialog = WorkCommuteDayAndTimeFragment
                         .newInstance(userDayItem);
@@ -125,6 +140,11 @@ public class TimeAndTravelFragment extends Fragment
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("Time and Travel Frag")
+                        .setAction("Cancel button")
+                        .build());
                 getActivity().onBackPressed();
             }
         });
@@ -137,6 +157,10 @@ public class TimeAndTravelFragment extends Fragment
 			@Override
 			public void onClick(View v)
 			{
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("Time and Travel Frag")
+                        .setAction("save button")
+                        .build());
 				userDayItem.setHomeAddress(editHomeAddressText.getText().toString());
 				userDayItem.setWorkAddress(editWorkAddressText.getText().toString());
                 //userDayItem.setWorkDay(selectedDay);

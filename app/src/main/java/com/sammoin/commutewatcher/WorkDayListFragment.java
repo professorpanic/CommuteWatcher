@@ -25,7 +25,6 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ListAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.joda.time.LocalTime;
 
@@ -43,8 +42,8 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
     public static final String USER_DAY_OBJECT = "com.sammoin.commutewatcher.user";
     public static final String USER_DAY_POSITION = "com.sammoin.commutewatcher.user";
     private static final int DAY_LOADER = 0;
-    private UserWeek savedUserInfo;
-    PassDayToWeekListener mCallback;
+    WorkWeek mWorkWeek;
+    UpdateTitleListener mCallback;
     private String mRowSelectionClause;
     private TextView startPointTextView;
     private TextView endPointTextView;
@@ -59,6 +58,7 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
     public static final int COL_WORKDAY_NUM = 4;
     public static final int COL_ID= 5;
     FloatingActionButton mFAB;
+    int dayInt=0;
     View view;
 
 
@@ -124,6 +124,35 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
         public void passDayToWeek(UserDay userDay);
     }
 
+    public interface UpdateTitleListener
+    {
+        public void updateTitle(int in);
+    }
+
+    private int getDayStringIDFromInt(int in)
+    {
+        switch (in) {
+            case 1:
+                return R.string.Sunday;
+
+            case 2:
+                return R.string.Monday;
+            case 3:
+                return R.string.Tuesday;
+            case 4:
+                return R.string.Wednesday;
+            case 5:
+                return R.string.Thursday;
+            case 6:
+                return R.string.Friday;
+            case 7:
+                return R.string.Saturday;
+            default: return R.string.app_name;
+
+        }
+    }
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -131,6 +160,7 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
         setRetainInstance(true);
         setHasOptionsMenu(true);
         Bundle args = getArguments();
+        mCallback = (UpdateTitleListener)getActivity();
         mRowSelectionClause = UserScheduleContract.USER_WORKDAY +"= "+ args.getInt(WorkDayListFragment.USER_DAY_POSITION);
 
         setListAdapter(mCursorAdapter);
@@ -149,9 +179,8 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
                 addNewCommute();
             }
         });
+        mCallback.updateTitle(getDayStringIDFromInt(getArguments().getInt(WorkDayListFragment.USER_DAY_POSITION)));
 
-
-        Bundle args = getArguments();
 
         registerForContextMenu(view);
 
@@ -443,8 +472,7 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
                             UserScheduleContract._ID + "=" + rowId,                    // Selection criteria
                             null);
 
-                    //rowId = data.getInt(data.getColumnIndex(UserScheduleContract._ID));
-                    //Toast.makeText(getActivity(), ""+rowId, Toast.LENGTH_LONG).show();
+
 
                 }
             });
@@ -454,7 +482,7 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
                 @Override
                 public void onClick(View v) {
                     String mClickSelectionClause = UserScheduleContract._ID + "= " + rowId;
-                    Toast.makeText(getActivity(), "My rowId is " + rowId, Toast.LENGTH_SHORT).show();
+
                     UserDayItem u = new UserDayItem(getContext());
 
                     Cursor data = getActivity().getContentResolver().query(
@@ -496,7 +524,7 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
         @Override
         public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
             Log.d("TAG", "CursorAdapter newView");
-            View customListView=LayoutInflater.from(context).inflate(R.layout.list_item_workday, viewGroup, false);;
+            View customListView=LayoutInflater.from(context).inflate(R.layout.list_item_workday, viewGroup, false);
 
 
 
