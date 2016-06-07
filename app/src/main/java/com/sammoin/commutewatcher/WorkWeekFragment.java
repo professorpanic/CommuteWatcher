@@ -57,7 +57,7 @@ public class WorkWeekFragment extends Fragment
 
 	public WorkWeekFragment()
 	{
-		
+
 	}
 
     public void addDayToWeek(UserDay userDay)

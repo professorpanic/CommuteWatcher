@@ -14,8 +14,8 @@
     <string name="set_to_work_time">Set time to check your commute</string>
     <string name="set_hours_to_home">Set time to check your home commute</string>
     <string name="save_commute_info">Save commute info</string>
-    <string name="date_time_work_commute">Days and time of commute</string>
-    <string name="date_time_home_commute">Days and time of home commute</string>
+    <string name="date_time_work_commute">Select time of commute</string>
+    <string name="date_time_home_commute">Time of home commute</string>
     <string name="save">Save Day</string>
     <string name="save_all">Save</string>
     <string name="done">Done</string>
