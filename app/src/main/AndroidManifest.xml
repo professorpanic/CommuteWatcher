@@ -114,9 +114,12 @@
         <service android:name=".CommuteWidgetIntentService" >
         </service>
 
-        <receiver android:name=".DeviceStartupReceiver" >
+        <receiver android:name=".DeviceStartupReceiver"
+            android:enabled="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.date_changed" />
             </intent-filter>
         </receiver>
 

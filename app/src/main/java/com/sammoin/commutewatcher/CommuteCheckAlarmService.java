@@ -30,7 +30,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 
 public class CommuteCheckAlarmService extends IntentService {
-    public static final String TAG = "MapQueryService";
+    public static final String TAG = "CommuteCheckAlarmService";
     public static final String PREF_IS_ALARM_ON = "isServiceAlarmOn";
     public static final String START_ADDRESS = "work address";
     public static final String END_ADDRESS = "home address";
@@ -56,7 +56,7 @@ public class CommuteCheckAlarmService extends IntentService {
 
 
     public CommuteCheckAlarmService(String name) {
-        super(TAG);
+        super(name);
 
     }
 
@@ -181,9 +181,9 @@ public class CommuteCheckAlarmService extends IntentService {
             Cursor cursor = context.getContentResolver().query(
                     UserScheduleContract.CONTENT_URI,   // The content URI of the sched table
                     mRowProjection,                        // The columns to return for each row
-                    null,                    // Selection criteria
+                    UserScheduleContract.USER_ITEM_ACTIVE +"=" + 1,                    // Selection criteria, I only want active alarms
                     null,                     // Selection criteria
-                    UserScheduleContract.USER_START_TIME + " ASC");
+                    UserScheduleContract.USER_WORKDAY + " ASC, " +UserScheduleContract.USER_START_TIME + " ASC");
 
             String endAddress = null;
             int isActive;
@@ -214,10 +214,6 @@ public class CommuteCheckAlarmService extends IntentService {
                     userDayItem.setHomeAddress(startAddress);
                     userDayItem.setWorkAddress(endAddress);
                     break;
-                } else {
-                    startAddress = "";
-                    endAddress = "";
-                    startTime = 0;
                 }
 
 
@@ -239,30 +235,27 @@ public class CommuteCheckAlarmService extends IntentService {
                 alarmIntent.putExtra(COMMUTE_DAY, userDayItem);
                 alarmPendingIntent = PendingIntent.getService(context, 1, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            }
-
-
-
-
-            if (alarmPendingIntent != null) {
-
                 LocalTime now = new LocalTime();
                 Seconds secondsBetween = Seconds.secondsBetween(now, LocalTime.fromMillisOfDay(startTime));
 
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.SECOND, secondsBetween.getSeconds());
                 alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), alarmPendingIntent);
+
             }
+
 
 
         }
 
         //if the alarm service is turned off, all PIs should be cancelled.
         else
-        { if (alarmPendingIntent != null) {
+        {
+            if (alarmPendingIntent != null)
+            {
             alarmManager.cancel(alarmPendingIntent);
             alarmPendingIntent.cancel();
-        }
+            }
         }
 
 
