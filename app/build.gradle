@@ -17,7 +17,7 @@ android {
     defaultConfig {
         applicationId "com.sammoin.commutewatcher"
         minSdkVersion 21
-        targetSdkVersion 21
+
         multiDexEnabled true
     }
     buildTypes {
@@ -32,7 +32,6 @@ android {
         commutewatcherrelease {
             minSdkVersion 21
             applicationId 'com.sammoin.commutewatcher'
-            targetSdkVersion 21
             signingConfig signingConfigs.config
         }
     }

@@ -82,7 +82,7 @@ public class TimeAndTravelActivity extends AppCompatActivity implements TimeAndT
             case 7:
                 getSupportActionBar().setTitle(R.string.Saturday);
                 break;
-            default: getSupportActionBar().setTitle(R.string.app_name);
+            default: getSupportActionBar().setTitle(R.string.activity_app_name);
                 break;
 
             }

@@ -1,7 +1,9 @@
 package com.sammoin.commutewatcher;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements WorkWeekFragment.
 		setContentView(R.layout.activity_main);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setTitle(R.string.app_name);
+        mToolbar.setTitle(R.string.activity_app_name);
         mToolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
         mToolbar.setSubtitleTextColor(getResources().getColor(android.R.color.white));
         if (getActionBar()!=null)
@@ -34,7 +36,9 @@ public class MainActivity extends AppCompatActivity implements WorkWeekFragment.
             getActionBar().setDisplayShowTitleEnabled(false);
         }
         setSupportActionBar(mToolbar);
-        CommuteCheckAlarmService.setServiceAlarm(getApplicationContext(), CommuteCheckAlarmService.isServiceAlarmOn(getApplicationContext()));
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        CommuteCheckAlarmService.setServiceAlarm(getApplicationContext(), prefs.getBoolean(getString(R.string.pref_enable_disable_key), false));
 
 
 		// checking to be sure that the fragment container has a fragment in it.

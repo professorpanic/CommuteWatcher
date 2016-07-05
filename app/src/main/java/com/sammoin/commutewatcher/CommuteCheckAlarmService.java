@@ -7,11 +7,12 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 
 import org.joda.time.LocalTime;
 import org.joda.time.Seconds;
@@ -30,7 +31,8 @@ import javax.net.ssl.HttpsURLConnection;
 
 
 public class CommuteCheckAlarmService extends IntentService {
-    public static final String TAG = "CommuteCheckAlarmService";
+    public static final String ClassName = "CommuteCheckAlarmService";
+    public static final String TAG = "AlarmService";
     public static final String PREF_IS_ALARM_ON = "isServiceAlarmOn";
     public static final String START_ADDRESS = "work address";
     public static final String END_ADDRESS = "home address";
@@ -41,8 +43,9 @@ public class CommuteCheckAlarmService extends IntentService {
     double startLongitude = 0.0;
     double endLatitude = 0.0;
     double endLongitude = 0.0;
-
+    DeviceStartupReceiver deviceStartupReceiver;
     Uri startAndEndUri;
+
 
     private static String[] mRowProjection =
             {
@@ -68,94 +71,106 @@ public class CommuteCheckAlarmService extends IntentService {
     public void onCreate() {
         super.onCreate();
 
+
     }
 
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        //better to keep this as an intentservice due to the one-off nature of the alarms.
-        UserDayItem userDayItem = (UserDayItem)intent.getSerializableExtra(COMMUTE_DAY);
-        startAddress = userDayItem.getHomeAddress();
-        endAddress = userDayItem.getWorkAddress();
 
-        String formattedStartAddress = startAddress.replace(" ", "+");
-        String formattedEndAddress = endAddress.replace(" ", "+");
-        String duration = "";
-        String distance = "";
-        String timeOfShortestTripWithoutTraffic =getApproxTimeByURL(formattedStartAddress, formattedEndAddress);
-        String startResponse = getLatLongByURL("http://maps.google.com/maps/api/geocode/json?address=" + formattedStartAddress + "&sensor=false");
-        String endResponse = getLatLongByURL("http://maps.google.com/maps/api/geocode/json?address="+formattedEndAddress + "&sensor=false");
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext().getApplicationContext());
+        boolean isOn = prefs.getBoolean(
+                getApplicationContext().getString(R.string.pref_enable_disable_key), false);
+            if (isOn) {
+             //   Log.e(TAG, "onhandleIntent - loading notification");
+                //better to keep this as an intentservice due to the one-off nature of the alarms.
+                UserDayItem userDayItem = (UserDayItem) intent.getSerializableExtra(COMMUTE_DAY);
+                startAddress = userDayItem.getHomeAddress();
+                endAddress = userDayItem.getWorkAddress();
 
-
-        startLatitude = 0.0;
-        startLongitude = 0.0;
-        endLatitude = 0.0;
-        endLongitude = 0.0;
-
-
-        JSONObject jsonStartObject;
-        JSONObject jsonEndObject;
-        JSONObject jsonTravelTimeObject;
-        try {
-            jsonStartObject = new JSONObject(startResponse);
-            jsonEndObject = new JSONObject(endResponse);
-            jsonTravelTimeObject = new JSONObject(timeOfShortestTripWithoutTraffic);
-
-            endLongitude = ((JSONArray)jsonEndObject.get("results")).getJSONObject(0)
-                    .getJSONObject("geometry").getJSONObject("location")
-                    .getDouble("lng");
-
-            endLatitude = ((JSONArray)jsonEndObject.get("results")).getJSONObject(0)
-                    .getJSONObject("geometry").getJSONObject("location")
-                    .getDouble("lat");
-
-            startLongitude = ((JSONArray)jsonStartObject.get("results")).getJSONObject(0)
-                    .getJSONObject("geometry").getJSONObject("location")
-                    .getDouble("lng");
-
-            startLatitude = ((JSONArray)jsonStartObject.get("results")).getJSONObject(0)
-                    .getJSONObject("geometry").getJSONObject("location")
-                    .getDouble("lat");
+                String formattedStartAddress = startAddress.replace(" ", "+");
+                String formattedEndAddress = endAddress.replace(" ", "+");
+                String duration = "";
+                String distance = "";
+                String timeOfShortestTripWithoutTraffic = getApproxTimeByURL(formattedStartAddress, formattedEndAddress);
+                String startResponse = getLatLongByURL("http://maps.google.com/maps/api/geocode/json?address=" + formattedStartAddress + "&sensor=false");
+                String endResponse = getLatLongByURL("http://maps.google.com/maps/api/geocode/json?address=" + formattedEndAddress + "&sensor=false");
 
 
+                startLatitude = 0.0;
+                startLongitude = 0.0;
+                endLatitude = 0.0;
+                endLongitude = 0.0;
 
-            duration = getApproxTripDuration(jsonTravelTimeObject);
-            distance = getApproxTripDistance(jsonTravelTimeObject);
 
-        } catch (JSONException e) {
-            e.printStackTrace();
+                JSONObject jsonStartObject;
+                JSONObject jsonEndObject;
+                JSONObject jsonTravelTimeObject;
+                try {
+                    jsonStartObject = new JSONObject(startResponse);
+                    jsonEndObject = new JSONObject(endResponse);
+                    jsonTravelTimeObject = new JSONObject(timeOfShortestTripWithoutTraffic);
+
+                    endLongitude = ((JSONArray) jsonEndObject.get("results")).getJSONObject(0)
+                            .getJSONObject("geometry").getJSONObject("location")
+                            .getDouble("lng");
+
+                    endLatitude = ((JSONArray) jsonEndObject.get("results")).getJSONObject(0)
+                            .getJSONObject("geometry").getJSONObject("location")
+                            .getDouble("lat");
+
+                    startLongitude = ((JSONArray) jsonStartObject.get("results")).getJSONObject(0)
+                            .getJSONObject("geometry").getJSONObject("location")
+                            .getDouble("lng");
+
+                    startLatitude = ((JSONArray) jsonStartObject.get("results")).getJSONObject(0)
+                            .getJSONObject("geometry").getJSONObject("location")
+                            .getDouble("lat");
+
+
+                    duration = getApproxTripDuration(jsonTravelTimeObject);
+                    distance = getApproxTripDistance(jsonTravelTimeObject);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+                Uri startAndEndUri = Uri.parse("http://maps.google.com/maps?saddr="
+                        + startLatitude + "," + startLongitude + "&daddr="
+                        + endLatitude + "," + endLongitude);
+
+                Intent mapIntent = new Intent(android.content.Intent.ACTION_VIEW,
+                        startAndEndUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+
+                PendingIntent notificationIntent = PendingIntent.getActivity(this, 0,
+                        mapIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                setServiceAlarm(getApplicationContext(), true); //this will queue up the next alarm. The intent won't actually be sent unless the alarm service is already on, so no worries about loops.
+                Notification notification = new NotificationCompat.Builder(this)
+                        .setTicker(getString(R.string.upcoming_info_avail))
+                        .setSmallIcon(android.R.drawable.ic_dialog_alert)
+                        .setContentTitle(getString(R.string.tap_to_start))
+                        .setContentText(getString(R.string.distance) + distance + ", " + getString(R.string.duration) + duration)
+                        .setContentIntent(notificationIntent).setAutoCancel(true)
+                        .build();
+
+                NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+                notificationManager.notify(0, notification);
+            }
+        else
+            {
+                return;
+            }
         }
 
 
-        Uri startAndEndUri = Uri.parse("http://maps.google.com/maps?saddr="
-                + startLatitude + "," + startLongitude + "&daddr="
-                + endLatitude + "," + endLongitude);
 
-        Intent mapIntent = new Intent(android.content.Intent.ACTION_VIEW,
-                startAndEndUri);
-        mapIntent.setPackage("com.google.android.apps.maps");
-
-        PendingIntent notificationIntent = PendingIntent.getActivity(this, 0,
-                mapIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        setServiceAlarm(getApplicationContext(), true); //this will queue up the next alarm. The intent won't actually be sent unless the alarm service is already on, so no worries about loops.
-        Notification notification = new NotificationCompat.Builder(this)
-                .setTicker(getString(R.string.upcoming_info_avail))
-                .setSmallIcon(android.R.drawable.ic_dialog_alert)
-                .setContentTitle(getString(R.string.upcoming_info_avail))
-                .setContentText( getString(R.string.distance) + distance + ", " + getString(R.string.duration)+duration)
-                .setContentIntent(notificationIntent).setAutoCancel(true)
-                .build();
-
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
-        notificationManager.notify(0, notification);
-
-
-
-    }
 
     public CommuteCheckAlarmService() {
-        super(TAG);
+        super(ClassName);
     }
 
 
@@ -164,7 +179,7 @@ public class CommuteCheckAlarmService extends IntentService {
     @SuppressWarnings("static-access")
     public static void setServiceAlarm(Context context, boolean isOn) {
 
-
+       // Log.e(TAG, "service alarm" + isOn);
         PendingIntent alarmPendingIntent = null;
         Intent alarmIntent;
 
@@ -181,9 +196,9 @@ public class CommuteCheckAlarmService extends IntentService {
             Cursor cursor = context.getContentResolver().query(
                     UserScheduleContract.CONTENT_URI,   // The content URI of the sched table
                     mRowProjection,                        // The columns to return for each row
-                    UserScheduleContract.USER_ITEM_ACTIVE +"=" + 1,                    // Selection criteria, I only want active alarms
+                    null,                    // Selection criteria
                     null,                     // Selection criteria
-                    UserScheduleContract.USER_WORKDAY + " ASC, " +UserScheduleContract.USER_START_TIME + " ASC");
+                    UserScheduleContract.USER_START_TIME + " ASC");
 
             String endAddress = null;
             int isActive;
@@ -195,11 +210,11 @@ public class CommuteCheckAlarmService extends IntentService {
             int rowId;
 
             while (cursor.moveToNext()) {
-                Log.e("IntentServiceHere", "movetofirst");
+              //  Log.e("IntentServiceHere", "movetofirst");
                 startTime = cursor.getLong(cursor.getColumnIndex(UserScheduleContract.USER_START_TIME));
                 int activeBoolAsNum = cursor.getInt(cursor.getColumnIndex(UserScheduleContract.USER_ITEM_ACTIVE));
                 int dayOfWeek = GregorianCalendar.getInstance().get(Calendar.DAY_OF_WEEK);
-                if (startTime > comparisonStartTime
+                if (dayOfWeek==cursor.getInt(cursor.getColumnIndex(UserScheduleContract.USER_WORKDAY)) &&startTime > comparisonStartTime
                         && 1 == activeBoolAsNum) {
                     // Extract the data from the Cursor, we need to look for the first row that is later than the current time
                     endAddress = cursor.getString(cursor.getColumnIndex(UserScheduleContract.USER_END_ADDRESS));
@@ -213,9 +228,26 @@ public class CommuteCheckAlarmService extends IntentService {
                     userDayItem.setStartCommuteTime(startTime);
                     userDayItem.setHomeAddress(startAddress);
                     userDayItem.setWorkAddress(endAddress);
+                    Intent commuteIntent = new Intent(context,
+                            CommuteCheckAlarmService.class);
+                    Bundle bundle = new Bundle();
+
+                    commuteIntent.putExtra(COMMUTE_DAY, userDayItem);
+
+
+                    alarmIntent = new Intent(context, CommuteCheckAlarmService.class);
+                    alarmIntent.putExtra(COMMUTE_DAY, userDayItem);
+                    alarmPendingIntent = PendingIntent.getService(context, 1, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+
+                    LocalTime now = new LocalTime();
+                    Seconds secondsBetween = Seconds.secondsBetween(now, LocalTime.fromMillisOfDay(startTime));
+
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.add(Calendar.SECOND, secondsBetween.getSeconds());
+                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), alarmPendingIntent);
                     break;
                 }
-
 
             }
 
@@ -223,39 +255,15 @@ public class CommuteCheckAlarmService extends IntentService {
 
 
 
-            if (startTime > 0) {
-                Intent commuteIntent = new Intent(context,
-                        CommuteCheckAlarmService.class);
-                Bundle bundle = new Bundle();
-
-                commuteIntent.putExtra(COMMUTE_DAY, userDayItem);
-
-
-                alarmIntent = new Intent(context, CommuteCheckAlarmService.class);
-                alarmIntent.putExtra(COMMUTE_DAY, userDayItem);
-                alarmPendingIntent = PendingIntent.getService(context, 1, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-                LocalTime now = new LocalTime();
-                Seconds secondsBetween = Seconds.secondsBetween(now, LocalTime.fromMillisOfDay(startTime));
-
-                Calendar calendar = Calendar.getInstance();
-                calendar.add(Calendar.SECOND, secondsBetween.getSeconds());
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), alarmPendingIntent);
-
-            }
-
-
 
         }
 
         //if the alarm service is turned off, all PIs should be cancelled.
         else
-        {
-            if (alarmPendingIntent != null)
-            {
+        { if (alarmPendingIntent != null) {
             alarmManager.cancel(alarmPendingIntent);
             alarmPendingIntent.cancel();
-            }
+        }
         }
 
 

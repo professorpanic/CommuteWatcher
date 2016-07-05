@@ -84,7 +84,7 @@ public class WorkWeekFragment extends Fragment
     public void onResume() {
         super.onResume();
         mTitleCallback = (WorkDayListFragment.UpdateTitleListener)getActivity();
-        mTitleCallback.updateTitle(R.string.app_name);
+        mTitleCallback.updateTitle(R.string.activity_app_name);
         updateDayView();
     }
 

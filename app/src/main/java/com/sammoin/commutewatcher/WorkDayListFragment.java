@@ -141,7 +141,7 @@ public class WorkDayListFragment extends ListFragment implements LoaderManager.L
                 return R.string.Friday;
             case 7:
                 return R.string.Saturday;
-            default: return R.string.app_name;
+            default: return R.string.activity_app_name;
 
         }
     }

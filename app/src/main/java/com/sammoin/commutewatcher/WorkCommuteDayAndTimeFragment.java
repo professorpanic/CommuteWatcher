@@ -110,8 +110,7 @@ public class WorkCommuteDayAndTimeFragment extends DialogFragment
 		userDayItem.setStartCommuteTime(commuteStartTime, scheduledDay.get());
 
 
-		Log.i(WORK_TIME_DIALOG, "in sendResult "
-				+ userDayItem.getStartCommuteTime().toString());
+		//Log.i(WORK_TIME_DIALOG, "in sendResult "+ userDayItem.getStartCommuteTime().toString());
 		i.putExtra(EXTRA_USER_DATA, userDayItem);
 		getTargetFragment().onActivityResult(getTargetRequestCode(),
 				resultCode, i);

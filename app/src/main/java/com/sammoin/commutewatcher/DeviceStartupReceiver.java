@@ -20,11 +20,12 @@ public class DeviceStartupReceiver extends WakefulBroadcastReceiver
 	{
 
 		SharedPreferences prefs = PreferenceManager
-				.getDefaultSharedPreferences(context);
+				.getDefaultSharedPreferences(context.getApplicationContext());
 		boolean isOn = prefs.getBoolean(
 				context.getString(R.string.pref_enable_disable_key), false);
 		//startWakefulService(context, new Intent(context, CommuteWidgetIntentService.class));
 
+		//Log.e(TAG, "Receiving Broadcast" + intent.getAction());
 			CommuteCheckAlarmService.setServiceAlarm(context, isOn);
 
 

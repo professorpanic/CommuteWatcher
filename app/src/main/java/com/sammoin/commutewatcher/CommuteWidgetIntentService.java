@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
-import android.util.Log;
 import android.widget.RemoteViews;
 
 import org.joda.time.LocalTime;
@@ -53,7 +52,7 @@ public class CommuteWidgetIntentService extends IntentService {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.e("IntentServiceHere", "IntentService onCreate");
+       // Log.e("IntentServiceHere", "IntentService onCreate");
     }
 
     @Override
@@ -82,9 +81,9 @@ public class CommuteWidgetIntentService extends IntentService {
                 null,                     // Selection criteria
                 UserScheduleContract.USER_START_TIME + " ASC");
 
-        String endAddress = null;
+        String endAddress = "";
         int isActive;
-        String startAddress = null;
+        String startAddress = "";
         long startTime = 0;
 
 
@@ -125,7 +124,7 @@ public class CommuteWidgetIntentService extends IntentService {
 
         // Perform this loop procedure for each Today widget
         for (int appWidgetId : appWidgetIds) {
-            Log.i("WidgetIntentService", "widget ID " + appWidgetId + "and layout ID is " + R.layout.widget_layout);
+            //Log.i("WidgetIntentService", "widget ID " + appWidgetId + "and layout ID is " + R.layout.widget_layout);
             // Find the correct layout based on the widget's width
             int defaultWidth = getResources().getDimensionPixelSize(R.dimen.widget_today_large_width);
 

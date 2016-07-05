@@ -68,8 +68,7 @@ public class TimeAndTravelFragment extends Fragment
             mTitleCallback.updateTravelActivityTitle(selectedDay);
 
         }
-        AnalyticsApplication application = (AnalyticsApplication) getActivity().getApplication();
-        mTracker = application.getDefaultTracker();
+
 	}
 
     public interface UpdateTravelActivityTitleListener
@@ -82,7 +81,8 @@ public class TimeAndTravelFragment extends Fragment
 			Bundle savedInstanceState)
 	{
 		View v = inflater.inflate(R.layout.fragment_main, container, false);
-
+		AnalyticsApplication application = (AnalyticsApplication) getActivity().getApplication();
+		mTracker = application.getDefaultTracker();
 		displayWorkCommute = (TextView) v.findViewById(R.id.userWorkDateTimeTextView);
 		editWorkAddressText = (EditText) v.findViewById(R.id.editWorkAddressTextView);
 		editHomeAddressText = (EditText) v.findViewById(R.id.editHomeAddressTextView);

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">CommuteWatcher</string>
+    <string name="activity_app_name">CommuteWatcher</string>
+    <string name="app_name">Commute\nWatcher</string>
     <string name="start_point">Start Point</string>
     <string name="end_point">End Point </string>
     <string name="start_time">Start Time: </string>
@@ -46,7 +47,7 @@
     <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">AIzaSyDqh6bZAibYs9YYScAM4-lHP_mjEcfjneE"</string>
     <string name="google_maps_browser_key" translatable="false" templateMergeStrategy="preserve">AIzaSyDTtlibd098MTVHMia7E9lKcdKogBnGRK4</string>
     <string name="upcoming_info_avail">Next shortest commute info available</string>
-    <string name="tap_to_start">Tap to send commute info to a map app.</string>
+    <string name="tap_to_start">Next shortest commute info available. Tap to send commute info to a map app.</string>
     <string name="google_app_id">160627016003</string>
     <string name="trips">Trips :</string>
     <string name="trips_active"> active</string>
