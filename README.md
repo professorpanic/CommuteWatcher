@@ -1,0 +1,2 @@
+#CommuteWatcher
+This is an android app that I originally made for fun and to see what I could do in the framework. Users can set reminders with start and end locations, times, and days and the alarm will remind them to check their commutes. It'll send the locations they set to the map app of their choice. Later on I'll probably update this to use more of the google maps API to just have my own activity, but until then I don't see a need to reinvent the wheel.
